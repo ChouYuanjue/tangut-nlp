@@ -1,0 +1,9 @@
+name: tangut-nlp
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - beautifulsoup4
+  - pip
+  # torch/cuda will be installed separately; see README notes below
