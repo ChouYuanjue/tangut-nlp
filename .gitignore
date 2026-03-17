@@ -13,7 +13,7 @@ __pycache__/
 *.egg-info/
 dist/
 build/
-
+*.log
 # Data and results - not tracked in git
 data/raw/
 data/eval/

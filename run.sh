@@ -39,7 +39,7 @@ SFT_LORA_RANK=64
 
 # DPO 训练超参
 DPO_EPOCHS=2
-DPO_BATCH=2
+DPO_BATCH=1
 DPO_GRAD_ACCUM=8
 DPO_LR="5e-5"
 DPO_BETA=0.1
@@ -397,7 +397,7 @@ fi
 #  阶段 06b: DPO 训练                                                             #
 # --------------------------------------------------------------------------- #
 if ! is_done "06b_dpo_train"; then
-    log "=== 阶段 06b: DPO 训练（2xA100, DeepSpeed ZeRO-2）==="
+    log "=== 阶段 06b: DPO 训练（单个 A100）==="
     gpu_status
 
     DPO_RESUME_ARG=""
@@ -407,12 +407,7 @@ if ! is_done "06b_dpo_train"; then
         DPO_RESUME_ARG="--resume $DPO_CKPT"
     fi
 
-    accelerate launch \
-        --num_processes 2 \
-        --num_machines 1 \
-        --mixed_precision bf16 \
-        --dynamo_backend no \
-        experiments/final_dpo.py \
+    CUDA_VISIBLE_DEVICES=0 python3 experiments/final_dpo.py \
             --dpo-data   data/dpo/dpo_pairs.jsonl \
             --sft-model  checkpoints/sft/merged \
             --output-dir checkpoints/dpo \

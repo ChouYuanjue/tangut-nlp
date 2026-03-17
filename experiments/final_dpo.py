@@ -13,6 +13,8 @@ from trl import DPOTrainer, DPOConfig
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.prompt_templates import SYSTEM_SFT
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 
 def format_dpo_sample(example):
     prompt = (
@@ -33,14 +35,13 @@ def main():
     parser.add_argument("--sft-model", default="checkpoints/sft/merged")
     parser.add_argument("--output-dir", default="checkpoints/dpo")
     parser.add_argument("--epochs", type=int, default=2)
-    parser.add_argument("--batch-size", type=int, default=2)
+    parser.add_argument("--batch-size", type=int, default=1)
     parser.add_argument("--grad-accum", type=int, default=8)
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--lora-rank", type=int, default=32)
     parser.add_argument("--lora-alpha", type=int, default=64)
-    parser.add_argument("--max-length", type=int, default=768)
-    parser.add_argument("--max-prompt-length", type=int, default=512)
+    parser.add_argument("--max-length", type=int, default=512)
     parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
 
@@ -93,9 +94,7 @@ def main():
         save_steps=100,
         save_total_limit=3,
         max_length=args.max_length,
-        max_prompt_length=args.max_prompt_length,
         gradient_checkpointing=True,
-        deepspeed="configs/deepspeed_zero2.json",
         report_to="none",
     )
 
