@@ -62,7 +62,7 @@ def main():
     for item in ds:
         if len(samples) >= args.max_samples:
             break
-        ancient = item.get("ancient", "") or item.get("source", "")
+        ancient = item.get("classical", "") or item.get("ancient", "") or item.get("source", "")
         modern = item.get("modern", "") or item.get("target", "")
         if not ancient or not modern:
             continue

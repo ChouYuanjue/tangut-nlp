@@ -23,7 +23,7 @@ def merge_lora_if_needed(model_path):
 
         tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         base_model = AutoModelForCausalLM.from_pretrained(
-            base_model_path, torch_dtype=torch.bfloat16, trust_remote_code=True,
+            base_model_path, dtype=torch.bfloat16, trust_remote_code=True,
         )
         model = PeftModel.from_pretrained(base_model, model_path)
         merged = model.merge_and_unload()

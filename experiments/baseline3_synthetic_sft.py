@@ -31,7 +31,7 @@ def main():
     parser.add_argument("--lora-rank", type=int, default=64)
     parser.add_argument("--lora-alpha", type=int, default=128)
     parser.add_argument("--max-seq-length", type=int, default=512)
-    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
 
     with open(args.train_data, "r", encoding="utf-8") as f:
@@ -46,10 +46,11 @@ def main():
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model_path,
-        torch_dtype=torch.bfloat16,
+        dtype=torch.bfloat16,
         trust_remote_code=True,
-        attn_implementation="flash_attention_2",
+        attn_implementation="eager",
     )
+    model.config.pad_token_id = tokenizer.pad_token_id
 
     lora_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
@@ -73,7 +74,6 @@ def main():
         save_strategy="steps",
         save_steps=200,
         save_total_limit=5,
-        max_seq_length=args.max_seq_length,
         gradient_checkpointing=True,
         deepspeed="configs/deepspeed_zero2.json",
         dataloader_num_workers=4,
@@ -89,7 +89,7 @@ def main():
         peft_config=lora_config,
     )
 
-    trainer.train(resume_from_checkpoint=args.resume if args.resume else None)
+    trainer.train(resume_from_checkpoint=args.resume)
     trainer.save_model(f"{args.output_dir}/final")
     tokenizer.save_pretrained(f"{args.output_dir}/final")
     print(f"SFT training complete. Model saved to {args.output_dir}/final")

@@ -75,5 +75,6 @@ class TangutDictionaryRebuilder:
         print(f"字典重构完毕！已剔除噪音并完成 jieba 语义切分，输出至: {output_path}")
 
 # 运行重构
-rebuilder = TangutDictionaryRebuilder("dictionary.json")
-rebuilder.rebuild("reward_dict.json")
+if __name__ == "__main__":
+    rebuilder = TangutDictionaryRebuilder("dictionary.json")
+    rebuilder.rebuild("reward_dict.json")

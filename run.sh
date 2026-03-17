@@ -100,6 +100,18 @@ latest_checkpoint() {
 }
 
 # --------------------------------------------------------------------------- #
+#  激活 Conda 环境                                                               #
+# --------------------------------------------------------------------------- #
+CONDA_BASE="$(conda info --base 2>/dev/null || echo '/home/runnel/miniconda3')"
+# conda.sh 内部可能引用未声明变量，临时关闭 -u
+set +u
+# shellcheck disable=SC1091
+source "$CONDA_BASE/etc/profile.d/conda.sh"
+conda activate tangut-nlp
+set -u
+log "Python: $(which python3)  ($(python3 --version 2>&1))"
+
+# --------------------------------------------------------------------------- #
 #  --reset 选项                                                                  #
 # --------------------------------------------------------------------------- #
 if [[ "${1:-}" == "--reset" ]]; then
@@ -132,7 +144,7 @@ fi
 #  阶段 01: 下载模型与数据集                                                       #
 # --------------------------------------------------------------------------- #
 if ! is_done "01_models"; then
-    log "=== 阶段 01: 下载模型与 ancient-chinese 数据集 ==="
+    log "=== 阶段 01: 下载模型与数据集 ==="
 
     # Qwen2.5-7B-Instruct
     if [[ ! -f "$MAIN_MODEL_PATH/config.json" ]]; then
@@ -164,17 +176,17 @@ print('Qwen2.5-0.5B OK')
         log "  Qwen2.5-0.5B 已存在，跳过"
     fi
 
-    # Ancient-Chinese 数据集
+    # xmj2002/Chinese_modern_classical（文言文↔白话文，97万对）
     if [[ ! -d "data/raw/ancient_chinese_hf" ]]; then
-        log "  下载 shibing624/ancient-chinese ..."
+        log "  下载 xmj2002/Chinese_modern_classical (~972K 对) ..."
         python3 -c "
 from datasets import load_dataset
-ds = load_dataset('shibing624/ancient-chinese', split='train')
+ds = load_dataset('xmj2002/Chinese_modern_classical', split='train')
 ds.save_to_disk('data/raw/ancient_chinese_hf')
-print(f'ancient-chinese: {len(ds)} 条')
+print(f'Chinese_modern_classical: {len(ds)} 条')
 "
     else
-        log "  ancient-chinese 已存在，跳过"
+        log "  ancient_chinese_hf 已存在，跳过"
     fi
 
     mark_done "01_models"
@@ -261,11 +273,11 @@ fi
 if ! is_done "05a_synthetic"; then
     log "=== 阶段 05a: 生成合成伪平行语料 (max=$SYNTHETIC_MAX) ==="
     python3 src/data_synthesis.py \
-        --dictionary-path     data/dictionary/dictionary.json \
+        --dictionary-path      data/dictionary/dictionary.json \
         --ancient-chinese-path data/raw/ancient_chinese_hf \
-        --output              data/sft/synthetic_sft.jsonl \
-        --max-samples         "$SYNTHETIC_MAX" \
-        --seed                42
+        --output               data/sft/synthetic_sft.jsonl \
+        --max-samples          "$SYNTHETIC_MAX" \
+        --seed                 42
     mark_done "05a_synthetic"
 else
     log "→ 跳过 [05a_synthetic]（已完成）"
@@ -275,11 +287,11 @@ fi
 #  阶段 05b: 合并真实 + 合成数据                                                   #
 # --------------------------------------------------------------------------- #
 if ! is_done "05b_combine"; then
-    log "=== 阶段 05b: 合并数据（upsample_real=$UPSAMPLE_REAL) ==="
+    log "=== 阶段 05b: 合并数据（upsample_real=$UPSAMPLE_REAL）==="
     python3 src/combine_data.py \
-        --real         data/sft/babelstone_sft.jsonl \
-        --synthetic    data/sft/synthetic_sft.jsonl \
-        --output       data/sft/combined_sft.jsonl \
+        --real          data/sft/babelstone_sft.jsonl \
+        --synthetic     data/sft/synthetic_sft.jsonl \
+        --output        data/sft/combined_sft.jsonl \
         --upsample-real "$UPSAMPLE_REAL" \
         --seed          42
     mark_done "05b_combine"
@@ -294,16 +306,18 @@ if ! is_done "05c_sft_train"; then
     log "=== 阶段 05c: SFT 训练（LoRA, 2xA100, DeepSpeed ZeRO-2）==="
     gpu_status
 
-    SFT_RESUME_FLAG=""
+    SFT_RESUME_ARG=""
     SFT_CKPT=$(latest_checkpoint "checkpoints/sft")
     if [[ -n "$SFT_CKPT" ]]; then
         warn "  检测到 SFT 中断检查点: $SFT_CKPT，自动续训"
-        SFT_RESUME_FLAG="--resume"
+        SFT_RESUME_ARG="--resume $SFT_CKPT"
     fi
 
     accelerate launch \
         --num_processes 2 \
+        --num_machines 1 \
         --mixed_precision bf16 \
+        --dynamo_backend no \
         experiments/baseline3_synthetic_sft.py \
             --train-data   data/sft/combined_sft.jsonl \
             --model-path   "$MAIN_MODEL_PATH" \
@@ -313,7 +327,7 @@ if ! is_done "05c_sft_train"; then
             --grad-accum   "$SFT_GRAD_ACCUM" \
             --lr           "$SFT_LR" \
             --lora-rank    "$SFT_LORA_RANK" \
-            $SFT_RESUME_FLAG
+            $SFT_RESUME_ARG
 
     gpu_status
     mark_done "05c_sft_train"
@@ -386,16 +400,18 @@ if ! is_done "06b_dpo_train"; then
     log "=== 阶段 06b: DPO 训练（2xA100, DeepSpeed ZeRO-2）==="
     gpu_status
 
-    DPO_RESUME_FLAG=""
+    DPO_RESUME_ARG=""
     DPO_CKPT=$(latest_checkpoint "checkpoints/dpo")
     if [[ -n "$DPO_CKPT" ]]; then
         warn "  检测到 DPO 中断检查点: $DPO_CKPT，自动续训"
-        DPO_RESUME_FLAG="--resume"
+        DPO_RESUME_ARG="--resume $DPO_CKPT"
     fi
 
     accelerate launch \
         --num_processes 2 \
+        --num_machines 1 \
         --mixed_precision bf16 \
+        --dynamo_backend no \
         experiments/final_dpo.py \
             --dpo-data   data/dpo/dpo_pairs.jsonl \
             --sft-model  checkpoints/sft/merged \
@@ -405,7 +421,7 @@ if ! is_done "06b_dpo_train"; then
             --grad-accum "$DPO_GRAD_ACCUM" \
             --lr         "$DPO_LR" \
             --beta       "$DPO_BETA" \
-            $DPO_RESUME_FLAG
+            $DPO_RESUME_ARG
 
     gpu_status
     mark_done "06b_dpo_train"

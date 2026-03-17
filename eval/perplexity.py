@@ -33,7 +33,7 @@ class PerplexityScorer:
             model_path, trust_remote_code=True
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_path, trust_remote_code=True
+            model_path, dtype=torch.bfloat16, trust_remote_code=True
         ).to(self.device)
         self.model.eval()
 

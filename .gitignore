@@ -1,3 +1,23 @@
 logs/
 models/
 state/
+checkpoints/
+*/_pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Data and results - not tracked in git
+data/raw/
+data/eval/
+data/sft/
+results/
+.venv/
+.env

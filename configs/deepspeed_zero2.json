@@ -10,6 +10,23 @@
     "reduce_bucket_size": 2e8,
     "contiguous_gradients": true
   },
+  "optimizer": {
+    "type": "AdamW",
+    "params": {
+      "lr": "auto",
+      "betas": "auto",
+      "eps": "auto",
+      "weight_decay": "auto"
+    }
+  },
+  "scheduler": {
+    "type": "WarmupCosineLR",
+    "params": {
+      "warmup_min_ratio": 0,
+      "warmup_num_steps": "auto",
+      "total_num_steps": "auto"
+    }
+  },
   "gradient_accumulation_steps": "auto",
   "gradient_clipping": 1.0,
   "train_batch_size": "auto",

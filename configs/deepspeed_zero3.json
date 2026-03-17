@@ -14,6 +14,23 @@
     "stage3_max_reuse_distance": 1e9,
     "stage3_gather_16bit_weights_on_model_save": true
   },
+  "optimizer": {
+    "type": "AdamW",
+    "params": {
+      "lr": "auto",
+      "betas": "auto",
+      "eps": "auto",
+      "weight_decay": "auto"
+    }
+  },
+  "scheduler": {
+    "type": "WarmupCosineLR",
+    "params": {
+      "warmup_min_ratio": 0,
+      "warmup_num_steps": "auto",
+      "total_num_steps": "auto"
+    }
+  },
   "gradient_accumulation_steps": "auto",
   "gradient_clipping": 1.0,
   "train_batch_size": "auto",
