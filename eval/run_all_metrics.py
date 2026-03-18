@@ -121,10 +121,10 @@ def main():
     )
 
     # ------------------------------------------------------------------
-    # Metric 4: LLM Judge (mock)
+    # Metric 4: LLM Judge
     # ------------------------------------------------------------------
-    print("\n[4/4] Computing LLM Judge scores (mock) ...")
-    llm_scorer = LLMJudgeScorer(mock=True)
+    print("\n[4/4] Computing LLM Judge scores (Azure OpenAI) ...")
+    llm_scorer = LLMJudgeScorer(mock=False)
     # Build dummy glosses from the lexical scorer lookup
     glosses_list = []
     for inp in inputs:

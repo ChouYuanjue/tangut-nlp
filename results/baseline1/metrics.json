@@ -5,17 +5,17 @@
     "max": 1.0
   },
   "perplexity": {
-    "mean_ppl": 22.558369470714602,
-    "min_ppl": 9.76995068584071,
-    "max_ppl": 54.49860713548565
+    "mean_ppl": 22.701105942540313,
+    "min_ppl": 9.767200125204738,
+    "max_ppl": 54.44742387878338
   },
   "chrf": {
     "corpus_chrf": 0.22465970662085372,
     "mean_sentence_chrf": 0.2552569830688715
   },
   "llm_judge": {
-    "mean_semantic_completeness": 3.02,
-    "mean_fluency": 3.44
+    "mean_semantic_completeness": 1.0,
+    "mean_fluency": 1.46
   },
   "num_examples": 50
 }

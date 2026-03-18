@@ -1,0 +1,5 @@
+﻿Method,Lexical Coverage,Perplexity,chrF++,Semantic Completeness,Fluency
+baseline1,0.1162,22.70,0.2247,1.00,1.46
+baseline2,0.8061,13663.28,6.0314,2.24,2.24
+baseline3,0.3221,298893.05,18.1214,1.40,1.80
+final,0.3913,158427.71,9.2267,1.40,1.42

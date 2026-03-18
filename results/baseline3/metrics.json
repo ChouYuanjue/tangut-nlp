@@ -14,8 +14,8 @@
     "mean_sentence_chrf": 15.175887630587667
   },
   "llm_judge": {
-    "mean_semantic_completeness": 3.08,
-    "mean_fluency": 2.96
+    "mean_semantic_completeness": 1.4,
+    "mean_fluency": 1.8
   },
   "num_examples": 50
 }
