@@ -18,6 +18,6 @@ build/
 data/raw/
 data/eval/
 data/sft/
-results/
+
 .venv/
 .env
