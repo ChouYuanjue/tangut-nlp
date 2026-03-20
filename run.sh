@@ -268,6 +268,35 @@ else
 fi
 
 # --------------------------------------------------------------------------- #
+#  阶段 04b: Baseline 2.1 —— 字典 RAG + CoT 推理                                #
+# --------------------------------------------------------------------------- #
+if ! is_done "04b_baseline2_cot"; then
+    log "=== 阶段 04b: Baseline 2.1 — Dictionary-RAG + CoT 推理 ==="
+    gpu_status
+
+    python3 experiments/baseline2_dict_rag.py \
+        --test-set     data/eval/test_set.jsonl \
+        --dict-path    data/dictionary/dictionary.json \
+        --model-path   "$MAIN_MODEL_PATH" \
+        --output       results/baseline2_1_cot/predictions.jsonl \
+        --prompt-style cot3 \
+        --tensor-parallel 2
+
+    log "  计算 Baseline 2.1 评测指标 ..."
+    python3 -m eval.run_all_metrics \
+        --predictions results/baseline2_1_cot/predictions.jsonl \
+        --test-set    data/eval/test_set.jsonl \
+        --reward-dict data/dictionary/reward_dict.json \
+        --ppl-model   "$PPL_MODEL_PATH" \
+        --output      results/baseline2_1_cot/metrics.json
+
+    gpu_status
+    mark_done "04b_baseline2_cot"
+else
+    log "→ 跳过 [04b_baseline2_cot]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
 #  阶段 05a: 生成合成 SFT 数据                                                    #
 # --------------------------------------------------------------------------- #
 if ! is_done "05a_synthetic"; then
@@ -281,6 +310,59 @@ if ! is_done "05a_synthetic"; then
     mark_done "05a_synthetic"
 else
     log "→ 跳过 [05a_synthetic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05a1: Baseline 3.1 —— 100% UNK 占位数据                                   #
+# --------------------------------------------------------------------------- #
+if ! is_done "05a1_synthetic_unk"; then
+    log "=== 阶段 05a1: 生成 Baseline 3.1 (100% UNK) 数据 ==="
+    python3 src/data_synthesis.py \
+        --dictionary-path      data/dictionary/dictionary.json \
+        --ancient-chinese-path data/raw/ancient_chinese_hf \
+        --output               data/sft/synthetic_sft_unk.jsonl \
+        --mode                 unk \
+        --max-samples          "$SYNTHETIC_MAX" \
+        --seed                 42
+    mark_done "05a1_synthetic_unk"
+else
+    log "→ 跳过 [05a1_synthetic_unk]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05a2: Baseline 3.3 —— 语义索引构建                                        #
+# --------------------------------------------------------------------------- #
+if ! is_done "05a2_semantic_index"; then
+    log "=== 阶段 05a2: 构建 Baseline 3.3 语义索引 ==="
+    python3 scripts/build_tangut_semantic_index.py \
+        --dictionary data/dictionary/dictionary.json \
+        --model      "$PPL_MODEL_PATH" \
+        --output     data/indices \
+        --device     cuda
+    mark_done "05a2_semantic_index"
+else
+    log "→ 跳过 [05a2_semantic_index]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05a3: Baseline 3.3 —— 语义投影数据                                        #
+# --------------------------------------------------------------------------- #
+if ! is_done "05a3_synthetic_semantic"; then
+    log "=== 阶段 05a3: 生成 Baseline 3.3 (semantic projection) 数据 ==="
+    python3 src/data_synthesis.py \
+        --dictionary-path       data/dictionary/dictionary.json \
+        --ancient-chinese-path  data/raw/ancient_chinese_hf \
+        --output                data/sft/synthetic_sft_semantic.jsonl \
+        --mode                  semantic \
+        --embedding-model-path  "$PPL_MODEL_PATH" \
+        --faiss-index-path      data/indices/tangut_semantic_index.index \
+        --faiss-mapping-path    data/indices/tangut_id2char.json \
+        --device                cuda \
+        --max-samples           "$SYNTHETIC_MAX" \
+        --seed                  42
+    mark_done "05a3_synthetic_semantic"
+else
+    log "→ 跳过 [05a3_synthetic_semantic]（已完成）"
 fi
 
 # --------------------------------------------------------------------------- #
@@ -300,16 +382,48 @@ else
 fi
 
 # --------------------------------------------------------------------------- #
-#  阶段 05c: SFT 训练                                                             #
+#  阶段 05b1: 合并真实 + UNK 合成数据                                             #
 # --------------------------------------------------------------------------- #
-if ! is_done "05c_sft_train"; then
-    log "=== 阶段 05c: SFT 训练（LoRA, 2xA100, DeepSpeed ZeRO-2）==="
+if ! is_done "05b1_combine_unk"; then
+    log "=== 阶段 05b1: 合并数据 (UNK, upsample_real=$UPSAMPLE_REAL) ==="
+    python3 src/combine_data.py \
+        --real          data/sft/babelstone_sft.jsonl \
+        --synthetic     data/sft/synthetic_sft_unk.jsonl \
+        --output        data/sft/combined_sft_unk.jsonl \
+        --upsample-real "$UPSAMPLE_REAL" \
+        --seed          42
+    mark_done "05b1_combine_unk"
+else
+    log "→ 跳过 [05b1_combine_unk]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05b2: 合并真实 + Semantic 合成数据                                        #
+# --------------------------------------------------------------------------- #
+if ! is_done "05b2_combine_semantic"; then
+    log "=== 阶段 05b2: 合并数据 (Semantic, upsample_real=$UPSAMPLE_REAL) ==="
+    python3 src/combine_data.py \
+        --real          data/sft/babelstone_sft.jsonl \
+        --synthetic     data/sft/synthetic_sft_semantic.jsonl \
+        --output        data/sft/combined_sft_semantic.jsonl \
+        --upsample-real "$UPSAMPLE_REAL" \
+        --seed          42
+    mark_done "05b2_combine_semantic"
+else
+    log "→ 跳过 [05b2_combine_semantic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05c0: SFT 训练（Original Mixed）                                          #
+# --------------------------------------------------------------------------- #
+if ! is_done "05c0_sft_train_mixed"; then
+    log "=== 阶段 05c0: SFT 训练 (Mixed) ==="
     gpu_status
 
     SFT_RESUME_ARG=""
     SFT_CKPT=$(latest_checkpoint "checkpoints/sft")
     if [[ -n "$SFT_CKPT" ]]; then
-        warn "  检测到 SFT 中断检查点: $SFT_CKPT，自动续训"
+        warn "  检测到 Mixed SFT 中断检查点: $SFT_CKPT，自动续训"
         SFT_RESUME_ARG="--resume $SFT_CKPT"
     fi
 
@@ -330,26 +444,97 @@ if ! is_done "05c_sft_train"; then
             $SFT_RESUME_ARG
 
     gpu_status
-    mark_done "05c_sft_train"
+    mark_done "05c0_sft_train_mixed"
 else
-    log "→ 跳过 [05c_sft_train]（已完成）"
+    log "→ 跳过 [05c0_sft_train_mixed]（已完成）"
 fi
 
 # --------------------------------------------------------------------------- #
-#  阶段 05d: 合并 LoRA + Baseline 3 推理评测                                      #
+#  阶段 05c1: SFT 训练（Baseline 3.1 UNK）                                        #
 # --------------------------------------------------------------------------- #
-if ! is_done "05d_sft_inference"; then
-    log "=== 阶段 05d: 合并 LoRA → Baseline 3 推理评测 ==="
+if ! is_done "05c1_sft_train_unk"; then
+    log "=== 阶段 05c1: SFT 训练 (UNK) ==="
+    gpu_status
+
+    SFT_RESUME_ARG=""
+    SFT_CKPT=$(latest_checkpoint "checkpoints/sft_unk")
+    if [[ -n "$SFT_CKPT" ]]; then
+        warn "  检测到 UNK SFT 中断检查点: $SFT_CKPT，自动续训"
+        SFT_RESUME_ARG="--resume $SFT_CKPT"
+    fi
+
+    accelerate launch \
+        --num_processes 2 \
+        --num_machines 1 \
+        --mixed_precision bf16 \
+        --dynamo_backend no \
+        experiments/baseline3_synthetic_sft.py \
+            --train-data   data/sft/combined_sft_unk.jsonl \
+            --model-path   "$MAIN_MODEL_PATH" \
+            --output-dir   checkpoints/sft_unk \
+            --epochs       "$SFT_EPOCHS" \
+            --batch-size   "$SFT_BATCH" \
+            --grad-accum   "$SFT_GRAD_ACCUM" \
+            --lr           "$SFT_LR" \
+            --lora-rank    "$SFT_LORA_RANK" \
+            $SFT_RESUME_ARG
+
+    gpu_status
+    mark_done "05c1_sft_train_unk"
+else
+    log "→ 跳过 [05c1_sft_train_unk]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05c2: SFT 训练（Baseline 3.3 Semantic）                                   #
+# --------------------------------------------------------------------------- #
+if ! is_done "05c2_sft_train_semantic"; then
+    log "=== 阶段 05c2: SFT 训练 (Semantic) ==="
+    gpu_status
+
+    SFT_RESUME_ARG=""
+    SFT_CKPT=$(latest_checkpoint "checkpoints/sft_semantic")
+    if [[ -n "$SFT_CKPT" ]]; then
+        warn "  检测到 Semantic SFT 中断检查点: $SFT_CKPT，自动续训"
+        SFT_RESUME_ARG="--resume $SFT_CKPT"
+    fi
+
+    accelerate launch \
+        --num_processes 2 \
+        --num_machines 1 \
+        --mixed_precision bf16 \
+        --dynamo_backend no \
+        experiments/baseline3_synthetic_sft.py \
+            --train-data   data/sft/combined_sft_semantic.jsonl \
+            --model-path   "$MAIN_MODEL_PATH" \
+            --output-dir   checkpoints/sft_semantic \
+            --epochs       "$SFT_EPOCHS" \
+            --batch-size   "$SFT_BATCH" \
+            --grad-accum   "$SFT_GRAD_ACCUM" \
+            --lr           "$SFT_LR" \
+            --lora-rank    "$SFT_LORA_RANK" \
+            $SFT_RESUME_ARG
+
+    gpu_status
+    mark_done "05c2_sft_train_semantic"
+else
+    log "→ 跳过 [05c2_sft_train_semantic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05d0: Mixed SFT 推理评测                                                   #
+# --------------------------------------------------------------------------- #
+if ! is_done "05d0_sft_infer_mixed"; then
+    log "=== 阶段 05d0: Mixed SFT 推理评测 ==="
     gpu_status
 
     python3 experiments/inference.py \
         --model       checkpoints/sft/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/baseline3/predictions.jsonl \
-        --method-name baseline3_sft \
+        --method-name baseline3_sft_mixed \
         --tensor-parallel 2
 
-    log "  计算 Baseline 3 评测指标 ..."
     python3 -m eval.run_all_metrics \
         --predictions results/baseline3/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
@@ -358,9 +543,125 @@ if ! is_done "05d_sft_inference"; then
         --output      results/baseline3/metrics.json
 
     gpu_status
-    mark_done "05d_sft_inference"
+    mark_done "05d0_sft_infer_mixed"
 else
-    log "→ 跳过 [05d_sft_inference]（已完成）"
+    log "→ 跳过 [05d0_sft_infer_mixed]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05d1: UNK SFT 推理评测                                                     #
+# --------------------------------------------------------------------------- #
+if ! is_done "05d1_sft_infer_unk"; then
+    log "=== 阶段 05d1: UNK SFT 推理评测 ==="
+    gpu_status
+
+    python3 experiments/inference.py \
+        --model       checkpoints/sft_unk/final \
+        --test-set    data/eval/test_set.jsonl \
+        --output      results/baseline3_1_unk/predictions.jsonl \
+        --method-name baseline3_1_unk \
+        --tensor-parallel 2
+
+    python3 -m eval.run_all_metrics \
+        --predictions results/baseline3_1_unk/predictions.jsonl \
+        --test-set    data/eval/test_set.jsonl \
+        --reward-dict data/dictionary/reward_dict.json \
+        --ppl-model   "$PPL_MODEL_PATH" \
+        --output      results/baseline3_1_unk/metrics.json
+
+    gpu_status
+    mark_done "05d1_sft_infer_unk"
+else
+    log "→ 跳过 [05d1_sft_infer_unk]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05d2: Semantic SFT 推理评测                                                #
+# --------------------------------------------------------------------------- #
+if ! is_done "05d2_sft_infer_semantic"; then
+    log "=== 阶段 05d2: Semantic SFT 推理评测 ==="
+    gpu_status
+
+    python3 experiments/inference.py \
+        --model       checkpoints/sft_semantic/final \
+        --test-set    data/eval/test_set.jsonl \
+        --output      results/baseline3_3_semantic/predictions.jsonl \
+        --method-name baseline3_3_semantic \
+        --tensor-parallel 2
+
+    python3 -m eval.run_all_metrics \
+        --predictions results/baseline3_3_semantic/predictions.jsonl \
+        --test-set    data/eval/test_set.jsonl \
+        --reward-dict data/dictionary/reward_dict.json \
+        --ppl-model   "$PPL_MODEL_PATH" \
+        --output      results/baseline3_3_semantic/metrics.json
+
+    gpu_status
+    mark_done "05d2_sft_infer_semantic"
+else
+    log "→ 跳过 [05d2_sft_infer_semantic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05e: 选择最佳 SFT 底座（用于 Final V2 DPO）                              #
+# --------------------------------------------------------------------------- #
+if ! is_done "05e_select_best_sft"; then
+    log "=== 阶段 05e: 自动选择最佳 SFT 底座（按 chrF corpus） ==="
+    python3 - << 'PY'
+import json
+from pathlib import Path
+
+candidates = [
+    {
+        "tag": "mixed",
+        "metrics": Path("results/baseline3/metrics.json"),
+        "model": "checkpoints/sft/merged",
+        "train_data": "data/sft/combined_sft.jsonl",
+    },
+    {
+        "tag": "unk",
+        "metrics": Path("results/baseline3_1_unk/metrics.json"),
+        "model": "checkpoints/sft_unk/merged",
+        "train_data": "data/sft/combined_sft_unk.jsonl",
+    },
+    {
+        "tag": "semantic",
+        "metrics": Path("results/baseline3_3_semantic/metrics.json"),
+        "model": "checkpoints/sft_semantic/merged",
+        "train_data": "data/sft/combined_sft_semantic.jsonl",
+    },
+]
+
+best = None
+for c in candidates:
+    if not c["metrics"].exists():
+        continue
+    data = json.loads(c["metrics"].read_text(encoding="utf-8"))
+    score = data.get("chrf", {}).get("corpus_chrf")
+    if score is None:
+        score = -1
+    if best is None or score > best["score"]:
+        best = {"score": score, **c}
+
+if best is None:
+    raise SystemExit("No valid baseline3 metrics found for selection.")
+
+state_path = Path("state/best_sft.env")
+state_path.write_text(
+    "\n".join([
+        f"BEST_SFT_TAG={best['tag']}",
+        f"BEST_SFT_MODEL={best['model']}",
+        f"BEST_SFT_TRAIN_DATA={best['train_data']}",
+        f"BEST_SFT_CHRF={best['score']}",
+    ]) + "\n",
+    encoding="utf-8",
+)
+print(f"Selected best SFT: {best['tag']} (chrF={best['score']})")
+print(f"Saved selector state to {state_path}")
+PY
+    mark_done "05e_select_best_sft"
+else
+    log "→ 跳过 [05e_select_best_sft]（已完成）"
 fi
 
 # --------------------------------------------------------------------------- #
@@ -370,8 +671,16 @@ if ! is_done "06a_dpo_candidates"; then
     log "=== 阶段 06a: 生成 DPO 候选对（N=5, vLLM + reward scoring）==="
     gpu_status
 
+    if [[ ! -f "state/best_sft.env" ]]; then
+        err "  找不到 state/best_sft.env，请先完成 05e 阶段。"
+        exit 1
+    fi
+    # shellcheck disable=SC1091
+    source state/best_sft.env
+    log "  使用最佳 SFT 底座: ${BEST_SFT_TAG} (chrF=${BEST_SFT_CHRF})"
+
     # 需要有 merged 权重（inference.py 在 05d 已自动 merge）
-    MERGED_PATH="checkpoints/sft/merged"
+    MERGED_PATH="$BEST_SFT_MODEL"
     if [[ ! -d "$MERGED_PATH" ]]; then
         err "  找不到合并后的模型 $MERGED_PATH，请确认 05d 阶段已完成。"
         exit 1
@@ -379,7 +688,7 @@ if ! is_done "06a_dpo_candidates"; then
 
     python3 experiments/generate_candidates.py \
         --sft-model      "$MERGED_PATH" \
-        --train-data     data/sft/combined_sft.jsonl \
+        --train-data     "$BEST_SFT_TRAIN_DATA" \
         --reward-dict    data/dictionary/reward_dict.json \
         --ppl-model      "$PPL_MODEL_PATH" \
         --output         data/dpo/dpo_pairs.jsonl \
@@ -400,6 +709,13 @@ if ! is_done "06b_dpo_train"; then
     log "=== 阶段 06b: DPO 训练（单个 A100）==="
     gpu_status
 
+    if [[ ! -f "state/best_sft.env" ]]; then
+        err "  找不到 state/best_sft.env，请先完成 05e 阶段。"
+        exit 1
+    fi
+    # shellcheck disable=SC1091
+    source state/best_sft.env
+
     DPO_RESUME_ARG=""
     DPO_CKPT=$(latest_checkpoint "checkpoints/dpo")
     if [[ -n "$DPO_CKPT" ]]; then
@@ -409,7 +725,7 @@ if ! is_done "06b_dpo_train"; then
 
     CUDA_VISIBLE_DEVICES=0 python3 experiments/final_dpo.py \
             --dpo-data   data/dpo/dpo_pairs.jsonl \
-            --sft-model  checkpoints/sft/merged \
+            --sft-model  "$BEST_SFT_MODEL" \
             --output-dir checkpoints/dpo \
             --epochs     "$DPO_EPOCHS" \
             --batch-size "$DPO_BATCH" \
@@ -434,17 +750,17 @@ if ! is_done "06c_dpo_inference"; then
     python3 experiments/inference.py \
         --model       checkpoints/dpo/final \
         --test-set    data/eval/test_set.jsonl \
-        --output      results/final/predictions.jsonl \
-        --method-name final_dpo \
+        --output      results/final_v2/predictions.jsonl \
+        --method-name final_v2_dpo \
         --tensor-parallel 2
 
     log "  计算最终方案评测指标 ..."
     python3 -m eval.run_all_metrics \
-        --predictions results/final/predictions.jsonl \
+        --predictions results/final_v2/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
         --ppl-model   "$PPL_MODEL_PATH" \
-        --output      results/final/metrics.json
+        --output      results/final_v2/metrics.json
 
     gpu_status
     mark_done "06c_dpo_inference"

@@ -1,7 +1,6 @@
 """
 Aggregate evaluation results across experiment baselines.
-Reads metrics.json from results/baseline1/, baseline2/, baseline3/, final/
-and produces a comparison table (JSON + CSV) and a bar chart visualization.
+Auto-discovers results/*/metrics.json and produces comparison tables/charts.
 """
 
 import json
@@ -13,8 +12,21 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-EXPERIMENT_DIRS = ["baseline1", "baseline2", "baseline3", "final"]
 RESULTS_ROOT = "results"
+
+
+def discover_experiments(results_root: str = RESULTS_ROOT) -> list:
+    """Discover experiment directories that contain metrics.json."""
+    if not os.path.isdir(results_root):
+        return []
+
+    experiments = []
+    for name in sorted(os.listdir(results_root)):
+        path = os.path.join(results_root, name)
+        metrics_path = os.path.join(path, "metrics.json")
+        if os.path.isdir(path) and os.path.isfile(metrics_path):
+            experiments.append(name)
+    return experiments
 
 
 def load_metrics(results_root: str = RESULTS_ROOT) -> dict:
@@ -27,13 +39,11 @@ def load_metrics(results_root: str = RESULTS_ROOT) -> dict:
         Dict mapping experiment name -> metrics dict.
     """
     all_metrics = {}
-    for exp in EXPERIMENT_DIRS:
+    for exp in discover_experiments(results_root):
         metrics_path = os.path.join(results_root, exp, "metrics.json")
         if os.path.exists(metrics_path):
             with open(metrics_path, "r", encoding="utf-8") as f:
                 all_metrics[exp] = json.load(f)
-        else:
-            print(f"  [WARNING] {metrics_path} not found, skipping.")
     return all_metrics
 
 

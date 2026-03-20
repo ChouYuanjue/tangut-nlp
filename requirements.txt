@@ -10,7 +10,9 @@ jieba>=0.42.1
 beautifulsoup4>=4.12.0
 pyyaml>=6.0
 tqdm>=4.66.0
-numpy>=1.24.0
+# FAISS 目前在该环境下与 NumPy 2.x 存在 ABI 兼容问题，先固定到 1.x。
+numpy>=1.24.0,<2.0
+faiss-cpu>=1.8.0
 pandas>=2.0.0
 matplotlib>=3.7.0
 seaborn>=0.13.0

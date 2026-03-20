@@ -7,7 +7,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.dictionary_utils import BilingualDictionary
-from src.prompt_templates import SYSTEM_DICT_RAG, USER_DICT_RAG, build_chat_prompt
+from src.prompt_templates import (
+    SYSTEM_DICT_RAG,
+    SYSTEM_DICT_RAG_COT,
+    USER_DICT_RAG,
+    USER_DICT_RAG_COT,
+    build_chat_prompt,
+)
 
 
 def build_glosses_text(tangut_text, dictionary):
@@ -31,6 +37,12 @@ def main():
     parser.add_argument("--model-path", default="models/qwen2.5-7b-instruct")
     parser.add_argument("--output", default="results/baseline2/predictions.jsonl")
     parser.add_argument("--tensor-parallel", type=int, default=2)
+    parser.add_argument(
+        "--prompt-style",
+        choices=["vanilla", "cot3"],
+        default="vanilla",
+        help="Prompt style: vanilla (baseline2) or cot3 (baseline2.1)",
+    )
     args = parser.parse_args()
 
     from vllm import LLM, SamplingParams
@@ -43,11 +55,18 @@ def main():
 
     prompts = []
     glosses_list = []
+    if args.prompt_style == "cot3":
+        system_prompt = SYSTEM_DICT_RAG_COT
+        user_template = USER_DICT_RAG_COT
+    else:
+        system_prompt = SYSTEM_DICT_RAG
+        user_template = USER_DICT_RAG
+
     for item in test_data:
         glosses = build_glosses_text(item["input"], dictionary)
         glosses_list.append(glosses)
-        user_msg = USER_DICT_RAG.format(tangut_text=item["input"], glosses=glosses)
-        prompts.append(build_chat_prompt(SYSTEM_DICT_RAG, user_msg))
+        user_msg = user_template.format(tangut_text=item["input"], glosses=glosses)
+        prompts.append(build_chat_prompt(system_prompt, user_msg))
 
     llm = LLM(
         model=args.model_path,
@@ -68,7 +87,7 @@ def main():
                 "reference": item["output"],
                 "prediction": output.outputs[0].text.strip(),
                 "glosses": glosses,
-                "method": "baseline2_dict_rag",
+                "method": f"baseline2_dict_rag_{args.prompt_style}",
             }
             f.write(json.dumps(result, ensure_ascii=False) + "\n")
 
