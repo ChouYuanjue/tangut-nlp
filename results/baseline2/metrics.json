@@ -1,21 +1,21 @@
 {
   "lexical_coverage": {
-    "mean": 0.8061080586080586,
+    "mean": 0.8187271062271063,
     "min": 0.0,
     "max": 1.0
   },
   "perplexity": {
-    "mean_ppl": 13663.277011063848,
+    "mean_ppl": 4474.444060266116,
     "min_ppl": 49.76867778993706,
-    "max_ppl": 460667.1402333492
+    "max_ppl": 62988.04262039145
   },
   "chrf": {
-    "corpus_chrf": 6.031404557896112,
-    "mean_sentence_chrf": 7.470885897346826
+    "corpus_chrf": 6.125422127856426,
+    "mean_sentence_chrf": 7.531593291697341
   },
   "llm_judge": {
-    "mean_semantic_completeness": 2.24,
-    "mean_fluency": 2.24
+    "mean_semantic_completeness": 2.3,
+    "mean_fluency": 2.4
   },
   "num_examples": 50
 }

@@ -9,10 +9,14 @@ Supports three synthesis modes:
 import argparse
 import json
 import random
+import sys
 from pathlib import Path
 from typing import Optional
 
 from tqdm import tqdm
+
+# Allow `python src/data_synthesis.py` to resolve `from src...` imports.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 
 def _save_checkpoint(path: Path, processed: int, written: int, skipped: int) -> None:

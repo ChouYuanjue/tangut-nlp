@@ -94,7 +94,8 @@ class QwenEmbeddingService:
                 norm = torch.norm(mean_pooled, p=2, dim=1, keepdim=True)
                 normalized = mean_pooled / (norm + 1e-8)
 
-                embeddings.append(normalized.cpu().numpy().astype(np.float32))
+                # NumPy does not reliably support direct bfloat16 conversion in this env.
+                embeddings.append(normalized.float().cpu().numpy().astype(np.float32))
 
         return np.vstack(embeddings) if embeddings else np.array([])
 
