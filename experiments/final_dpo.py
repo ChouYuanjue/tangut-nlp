@@ -16,6 +16,20 @@ from src.prompt_templates import SYSTEM_SFT
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
+def sync_special_token_ids(model, tokenizer):
+    # Keep model config and generation config explicitly aligned with tokenizer.
+    token_ids = {
+        "pad_token_id": tokenizer.pad_token_id,
+        "bos_token_id": tokenizer.bos_token_id,
+        "eos_token_id": tokenizer.eos_token_id,
+    }
+
+    for key, value in token_ids.items():
+        setattr(model.config, key, value)
+        if hasattr(model, "generation_config") and model.generation_config is not None:
+            setattr(model.generation_config, key, value)
+
+
 def format_dpo_sample(example):
     prompt = (
         f"<|im_start|>system\n{SYSTEM_SFT}<|im_end|>\n"
@@ -60,7 +74,7 @@ def main():
         trust_remote_code=True,
         attn_implementation="eager",
     )
-    model.config.pad_token_id = tokenizer.pad_token_id
+    sync_special_token_ids(model, tokenizer)
 
     ref_model = AutoModelForCausalLM.from_pretrained(
         args.sft_model,
@@ -68,7 +82,7 @@ def main():
         trust_remote_code=True,
         attn_implementation="eager",
     )
-    ref_model.config.pad_token_id = tokenizer.pad_token_id
+    sync_special_token_ids(ref_model, tokenizer)
 
     lora_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,

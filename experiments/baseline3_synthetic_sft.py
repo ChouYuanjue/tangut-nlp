@@ -19,6 +19,45 @@ def format_sample(example):
     return {"text": build_sft_sample(SYSTEM_SFT, user, example["output"])}
 
 
+def sync_special_token_ids(model, tokenizer):
+    # Keep model config and generation config explicitly aligned with tokenizer.
+    token_ids = {
+        "pad_token_id": tokenizer.pad_token_id,
+        "bos_token_id": tokenizer.bos_token_id,
+        "eos_token_id": tokenizer.eos_token_id,
+    }
+
+    for key, value in token_ids.items():
+        setattr(model.config, key, value)
+        if hasattr(model, "generation_config") and model.generation_config is not None:
+            setattr(model.generation_config, key, value)
+
+
+def is_completed_checkpoint(checkpoint_dir):
+    state_path = Path(checkpoint_dir) / "trainer_state.json"
+    if not state_path.exists():
+        return False
+
+    with open(state_path, "r", encoding="utf-8") as f:
+        state = json.load(f)
+
+    global_step = state.get("global_step")
+    max_steps = state.get("max_steps")
+    if not isinstance(global_step, int) or not isinstance(max_steps, int):
+        return False
+    return max_steps > 0 and global_step >= max_steps
+
+
+def has_final_artifacts(output_dir):
+    final_dir = Path(output_dir) / "final"
+    required_files = [
+        "adapter_model.safetensors",
+        "adapter_config.json",
+        "tokenizer_config.json",
+    ]
+    return all((final_dir / name).exists() for name in required_files)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--train-data", default="data/sft/combined_sft.jsonl")
@@ -33,6 +72,19 @@ def main():
     parser.add_argument("--max-seq-length", type=int, default=512)
     parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
+
+    if args.resume and is_completed_checkpoint(args.resume):
+        if has_final_artifacts(args.output_dir):
+            print(
+                f"Resume checkpoint already complete: {args.resume}. "
+                f"Found final artifacts in {args.output_dir}/final, skipping training."
+            )
+            return
+        print(
+            f"Resume checkpoint already complete: {args.resume}, but final artifacts are missing. "
+            "Disabling resume and retraining from scratch."
+        )
+        args.resume = None
 
     with open(args.train_data, "r", encoding="utf-8") as f:
         raw_data = [json.loads(line) for line in f]
@@ -50,7 +102,7 @@ def main():
         trust_remote_code=True,
         attn_implementation="eager",
     )
-    model.config.pad_token_id = tokenizer.pad_token_id
+    sync_special_token_ids(model, tokenizer)
 
     lora_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,

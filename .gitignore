@@ -16,8 +16,7 @@ build/
 *.log
 # Data and results - not tracked in git
 data/raw/
-data/eval/
-data/sft/
+
 
 .venv/
 .env
