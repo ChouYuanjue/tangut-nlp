@@ -21,6 +21,9 @@
 
 set -euo pipefail
 
+# 获取环境 Python 路径
+PYTHON_BIN="/home/runnel/miniconda3/envs/tangut-nlp/bin/python"
+
 # --------------------------------------------------------------------------- #
 #  配置区 —— 如需修改模型路径、超参等，只改这里                                    #
 # --------------------------------------------------------------------------- #
@@ -109,7 +112,7 @@ set +u
 source "$CONDA_BASE/etc/profile.d/conda.sh"
 conda activate tangut-nlp
 set -u
-log "Python: $(which python3)  ($(python3 --version 2>&1))"
+log "Python: $(which "$PYTHON_BIN")  ($("$PYTHON_BIN" --version 2>&1))"
 
 # --------------------------------------------------------------------------- #
 #  --reset 选项                                                                  #
@@ -149,7 +152,7 @@ if ! is_done "01_models"; then
     # Qwen2.5-7B-Instruct
     if [[ ! -f "$MAIN_MODEL_PATH/config.json" ]]; then
         log "  下载 Qwen2.5-7B-Instruct ..."
-        python3 -c "
+        "$PYTHON_BIN" -c "
 from huggingface_hub import snapshot_download
 snapshot_download('Qwen/Qwen2.5-7B-Instruct',
     local_dir='$MAIN_MODEL_PATH',
@@ -164,7 +167,7 @@ print('Qwen2.5-7B-Instruct OK')
     # Qwen2.5-0.5B（PPL 打分）
     if [[ ! -f "$PPL_MODEL_PATH/config.json" ]]; then
         log "  下载 Qwen2.5-0.5B ..."
-        python3 -c "
+        "$PYTHON_BIN" -c "
 from huggingface_hub import snapshot_download
 snapshot_download('Qwen/Qwen2.5-0.5B',
     local_dir='$PPL_MODEL_PATH',
@@ -179,7 +182,7 @@ print('Qwen2.5-0.5B OK')
     # xmj2002/Chinese_modern_classical（文言文↔白话文，97万对）
     if [[ ! -d "data/raw/ancient_chinese_hf" ]]; then
         log "  下载 xmj2002/Chinese_modern_classical (~972K 对) ..."
-        python3 -c "
+        "$PYTHON_BIN" -c "
 from datasets import load_dataset
 ds = load_dataset('xmj2002/Chinese_modern_classical', split='train')
 ds.save_to_disk('data/raw/ancient_chinese_hf')
@@ -199,7 +202,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "02_data_splits"; then
     log "=== 阶段 02: 准备数据切分 ==="
-    python3 src/prepare_splits.py \
+    "$PYTHON_BIN" src/prepare_splits.py \
         --input       data/raw/tangut_output.jsonl \
         --test-out    data/eval/test_set.jsonl \
         --dev-out     data/eval/dev_set.jsonl \
@@ -219,14 +222,14 @@ if ! is_done "03_baseline1"; then
     log "=== 阶段 03: Baseline 1 — Zero-shot 推理 ==="
     gpu_status
 
-    python3 experiments/baseline1_zeroshot.py \
+    "$PYTHON_BIN" experiments/baseline1_zeroshot.py \
         --test-set   data/eval/test_set.jsonl \
         --model-path "$MAIN_MODEL_PATH" \
         --output     results/baseline1/predictions.jsonl \
         --tensor-parallel 2
 
     log "  计算 Baseline 1 评测指标 ..."
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline1/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -246,7 +249,7 @@ if ! is_done "04_baseline2"; then
     log "=== 阶段 04: Baseline 2 — Dictionary-RAG 推理 ==="
     gpu_status
 
-    python3 experiments/baseline2_dict_rag.py \
+    "$PYTHON_BIN" experiments/baseline2_dict_rag.py \
         --test-set   data/eval/test_set.jsonl \
         --dict-path  data/dictionary/dictionary.json \
         --model-path "$MAIN_MODEL_PATH" \
@@ -254,7 +257,7 @@ if ! is_done "04_baseline2"; then
         --tensor-parallel 2
 
     log "  计算 Baseline 2 评测指标 ..."
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline2/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -274,7 +277,7 @@ if ! is_done "04b_baseline2_cot"; then
     log "=== 阶段 04b: Baseline 2.1 — Dictionary-RAG + CoT 推理 ==="
     gpu_status
 
-    python3 experiments/baseline2_dict_rag.py \
+    "$PYTHON_BIN" experiments/baseline2_dict_rag.py \
         --test-set     data/eval/test_set.jsonl \
         --dict-path    data/dictionary/dictionary.json \
         --model-path   "$MAIN_MODEL_PATH" \
@@ -283,7 +286,7 @@ if ! is_done "04b_baseline2_cot"; then
         --tensor-parallel 2
 
     log "  计算 Baseline 2.1 评测指标 ..."
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline2_1_cot/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -301,7 +304,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05a_synthetic"; then
     log "=== 阶段 05a: 生成合成伪平行语料 (max=$SYNTHETIC_MAX) ==="
-    python3 src/data_synthesis.py \
+    "$PYTHON_BIN" src/data_synthesis.py \
         --dictionary-path      data/dictionary/dictionary.json \
         --ancient-chinese-path data/raw/ancient_chinese_hf \
         --output               data/sft/synthetic_sft.jsonl \
@@ -317,7 +320,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05a1_synthetic_unk"; then
     log "=== 阶段 05a1: 生成 Baseline 3.1 (100% UNK) 数据 ==="
-    python3 src/data_synthesis.py \
+    "$PYTHON_BIN" src/data_synthesis.py \
         --dictionary-path      data/dictionary/dictionary.json \
         --ancient-chinese-path data/raw/ancient_chinese_hf \
         --output               data/sft/synthetic_sft_unk.jsonl \
@@ -334,7 +337,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05a2_semantic_index"; then
     log "=== 阶段 05a2: 构建 Baseline 3.3 语义索引 ==="
-    python3 scripts/build_tangut_semantic_index.py \
+    "$PYTHON_BIN" scripts/build_tangut_semantic_index.py \
         --dictionary data/dictionary/dictionary.json \
         --model      "$PPL_MODEL_PATH" \
         --output     data/indices \
@@ -349,7 +352,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05a3_synthetic_semantic"; then
     log "=== 阶段 05a3: 生成 Baseline 3.3 (semantic projection) 数据 ==="
-    python3 src/data_synthesis.py \
+    "$PYTHON_BIN" src/data_synthesis.py \
         --dictionary-path       data/dictionary/dictionary.json \
         --ancient-chinese-path  data/raw/ancient_chinese_hf \
         --output                data/sft/synthetic_sft_semantic.jsonl \
@@ -370,7 +373,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05a4_synthetic_multitask"; then
     log "=== 阶段 05a4: 生成 Baseline 3.2 (multitask alignment) 数据 ==="
-    python3 src/data_synthesis.py \
+    "$PYTHON_BIN" src/data_synthesis.py \
         --dictionary-path      data/dictionary/dictionary.json \
         --ancient-chinese-path data/raw/ancient_chinese_hf \
         --output               data/sft/synthetic_sft_multitask.jsonl \
@@ -387,7 +390,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05b_combine"; then
     log "=== 阶段 05b: 合并数据（upsample_real=$UPSAMPLE_REAL）==="
-    python3 src/combine_data.py \
+    "$PYTHON_BIN" src/combine_data.py \
         --real          data/sft/babelstone_sft.jsonl \
         --synthetic     data/sft/synthetic_sft.jsonl \
         --output        data/sft/combined_sft.jsonl \
@@ -403,7 +406,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05b1_combine_unk"; then
     log "=== 阶段 05b1: 合并数据 (UNK, upsample_real=$UPSAMPLE_REAL) ==="
-    python3 src/combine_data.py \
+    "$PYTHON_BIN" src/combine_data.py \
         --real          data/sft/babelstone_sft.jsonl \
         --synthetic     data/sft/synthetic_sft_unk.jsonl \
         --output        data/sft/combined_sft_unk.jsonl \
@@ -419,7 +422,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05b2_combine_semantic"; then
     log "=== 阶段 05b2: 合并数据 (Semantic, upsample_real=$UPSAMPLE_REAL) ==="
-    python3 src/combine_data.py \
+    "$PYTHON_BIN" src/combine_data.py \
         --real          data/sft/babelstone_sft.jsonl \
         --synthetic     data/sft/synthetic_sft_semantic.jsonl \
         --output        data/sft/combined_sft_semantic.jsonl \
@@ -435,7 +438,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05b3_combine_multitask"; then
     log "=== 阶段 05b3: 合并数据 (Multitask, upsample_real=$UPSAMPLE_REAL) ==="
-    python3 src/combine_data.py \
+    "$PYTHON_BIN" src/combine_data.py \
         --real          data/sft/babelstone_sft.jsonl \
         --synthetic     data/sft/synthetic_sft_multitask.jsonl \
         --output        data/sft/combined_sft_multitask.jsonl \
@@ -583,7 +586,7 @@ if ! is_done "05c3_sft_train_multitask"; then
             --model-path   "$MAIN_MODEL_PATH" \
             --output-dir   checkpoints/sft_multitask \
             --epochs       "$SFT_EPOCHS" \
-            --batch_size   "$SFT_BATCH" \
+            --batch-size   "$SFT_BATCH" \
             --grad-accum   "$SFT_GRAD_ACCUM" \
             --lr           "$SFT_LR" \
             --lora-rank    "$SFT_LORA_RANK" \
@@ -603,14 +606,14 @@ if ! is_done "05d0_sft_infer_mixed"; then
     log "=== 阶段 05d0: Mixed SFT 推理评测 ==="
     gpu_status
 
-    python3 experiments/inference.py \
+    "$PYTHON_BIN" experiments/inference.py \
         --model       checkpoints/sft/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/baseline3/predictions.jsonl \
         --method-name baseline3_sft_mixed \
         --tensor-parallel 2
 
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline3/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -630,14 +633,14 @@ if ! is_done "05d1_sft_infer_unk"; then
     log "=== 阶段 05d1: UNK SFT 推理评测 ==="
     gpu_status
 
-    python3 experiments/inference.py \
+    "$PYTHON_BIN" experiments/inference.py \
         --model       checkpoints/sft_unk/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/baseline3_1_unk/predictions.jsonl \
         --method-name baseline3_1_unk \
         --tensor-parallel 2
 
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline3_1_unk/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -657,14 +660,14 @@ if ! is_done "05d2_sft_infer_semantic"; then
     log "=== 阶段 05d2: Semantic SFT 推理评测 ==="
     gpu_status
 
-    python3 experiments/inference.py \
+    "$PYTHON_BIN" experiments/inference.py \
         --model       checkpoints/sft_semantic/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/baseline3_3_semantic/predictions.jsonl \
         --method-name baseline3_3_semantic \
         --tensor-parallel 2
 
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline3_3_semantic/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -684,7 +687,7 @@ if ! is_done "05d3_sft_infer_multitask"; then
     log "=== 阶段 05d3: Multitask SFT 推理评测 (Cleaned) ==="
     gpu_status
 
-    python3 experiments/inference.py \
+    "$PYTHON_BIN" experiments/inference.py \
         --model       checkpoints/sft_multitask/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/baseline3_2_multitask/predictions.jsonl \
@@ -692,11 +695,11 @@ if ! is_done "05d3_sft_infer_multitask"; then
         --tensor-parallel 2
 
     # 对输出进行清洗以保证 PPL 和 chrF 公平性
-    python3 eval/clean_predictions.py \
+    "$PYTHON_BIN" eval/clean_predictions.py \
         --input results/baseline3_2_multitask/predictions.jsonl \
         --output results/baseline3_2_multitask/predictions_cleaned.jsonl
 
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/baseline3_2_multitask/predictions_cleaned.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -714,7 +717,7 @@ fi
 # --------------------------------------------------------------------------- #
 if ! is_done "05e_select_best_sft"; then
     log "=== 阶段 05e: 自动选择最佳 SFT 底座（按 chrF corpus） ==="
-    python3 - << 'PY'
+    "$PYTHON_BIN" - << 'PY'
 import json
 from pathlib import Path
 
@@ -793,7 +796,7 @@ if ! is_done "06a_dpo_candidates"; then
         exit 1
     fi
 
-    python3 experiments/generate_candidates.py \
+    "$PYTHON_BIN" experiments/generate_candidates.py \
         --sft-model      "$MERGED_PATH" \
         --train-data     "$BEST_SFT_TRAIN_DATA" \
         --reward-dict    data/dictionary/reward_dict.json \
@@ -830,7 +833,7 @@ if ! is_done "06b_dpo_train"; then
         DPO_RESUME_ARG="--resume $DPO_CKPT"
     fi
 
-    CUDA_VISIBLE_DEVICES=0 python3 experiments/final_dpo.py \
+    CUDA_VISIBLE_DEVICES=0 "$PYTHON_BIN" experiments/final_dpo.py \
             --dpo-data   data/dpo/dpo_pairs.jsonl \
             --sft-model  "$BEST_SFT_MODEL" \
             --output-dir checkpoints/dpo \
@@ -854,7 +857,7 @@ if ! is_done "06c_dpo_inference"; then
     log "=== 阶段 06c: DPO 模型推理 + 最终评测 ==="
     gpu_status
 
-    python3 experiments/inference.py \
+    "$PYTHON_BIN" experiments/inference.py \
         --model       checkpoints/dpo/final \
         --test-set    data/eval/test_set.jsonl \
         --output      results/final_v2/predictions.jsonl \
@@ -862,7 +865,7 @@ if ! is_done "06c_dpo_inference"; then
         --tensor-parallel 2
 
     log "  计算最终方案评测指标 ..."
-    python3 -m eval.run_all_metrics \
+    "$PYTHON_BIN" -m eval.run_all_metrics \
         --predictions results/final_v2/predictions.jsonl \
         --test-set    data/eval/test_set.jsonl \
         --reward-dict data/dictionary/reward_dict.json \
@@ -879,7 +882,7 @@ fi
 #  阶段 07: 汇总对比结果                                                           #
 # --------------------------------------------------------------------------- #
 log "=== 阶段 07: 汇总对比结果 ==="
-python3 -m eval.aggregate_results
+"$PYTHON_BIN" -m eval.aggregate_results
 log "  已生成 results/comparison.json、results/comparison.csv、results/comparison.png"
 
 echo ""
