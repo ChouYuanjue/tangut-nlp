@@ -463,8 +463,10 @@ if ! is_done "05c1_sft_train_unk"; then
         SFT_RESUME_ARG="--resume $SFT_CKPT"
     fi
 
-    accelerate launch \
-        --num_processes 2 \
+    # NOTE: this stage may hang on some nodes with multi-GPU NCCL init.
+    # Run on single GPU for stability.
+    CUDA_VISIBLE_DEVICES=0 accelerate launch \
+        --num_processes 1 \
         --num_machines 1 \
         --mixed_precision bf16 \
         --dynamo_backend no \
@@ -477,6 +479,7 @@ if ! is_done "05c1_sft_train_unk"; then
             --grad-accum   "$SFT_GRAD_ACCUM" \
             --lr           "$SFT_LR" \
             --lora-rank    "$SFT_LORA_RANK" \
+            --deepspeed-config none \
             $SFT_RESUME_ARG
 
     gpu_status
@@ -499,8 +502,10 @@ if ! is_done "05c2_sft_train_semantic"; then
         SFT_RESUME_ARG="--resume $SFT_CKPT"
     fi
 
-    accelerate launch \
-        --num_processes 2 \
+    # NOTE: this stage may hang on some nodes with multi-GPU NCCL init.
+    # Run on single GPU for stability.
+    CUDA_VISIBLE_DEVICES=0 accelerate launch \
+        --num_processes 1 \
         --num_machines 1 \
         --mixed_precision bf16 \
         --dynamo_backend no \
@@ -513,6 +518,7 @@ if ! is_done "05c2_sft_train_semantic"; then
             --grad-accum   "$SFT_GRAD_ACCUM" \
             --lr           "$SFT_LR" \
             --lora-rank    "$SFT_LORA_RANK" \
+            --deepspeed-config none \
             $SFT_RESUME_ARG
 
     gpu_status

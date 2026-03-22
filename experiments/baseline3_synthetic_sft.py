@@ -70,6 +70,7 @@ def main():
     parser.add_argument("--lora-rank", type=int, default=64)
     parser.add_argument("--lora-alpha", type=int, default=128)
     parser.add_argument("--max-seq-length", type=int, default=512)
+    parser.add_argument("--deepspeed-config", type=str, default="configs/deepspeed_zero2.json")
     parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
 
@@ -113,25 +114,29 @@ def main():
         bias="none",
     )
 
-    training_args = SFTConfig(
-        output_dir=args.output_dir,
-        num_train_epochs=args.epochs,
-        per_device_train_batch_size=args.batch_size,
-        gradient_accumulation_steps=args.grad_accum,
-        learning_rate=args.lr,
-        lr_scheduler_type="cosine",
-        warmup_ratio=0.05,
-        bf16=True,
-        logging_steps=10,
-        save_strategy="steps",
-        save_steps=200,
-        save_total_limit=5,
-        gradient_checkpointing=True,
-        deepspeed="configs/deepspeed_zero2.json",
-        dataloader_num_workers=4,
-        report_to="none",
-        dataset_text_field="text",
-    )
+    sft_kwargs = {
+        "output_dir": args.output_dir,
+        "num_train_epochs": args.epochs,
+        "per_device_train_batch_size": args.batch_size,
+        "gradient_accumulation_steps": args.grad_accum,
+        "learning_rate": args.lr,
+        "lr_scheduler_type": "cosine",
+        "warmup_ratio": 0.05,
+        "bf16": True,
+        "logging_steps": 10,
+        "save_strategy": "steps",
+        "save_steps": 200,
+        "save_total_limit": 5,
+        "gradient_checkpointing": True,
+        "dataloader_num_workers": 4,
+        "report_to": "none",
+        "dataset_text_field": "text",
+    }
+
+    if args.deepspeed_config and args.deepspeed_config.lower() not in {"none", "null", "off"}:
+        sft_kwargs["deepspeed"] = args.deepspeed_config
+
+    training_args = SFTConfig(**sft_kwargs)
 
     trainer = SFTTrainer(
         model=model,
