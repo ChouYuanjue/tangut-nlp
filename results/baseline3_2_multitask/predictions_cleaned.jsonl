@@ -1,0 +1,50 @@
+{"input": "𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩", "reference": "佛説聖大乘三歸依經", "prediction": "佛説聖大乘三觀經", "method": "baseline3_2_multitask", "prediction_raw": "佛説聖大乘三觀經"}
+{"input": "𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩", "reference": "百千印陀羅尼經", "prediction": "千數經律銅人取經", "method": "baseline3_2_multitask", "prediction_raw": "千數經律銅人取經"}
+{"input": "𘕕𗡪𘕋𗍓𗖍", "reference": "三個懺罪頌", "prediction": "三種罪懺根", "method": "baseline3_2_multitask", "prediction_raw": "三種罪懺根"}
+{"input": "𘓐𗢳𗨻𗰲𗵘𘞵", "reference": "人佛為自道長", "prediction": "人佛使弥道长", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𘓐𗢳𗨻𗰲𗵘𘞵</dict_match> <literal>人佛使弥道长</literal> 人佛使弥道长"}
+{"input": "𗦬𘍞𗵘𘐡", "reference": "共丸道次", "prediction": "范宁、范玄平两人在路上。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗦬𘍞𗵘𘐡</dict_match> <literal>二范道次</literal> 范宁、范玄平两人在路上。"}
+{"input": "𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩", "reference": "聖大悟蔭王求隨皆得經", "prediction": "聖大般若波羅蜜多經", "method": "baseline3_2_multitask", "prediction_raw": "聖大般若波羅蜜多經"}
+{"input": "𗏁𗴮𗖰𗚩", "reference": "五部經", "prediction": "五部經典", "method": "baseline3_2_multitask", "prediction_raw": "五部經典"}
+{"input": "𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶", "reference": "此於已到僧於隨歸順", "prediction": "这是清净音的僧尼随顺法。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶</dict_match> <literal>此清音至僧尼随顺法</literal> 这是清净音的僧尼随顺法。"}
+{"input": "𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩", "reference": "七寶華踏佛陀羅尼經", "prediction": "七寶華頂佛頂大王經", "method": "baseline3_2_multitask", "prediction_raw": "七寶華頂佛頂大王經"}
+{"input": "𗬀𗔇𘂫𘅜𘏒𘖜", "reference": "伏藏變化解鍵", "prediction": "伏当变开锁，即伏当变开锁，是兵家语。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗬀𗔇𘂫𘅜𘏒𘖜</dict_match> <literal>伏当变化开锁</literal> 伏当变开锁，即伏当变开锁，是兵家语。"}
+{"input": "𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾", "reference": "默有者隨勝住令順要論", "prediction": "默有惡風引發在食順要論", "method": "baseline3_2_multitask", "prediction_raw": "默有惡風引發在食順要論"}
+{"input": "𘕕𗤀𘎆𗮔𗟲𗰖𘝞", "reference": "三世屬明言集文", "prediction": "三時輪迴文集", "method": "baseline3_2_multitask", "prediction_raw": "三時輪迴文集"}
+{"input": "𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎", "reference": "如上流凡多義不同見順大鳳凰□□説□清", "prediction": "過去莊嚴諸説諸説聽經人□□", "method": "baseline3_2_multitask", "prediction_raw": "過去莊嚴諸説諸説聽經人□□"}
+{"input": "𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝", "reference": "根本一切有説部目得迦", "prediction": "根本一切有説部現前解謗", "method": "baseline3_2_multitask", "prediction_raw": "根本一切有説部現前解謗"}
+{"input": "𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔", "reference": "菩提勇識大勇識不價菩薩衆之歸依禮拜", "prediction": "菩提勇識大勇識與混諦要論之隨略解頌", "method": "baseline3_2_multitask", "prediction_raw": "菩提勇識大勇識與混諦要論之隨略解頌"}
+{"input": "𗏇𘉅", "reference": "雜字", "prediction": "有字，名杂。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗏇𘉅</dict_match> <literal>字杂</literal> 有字，名杂。"}
+{"input": "𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫", "reference": "深廣雙入七枝法事", "prediction": "廣二乘入七種法事", "method": "baseline3_2_multitask", "prediction_raw": "廣二乘入七種法事"}
+{"input": "𘋢𗥤𘝦𗗙𗍫𗑝𗆔", "reference": "菩薩業之二節綱", "prediction": "菩薩業之二種根", "method": "baseline3_2_multitask", "prediction_raw": "菩薩業之二種根"}
+{"input": "𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩", "reference": "佛説障蓋除菩薩問經", "prediction": "佛説肛瘡病治生般若經", "method": "baseline3_2_multitask", "prediction_raw": "佛説肛瘡病治生般若經"}
+{"input": "𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪", "reference": "正理滴之句義顯具", "prediction": "正理滴之要義顯註", "method": "baseline3_2_multitask", "prediction_raw": "正理滴之要義顯註"}
+{"input": "𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩", "reference": "集頌般若波羅蜜多經", "prediction": "集頌般若波羅蜜多經", "method": "baseline3_2_multitask", "prediction_raw": "集頌般若波羅蜜多經"}
+{"input": "𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶", "reference": "金剛王亥母隨淨瓶以親誦作順", "prediction": "金剛王亥母隨書函開中作順", "method": "baseline3_2_multitask", "prediction_raw": "金剛王亥母隨書函開中作順"}
+{"input": "𗄭𘚢𗴿𗒀𘃡𗡶𘐡", "reference": "聚輪供養作次第", "prediction": "集畢供養作順次", "method": "baseline3_2_multitask", "prediction_raw": "集畢供養作順次"}
+{"input": "𗵒𗒛𘁨", "reference": "金乘序", "prediction": "金剛經", "method": "baseline3_2_multitask", "prediction_raw": "金剛經"}
+{"input": "𗩾𗨁𗉣𗖰𗚩", "reference": "最上意經", "prediction": "最上意經", "method": "baseline3_2_multitask", "prediction_raw": "最上意經"}
+{"input": "𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓", "reference": "佛説智(?)□□佛觀經□註", "prediction": "佛説壽無量佛觀經膏藥疏", "method": "baseline3_2_multitask", "prediction_raw": "佛説壽無量佛觀經膏藥疏"}
+{"input": "𗼑𗼑𗫉𗊱", "reference": "月月樂詩", "prediction": "月月乐诗，即月乐诗，乐曲名。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗼑𗼑𗫉𗊱</dict_match> <literal>月月乐诗</literal> 月月乐诗，即月乐诗，乐曲名。"}
+{"input": "𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍", "reference": "勝慧彼岸到要論教學現量解莊嚴論顯頌", "prediction": "勝慧到彼岸要論　教學現量解莊嚴顯疏", "method": "baseline3_2_multitask", "prediction_raw": "勝慧到彼岸要論　教學現量解莊嚴顯疏"}
+{"input": "𗢭𗵫𗴿𗒀𗺉", "reference": "九曜供養根", "prediction": "九種供養根", "method": "baseline3_2_multitask", "prediction_raw": "九種供養根"}
+{"input": "𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩", "reference": "十一面神咒心經", "prediction": "十一面觀菩薩經", "method": "baseline3_2_multitask", "prediction_raw": "十一面觀菩薩經"}
+{"input": "𗙏𘙰", "reference": "同音", "prediction": "音类：指音韵学。", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗙏𘙰</dict_match> <literal>音类</literal> 音类：指音韵学。"}
+{"input": "𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇", "reference": "金剛王燈炬心中所持可", "prediction": "金剛王體中繞作順", "method": "baseline3_2_multitask", "prediction_raw": "金剛王體中繞作順"}
+{"input": "𗒹𗢳𘎪𗾈𗥺𗖰𗚩", "reference": "七佛説神咒經", "prediction": "七佛説禪源經", "method": "baseline3_2_multitask", "prediction_raw": "七佛説禪源經"}
+{"input": "𗆧𗰖𗵒𗭭𘃎𘐏𘝞", "reference": "新集碎金置掌文", "prediction": "新集金剛王經", "method": "baseline3_2_multitask", "prediction_raw": "新集金剛王經"}
+{"input": "𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶", "reference": "統依要集三品子□正法中入順", "prediction": "勅隨要集三諦於識並法於入順", "method": "baseline3_2_multitask", "prediction_raw": "勅隨要集三諦於識並法於入順"}
+{"input": "𗫡𗾈", "reference": "到賢", "prediction": "聰穎", "method": "baseline3_2_multitask", "prediction_raw": "聰穎"}
+{"input": "𗯨𗣈𗒹𗵘𗹙𘅫", "reference": "世離七道法事", "prediction": "寺出七道法事", "method": "baseline3_2_multitask", "prediction_raw": "寺出七道法事"}
+{"input": "𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩", "reference": "聖六字壽增大蔭王陀羅尼經", "prediction": "聖六祖壽無量大陀羅尼經", "method": "baseline3_2_multitask", "prediction_raw": "聖六祖壽無量大陀羅尼經"}
+{"input": "𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓", "reference": "壞有出聖柔吉祥之攝受讚顯", "prediction": "壞有渡勝igesia̘ 慈悲加讚", "method": "baseline3_2_multitask", "prediction_raw": "壞有渡勝igesia̘ 慈悲加讚"}
+{"input": "𗤻𗵽𗹙𗐯𘝯𗆔", "reference": "華嚴法界觀幹", "prediction": "蓮華法界見在綱", "method": "baseline3_2_multitask", "prediction_raw": "蓮華法界見在綱"}
+{"input": "𗼇𗟲𗍥𘟙𗒛𗺉", "reference": "番言金剛王乘根", "prediction": "番言金剛王乘根", "method": "baseline3_2_multitask", "prediction_raw": "番言金剛王乘根"}
+{"input": "𗴮𘊳", "reference": "類林", "prediction": "《类林》", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗴮𘊳</dict_match> <literal>类林</literal> 《类林》"}
+{"input": "𗵒𘗁𘄒𘎑𘓋𘐇𘝞", "reference": "金剛般若略記文", "prediction": "金剛般若略記文", "method": "baseline3_2_multitask", "prediction_raw": "金剛般若略記文"}
+{"input": "𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡", "reference": "金剛王默有母隨集輪求記作順次", "prediction": "金剛王默有母隨集輪轉生順次", "method": "baseline3_2_multitask", "prediction_raw": "金剛王默有母隨集輪轉生順次"}
+{"input": "𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩", "reference": "佛説父母恩重經", "prediction": "佛説父母恩重經", "method": "baseline3_2_multitask", "prediction_raw": "佛説父母恩重經"}
+{"input": "𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾", "reference": "大蓋白母之總持誦順要論", "prediction": "大蓋白母之總持門順要論", "method": "baseline3_2_multitask", "prediction_raw": "大蓋白母之總持門順要論"}
+{"input": "𗣼𗟭𘞫𘈃𘍳𘃨", "reference": "正理滴特殊造", "prediction": "正理滴第一造", "method": "baseline3_2_multitask", "prediction_raw": "正理滴第一造"}
+{"input": "𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩", "reference": "地藏菩薩本願經", "prediction": "師道滿隨本願經", "method": "baseline3_2_multitask", "prediction_raw": "師道滿隨本願經"}
+{"input": "𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾", "reference": "道之間休止順要論", "prediction": "道家之經律韻集要論", "method": "baseline3_2_multitask", "prediction_raw": "道家之經律韻集要論"}
+{"input": "𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩", "reference": "觀彌勒菩薩足知皇上生觀經", "prediction": "闻虎命解足知天上生观经道", "method": "baseline3_2_multitask", "prediction_raw": "<dict_match>𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩</dict_match> <literal>闻虎命解足知天上生观经道</literal> 闻虎命解足知天上生观经道"}

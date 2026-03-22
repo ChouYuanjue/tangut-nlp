@@ -1,0 +1,50 @@
+{"input": "𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩", "reference": "佛説聖大乘三歸依經", "prediction": "佛説聖大乘三觀經", "method": "baseline3_3_semantic"}
+{"input": "𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩", "reference": "百千印陀羅尼經", "prediction": "千數自記驗道經", "method": "baseline3_3_semantic"}
+{"input": "𘕕𗡪𘕋𗍓𗖍", "reference": "三個懺罪頌", "prediction": "三稱用頌", "method": "baseline3_3_semantic"}
+{"input": "𘓐𗢳𗨻𗰲𗵘𘞵", "reference": "人佛為自道長", "prediction": "人天相加長壽", "method": "baseline3_3_semantic"}
+{"input": "𗦬𘍞𗵘𘐡", "reference": "共丸道次", "prediction": "重譯道次", "method": "baseline3_3_semantic"}
+{"input": "𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩", "reference": "聖大悟蔭王求隨皆得經", "prediction": "聖大乘利有羅索之央正經", "method": "baseline3_3_semantic"}
+{"input": "𗏁𗴮𗖰𗚩", "reference": "五部經", "prediction": "五摩經", "method": "baseline3_3_semantic"}
+{"input": "𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶", "reference": "此於已到僧於隨歸順", "prediction": "此壽無量之阿彌陀佛", "method": "baseline3_3_semantic"}
+{"input": "𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩", "reference": "七寶華踏佛陀羅尼經", "prediction": "七寶護摩佛羅數經", "method": "baseline3_3_semantic"}
+{"input": "𗬀𗔇𘂫𘅜𘏒𘖜", "reference": "伏藏變化解鍵", "prediction": "烧治順略方", "method": "baseline3_3_semantic"}
+{"input": "𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾", "reference": "默有者隨勝住令順要論", "prediction": "默有無修以覺証順要論", "method": "baseline3_3_semantic"}
+{"input": "𘕕𗤀𘎆𗮔𗟲𗰖𘝞", "reference": "三世屬明言集文", "prediction": "三世一切顯了文", "method": "baseline3_3_semantic"}
+{"input": "𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎", "reference": "如上流凡多義不同見順大鳳凰□□説□清", "prediction": "過去莊嚴劫千佛名經", "method": "baseline3_3_semantic"}
+{"input": "𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝", "reference": "根本一切有説部目得迦", "prediction": "根本一切有説部頌", "method": "baseline3_3_semantic"}
+{"input": "𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔", "reference": "菩提勇識大勇識不價菩薩衆之歸依禮拜", "prediction": "菩提勇識大德之常作可法事合隨依攝法事", "method": "baseline3_3_semantic"}
+{"input": "𗏇𘉅", "reference": "雜字", "prediction": "孟子", "method": "baseline3_3_semantic"}
+{"input": "𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫", "reference": "深廣雙入七枝法事", "prediction": "深廣二入作常法事", "method": "baseline3_3_semantic"}
+{"input": "𘋢𗥤𘝦𗗙𗍫𗑝𗆔", "reference": "菩薩業之二節綱", "prediction": "菩薩業空渡記", "method": "baseline3_3_semantic"}
+{"input": "𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩", "reference": "佛説障蓋除菩薩問經", "prediction": "佛説賊難除休令陀羅尼經", "method": "baseline3_3_semantic"}
+{"input": "𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪", "reference": "正理滴之句義顯具", "prediction": "正理滴落之明鏡疏", "method": "baseline3_3_semantic"}
+{"input": "𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩", "reference": "集頌般若波羅蜜多經", "prediction": "集畢一乘圓明心義續", "method": "baseline3_3_semantic"}
+{"input": "𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶", "reference": "金剛王亥母隨淨瓶以親誦作順", "prediction": "金剛王亥母隨睡眠作順要論", "method": "baseline3_3_semantic"}
+{"input": "𗄭𘚢𗴿𗒀𘃡𗡶𘐡", "reference": "聚輪供養作次第", "prediction": "集畢一乘圓明心義", "method": "baseline3_3_semantic"}
+{"input": "𗵒𗒛𘁨", "reference": "金乘序", "prediction": "金翅鳥", "method": "baseline3_3_semantic"}
+{"input": "𗩾𗨁𗉣𗖰𗚩", "reference": "最上意經", "prediction": "最上樂輪經", "method": "baseline3_3_semantic"}
+{"input": "𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓", "reference": "佛説智(?)□□佛觀經□註", "prediction": "佛説壽無量佛觀經膏藥疏", "method": "baseline3_3_semantic"}
+{"input": "𗼑𗼑𗫉𗊱", "reference": "月月樂詩", "prediction": "一月 Gazetteer", "method": "baseline3_3_semantic"}
+{"input": "𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍", "reference": "勝慧彼岸到要論教學現量解莊嚴論顯頌", "prediction": "勝慧到彼岸要論　教學現量解莊嚴疏之廣釋明鏡疏", "method": "baseline3_3_semantic"}
+{"input": "𗢭𗵫𗴿𗒀𗺉", "reference": "九曜供養根", "prediction": "九星在占星术中称为 九曜 。", "method": "baseline3_3_semantic"}
+{"input": "𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩", "reference": "十一面神咒心經", "prediction": "十一種/Delete正經", "method": "baseline3_3_semantic"}
+{"input": "𗙏𘙰", "reference": "同音", "prediction": "燈同", "method": "baseline3_3_semantic"}
+{"input": "𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇", "reference": "金剛王燈炬心中所持可", "prediction": "金剛王火恭心定作順", "method": "baseline3_3_semantic"}
+{"input": "𗒹𗢳𘎪𗾈𗥺𗖰𗚩", "reference": "七佛説神咒經", "prediction": "七佛説經經", "method": "baseline3_3_semantic"}
+{"input": "𗆧𗰖𗵒𗭭𘃎𘐏𘝞", "reference": "新集碎金置掌文", "prediction": "新集錦合辭", "method": "baseline3_3_semantic"}
+{"input": "𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶", "reference": "統依要集三品子□正法中入順", "prediction": "勅隨廣大三寶供養為順要論", "method": "baseline3_3_semantic"}
+{"input": "𗫡𗾈", "reference": "到賢", "prediction": "次韻", "method": "baseline3_3_semantic"}
+{"input": "𗯨𗣈𗒹𗵘𗹙𘅫", "reference": "世離七道法事", "prediction": "師造七道法事", "method": "baseline3_3_semantic"}
+{"input": "𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩", "reference": "聖六字壽增大蔭王陀羅尼經", "prediction": "聖六祖壽無量大羅漢經", "method": "baseline3_3_semantic"}
+{"input": "𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓", "reference": "壞有出聖柔吉祥之攝受讚顯", "prediction": "壞有渡吉祥普賢之禮拜供養", "method": "baseline3_3_semantic"}
+{"input": "𗤻𗵽𗹙𗐯𘝯𗆔", "reference": "華嚴法界觀幹", "prediction": "慧本法界觀ǜ", "method": "baseline3_3_semantic"}
+{"input": "𗼇𗟲𗍥𘟙𗒛𗺉", "reference": "番言金剛王乘根", "prediction": "番言金剛王乘根", "method": "baseline3_3_semantic"}
+{"input": "𗴮𘊳", "reference": "類林", "prediction": "名林", "method": "baseline3_3_semantic"}
+{"input": "𗵒𘗁𘄒𘎑𘓋𘐇𘝞", "reference": "金剛般若略記文", "prediction": "金剛般若略計文", "method": "baseline3_3_semantic"}
+{"input": "𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡", "reference": "金剛王默有母隨集輪求記作順次", "prediction": "金剛王默有母隨集了定作順次", "method": "baseline3_3_semantic"}
+{"input": "𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩", "reference": "佛説父母恩重經", "prediction": "佛説父母隨經", "method": "baseline3_3_semantic"}
+{"input": "𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾", "reference": "大蓋白母之總持誦順要論", "prediction": "大蓋白母之隨 Held by Samshu 之相説", "method": "baseline3_3_semantic"}
+{"input": "𗣼𗟭𘞫𘈃𘍳𘃨", "reference": "正理滴特殊造", "prediction": "正理滴落現量", "method": "baseline3_3_semantic"}
+{"input": "𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩", "reference": "地藏菩薩本願經", "prediction": "土地耳傳記奉圓經", "method": "baseline3_3_semantic"}
+{"input": "𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾", "reference": "道之間休止順要論", "prediction": "道果語錄中數綱", "method": "baseline3_3_semantic"}
+{"input": "𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩", "reference": "觀彌勒菩薩足知皇上生觀經", "prediction": "見順亦爾諦識天 \"'.華嚴經", "method": "baseline3_3_semantic"}
