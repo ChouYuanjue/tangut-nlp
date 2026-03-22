@@ -366,6 +366,23 @@ else
 fi
 
 # --------------------------------------------------------------------------- #
+#  阶段 05a4: Baseline 3.2 —— 多任务对齐合成数据                                  #
+# --------------------------------------------------------------------------- #
+if ! is_done "05a4_synthetic_multitask"; then
+    log "=== 阶段 05a4: 生成 Baseline 3.2 (multitask alignment) 数据 ==="
+    python3 src/data_synthesis.py \
+        --dictionary-path      data/dictionary/dictionary.json \
+        --ancient-chinese-path data/raw/ancient_chinese_hf \
+        --output               data/sft/synthetic_sft_multitask.jsonl \
+        --mode                 multitask \
+        --max-samples          "$SYNTHETIC_MAX" \
+        --seed                 42
+    mark_done "05a4_synthetic_multitask"
+else
+    log "→ 跳过 [05a4_synthetic_multitask]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
 #  阶段 05b: 合并真实 + 合成数据                                                   #
 # --------------------------------------------------------------------------- #
 if ! is_done "05b_combine"; then
@@ -411,6 +428,22 @@ if ! is_done "05b2_combine_semantic"; then
     mark_done "05b2_combine_semantic"
 else
     log "→ 跳过 [05b2_combine_semantic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05b3: 合并真实 + Multitask 合成数据                                      #
+# --------------------------------------------------------------------------- #
+if ! is_done "05b3_combine_multitask"; then
+    log "=== 阶段 05b3: 合并数据 (Multitask, upsample_real=$UPSAMPLE_REAL) ==="
+    python3 src/combine_data.py \
+        --real          data/sft/babelstone_sft.jsonl \
+        --synthetic     data/sft/synthetic_sft_multitask.jsonl \
+        --output        data/sft/combined_sft_multitask.jsonl \
+        --upsample-real "$UPSAMPLE_REAL" \
+        --seed          42
+    mark_done "05b3_combine_multitask"
+else
+    log "→ 跳过 [05b3_combine_multitask]（已完成）"
 fi
 
 # --------------------------------------------------------------------------- #
@@ -528,6 +561,42 @@ else
 fi
 
 # --------------------------------------------------------------------------- #
+#  阶段 05c3: SFT 训练（Multitask Alignment）                                     #
+# --------------------------------------------------------------------------- #
+if ! is_done "05c3_sft_train_multitask"; then
+    log "=== 阶段 05c3: SFT 训练 (Multitask) ==="
+    gpu_status
+
+    SFT_RESUME_ARG=""
+    SFT_CKPT=$(latest_checkpoint "checkpoints/sft_multitask")
+    if [[ -n "$SFT_CKPT" ]]; then
+        warn "  检测到 Multitask SFT 中断检查点: $SFT_CKPT，自动续训"
+        SFT_RESUME_ARG="--resume $SFT_CKPT"
+    fi
+
+    # 单卡运行避免 DDP 在小批量时的问题（如果需要）
+    accelerate launch \
+        --num_processes 2 \
+        --mixed_precision bf16 \
+        experiments/baseline3_synthetic_sft.py \
+            --train-data   data/sft/combined_sft_multitask.jsonl \
+            --model-path   "$MAIN_MODEL_PATH" \
+            --output-dir   checkpoints/sft_multitask \
+            --epochs       "$SFT_EPOCHS" \
+            --batch_size   "$SFT_BATCH" \
+            --grad-accum   "$SFT_GRAD_ACCUM" \
+            --lr           "$SFT_LR" \
+            --lora-rank    "$SFT_LORA_RANK" \
+            --deepspeed-config none \
+            $SFT_RESUME_ARG
+
+    gpu_status
+    mark_done "05c3_sft_train_multitask"
+else
+    log "→ 跳过 [05c3_sft_train_multitask]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
 #  阶段 05d0: Mixed SFT 推理评测                                                   #
 # --------------------------------------------------------------------------- #
 if ! is_done "05d0_sft_infer_mixed"; then
@@ -606,6 +675,38 @@ if ! is_done "05d2_sft_infer_semantic"; then
     mark_done "05d2_sft_infer_semantic"
 else
     log "→ 跳过 [05d2_sft_infer_semantic]（已完成）"
+fi
+
+# --------------------------------------------------------------------------- #
+#  阶段 05d3: Multitask SFT 推理评测                                              #
+# --------------------------------------------------------------------------- #
+if ! is_done "05d3_sft_infer_multitask"; then
+    log "=== 阶段 05d3: Multitask SFT 推理评测 (Cleaned) ==="
+    gpu_status
+
+    python3 experiments/inference.py \
+        --model       checkpoints/sft_multitask/final \
+        --test-set    data/eval/test_set.jsonl \
+        --output      results/baseline3_2_multitask/predictions.jsonl \
+        --method-name baseline3_2_multitask \
+        --tensor-parallel 2
+
+    # 对输出进行清洗以保证 PPL 和 chrF 公平性
+    python3 eval/clean_predictions.py \
+        --input results/baseline3_2_multitask/predictions.jsonl \
+        --output results/baseline3_2_multitask/predictions_cleaned.jsonl
+
+    python3 -m eval.run_all_metrics \
+        --predictions results/baseline3_2_multitask/predictions_cleaned.jsonl \
+        --test-set    data/eval/test_set.jsonl \
+        --reward-dict data/dictionary/reward_dict.json \
+        --ppl-model   "$PPL_MODEL_PATH" \
+        --output      results/baseline3_2_multitask/metrics.json
+
+    gpu_status
+    mark_done "05d3_sft_infer_multitask"
+else
+    log "→ 跳过 [05d3_sft_infer_multitask]（已完成）"
 fi
 
 # --------------------------------------------------------------------------- #

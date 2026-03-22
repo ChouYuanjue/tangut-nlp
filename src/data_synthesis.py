@@ -152,6 +152,37 @@ def synthesize_semantic_projection(
     return "".join(chars), modern_text
 
 
+def synthesize_multitask_alignment(ancient_text, modern_text, cn_to_tangut):
+    """Baseline 3.2: Multitask Alignment SFT.
+    
+    Output format: <dict_match>西夏文原文</dict_match> <literal>字典释义</literal> 现代中文
+    """
+    chars = list(ancient_text)
+    literal_parts = []
+    tangut_parts = []
+    
+    for c in chars:
+        if c in cn_to_tangut:
+            tangut_char = random.choice(cn_to_tangut[c])
+            tangut_parts.append(tangut_char)
+            literal_parts.append(c)
+        elif not ("\u4e00" <= c <= "\u9fff"):
+            # Punctuation or other non-Chinese
+            tangut_parts.append(c)
+            literal_parts.append(c)
+        else:
+            # Chinese char not in dict -> UNK
+            tangut_parts.append("[UNK]")
+            literal_parts.append("[UNK]")
+            
+    input_text = "".join(tangut_parts)
+    # Target format: <dict_match>西夏文原文</dict_match> <literal>字典释义</literal> 现代中文
+    # This helps the model align the structure explicitly
+    target_text = f"<dict_match>{input_text}</dict_match> <literal>{''.join(literal_parts)}</literal> {modern_text}"
+    
+    return input_text, target_text
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Generate synthetic Tangut-Chinese SFT data (3 modes)"
@@ -161,9 +192,9 @@ def main():
     parser.add_argument("--output", default="data/sft/synthetic_sft.jsonl")
     parser.add_argument(
         "--mode",
-        choices=["mixed", "unk", "semantic"],
+        choices=["mixed", "unk", "semantic", "multitask"],
         default="mixed",
-        help="Synthesis mode: mixed (original), unk (100%% UNK), semantic (vector projection)",
+        help="Synthesis mode: mixed (original), unk (100% UNK), semantic (vector projection), multitask (Baseline 3.2)",
     )
     parser.add_argument("--max-samples", type=int, default=50000)
     parser.add_argument("--min-length", type=int, default=4)
@@ -292,6 +323,9 @@ def main():
                 ancient, modern, cn_to_tangut, embedding_service, faiss_client, embedding_cache
             )
             metadata = {"synthetic": True, "mode": "semantic"}
+        elif args.mode == "multitask":
+            result = synthesize_multitask_alignment(ancient, modern, cn_to_tangut)
+            metadata = {"synthetic": True, "mode": "multitask"}
         else:
             raise ValueError(f"Unknown mode: {args.mode}")
 
