@@ -14,6 +14,7 @@ import pandas as pd
 
 
 RESULTS_ROOT = "results"
+HUMAN_REF_EXPERIMENT = "human_reference"
 
 
 def discover_experiments(results_root: str = RESULTS_ROOT) -> list:
@@ -102,6 +103,87 @@ def save_comparison(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
 
     df.to_json(json_path, orient="records", force_ascii=False, indent=2)
     df.to_csv(csv_path, index=False)
+
+    print(f"  Saved {json_path}")
+    print(f"  Saved {csv_path}")
+
+
+def _safe_ratio(numerator, denominator):
+    if numerator is None or denominator is None:
+        return np.nan
+    if denominator == 0:
+        return np.nan
+    return numerator / denominator
+
+
+def build_dual_anchor_dataframe(
+    df: pd.DataFrame,
+    human_ref_experiment: str = HUMAN_REF_EXPERIMENT,
+) -> pd.DataFrame:
+    """Build dual-anchor + relative-normalized comparison table.
+
+    Anchor A: model-vs-reference absolute metrics (existing metrics columns).
+    Anchor B: human_reference-vs-reference baseline metrics.
+
+    Adds normalized columns relative to human_reference:
+      - Higher-is-better metrics: model / human_reference
+      - Lower-is-better PPL: human_reference / model
+    """
+    dual = df.copy()
+    dual["anchor_primary"] = "model_vs_reference"
+    dual["anchor_secondary"] = "human_reference_vs_reference"
+
+    human_row = dual.loc[dual["experiment"] == human_ref_experiment]
+    if human_row.empty:
+        print(
+            f"  [WARNING] {human_ref_experiment} not found; "
+            "skip dual-anchor relative columns."
+        )
+        return dual
+
+    human = human_row.iloc[0]
+    human_lex = human.get("lex_coverage_mean")
+    human_ppl = human.get("ppl_mean")
+    human_chrf = human.get("chrf_corpus")
+    human_sem = human.get("llm_semantic")
+    human_flu = human.get("llm_fluency")
+
+    # Anchor B values explicitly attached for side-by-side reporting.
+    dual["anchor_human_lex_coverage_mean"] = human_lex
+    dual["anchor_human_ppl_mean"] = human_ppl
+    dual["anchor_human_chrf_corpus"] = human_chrf
+    dual["anchor_human_llm_semantic"] = human_sem
+    dual["anchor_human_llm_fluency"] = human_flu
+
+    # Relative normalization (higher means closer/better than human baseline).
+    dual["relative_lex"] = dual["lex_coverage_mean"].apply(
+        lambda x: _safe_ratio(x, human_lex)
+    )
+    dual["relative_chrf"] = dual["chrf_corpus"].apply(
+        lambda x: _safe_ratio(x, human_chrf)
+    )
+    dual["relative_llm_semantic"] = dual["llm_semantic"].apply(
+        lambda x: _safe_ratio(x, human_sem)
+    )
+    dual["relative_llm_fluency"] = dual["llm_fluency"].apply(
+        lambda x: _safe_ratio(x, human_flu)
+    )
+    dual["relative_ppl"] = dual["ppl_mean"].apply(
+        lambda x: _safe_ratio(human_ppl, x)
+    )
+
+    return dual
+
+
+def save_dual_anchor_comparison(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
+    """Save dual-anchor + relative-normalized comparison table."""
+    dual_df = build_dual_anchor_dataframe(df)
+
+    json_path = os.path.join(results_root, "comparison_dual_anchor.json")
+    csv_path = os.path.join(results_root, "comparison_dual_anchor.csv")
+
+    dual_df.to_json(json_path, orient="records", force_ascii=False, indent=2)
+    dual_df.to_csv(csv_path, index=False)
 
     print(f"  Saved {json_path}")
     print(f"  Saved {csv_path}")
@@ -324,6 +406,7 @@ def main():
     print()
 
     save_comparison(df)
+    save_dual_anchor_comparison(df)
     create_bar_chart(df)
     create_radar_chart(df)
 

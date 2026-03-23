@@ -226,17 +226,33 @@ python eval/aggregate_results.py
 2. 以现代通用 LM 计算的 PPL 不一定适配古汉语/题名体翻译风格，因此可出现“真实译文 PPL 很高”。
 3. 单一自动指标不足以给出可靠结论，必须使用多指标联合解释。
 
-### 6.7 补充评估设计方案（建议纳入后续实验）
+### 6.7 补充评估设计（前两项已实现）
 
-为提高论文结论稳健性，建议在现有协议上补充以下设计：
+为提高论文结论稳健性，我们已实现以下两项补充评估：
 
-1. 双锚点评估：同时报告 model-vs-reference 与 human_reference-vs-reference，避免把“绝对值”误读为“可比质量”。
-2. 归一化汇报：增加相对指标
-  RelativeScore = model_score / human_reference_score（对“越高越好”指标），
-  RelativePPL = human_reference_ppl / model_ppl（对“越低越好”指标）。
-3. 风格分层评估：按题名类、句子类、术语密集类分组统计，减少不同文本类型混合导致的方差。
-4. 偏好数据质检：在 DPO 构造阶段强制剔除 non-finite reward 与 chosen=rejected 的样本，记录剔除率。
-5. 评测一致性校验：对 LLM Judge 进行重复采样（不同随机种子或多次请求）并报告方差区间。
+1. 双锚点评估（已实现）
+- 锚点 A：model-vs-reference（原始评测值）。
+- 锚点 B：human_reference-vs-reference（真实译文基线）。
+- 聚合输出文件：
+  [results/comparison_dual_anchor.csv](results/comparison_dual_anchor.csv)
+  [results/comparison_dual_anchor.json](results/comparison_dual_anchor.json)
+
+2. 归一化汇报（已实现）
+- 对“越高越好”指标（Lexical/chrF/LLM）：
+  $$
+  	ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
+  $$
+- 对“越低越好”指标（PPL）：
+  $$
+  	ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
+  $$
+- 对应列名：relative_lex, relative_chrf, relative_llm_semantic, relative_llm_fluency, relative_ppl。
+
+尚未实现（后续可扩展）：
+
+1. 风格分层评估：按题名类、句子类、术语密集类分组统计，减少不同文本类型混合导致的方差。
+2. 偏好数据质检：在 DPO 构造阶段强制剔除 non-finite reward 与 chosen=rejected 的样本，记录剔除率。
+3. 评测一致性校验：对 LLM Judge 进行重复采样（不同随机种子或多次请求）并报告方差区间。
 
 ## 7. 局限性
 
