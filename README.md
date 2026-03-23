@@ -85,13 +85,13 @@
 4. LLM-as-a-Judge（语义完整与语句通顺）
 - 对每个候选给出双维评分：语义完整性、语言流畅性。
 
-在 DPO 候选构建中，使用如下奖励形式进行排序：
+在 DPO 候选构建中，当前实现使用如下奖励形式进行排序：
 
 $$
-R(y)=\alpha\cdot\text{LexicalCoverage}(y)-\beta\cdot\text{PPL}(y)
+R(y)=\alpha\cdot\text{LexicalCoverage}(y)-\beta\cdot\log\left(\text{PPL}(y)+\epsilon\right)
 $$
 
-其中 $y$ 为候选翻译，最高分样本作为 Chosen，最低分样本作为 Rejected。
+其中 $y$ 为候选翻译，当前配置为 $\alpha=1.0,\beta=0.01,\epsilon=10^{-8}$。每个输入采样 $N=5$ 个候选，按奖励排序后取最高分样本作为 Chosen、最低分样本作为 Rejected，并设置最小 reward gap 过滤阈值（0.05）。
 
 ## 4. 主要实现映射
 
@@ -168,7 +168,31 @@ python eval/aggregate_results.py
 3. 预期“更复杂方法整体更优”：未成立。
   Baseline 2/2.1 在忠实度与 Judge 上更强；Baseline 3.2 在 chrF++ 上更强；不存在单一统治解。
 
-### 6.3 忠实记录表（当前快照，n=50）
+### 6.3 当前强化学习（DPO）方案说明
+
+为避免术语歧义，本项目“强化学习阶段”采用的是离线偏好优化（DPO），而非在线 RLHF。完整流程如下：
+
+1. 底座选择：在 mixed / unk / semantic 三个 SFT 底座中，按 chrF++ 自动选择最佳底座。
+2. 候选采样：对每个训练输入从 SFT 底座采样 $N=5$ 候选（temperature=0.8, top-p=0.95）。
+3. 奖励打分：对每个候选计算 Lexical Coverage 与 PPL，并按上式得到 reward。
+4. 偏好对构造：选择 best-vs-worst 形成 (chosen, rejected)，并丢弃 reward gap 小于 0.05 的样本。
+5. DPO 训练：使用同一 SFT 模型作为 policy/ref 初始点，进行偏好优化，得到 Final V2。
+
+该流程的目标是让模型在“词典忠实度”与“语言流畅性”之间做可控折中。
+
+### 6.4 噪声来源猜测（基于当前快照）
+
+结合当前结果与偏好数据统计，噪声可能来自以下层面：
+
+1. 偏好标签噪声：在现有 dpo_pairs 中存在少量异常条目（例如 non-finite reward、chosen/rejected 文本相同），会直接引入无效学习信号。
+2. 奖励尺度噪声：PPL 分布长尾明显，即便使用 log 压缩，固定系数 $\beta$ 仍可能在子域间失衡。
+3. 采样方差：每条输入仅采样 5 个候选，易出现“相对最优但绝对质量一般”的伪偏好。
+4. 目标错位噪声：DPO 训练目标基于 Lexical+PPL，而最终报告还依赖 chrF 与 LLM Judge，优化目标与评测目标并不完全一致。
+5. 评测噪声：LLM Judge 受 API 稳定性与解析策略影响，可能引入额外方差。
+
+据此，当前“Final V2 未优于最佳 SFT”的现象可被解释为：偏好信号质量不足以稳定驱动 DPO 获得跨指标一致增益。
+
+### 6.5 各指标记录表（当前快照，n=50）
 
 | Experiment | Lexical Coverage ↑ | PPL ↓ | chrF++ ↑ | LLM Semantic ↑ | LLM Fluency ↑ |
 |---|---:|---:|---:|---:|---:|
@@ -181,8 +205,38 @@ python eval/aggregate_results.py
 | baseline3_3_semantic | 0.3723 | 17064.38 | 17.03 | 1.46 | 1.84 |
 | final | 0.3913 | 158427.71 | 9.23 | 1.40 | 1.42 |
 | final_v2 | 0.4224 | 314577.16 | 19.39 | 1.52 | 1.76 |
+| human_reference | 0.5733 | 1646139.34 | 100.00 | 2.24 | 2.34 |
 
 注：该表仅陈述当前仓库快照，不对未来重训后的变化作外推。
+
+### 6.6 真实译文基线（human_reference）与反直觉现象
+
+为了验证“真实翻译并不一定在所有自动指标上都高分”，我们新增了 human_reference 基线：将测试集参考译文直接作为预测输入同一评估管线。
+
+当前结果如下：
+
+1. chrF++ = 100.00（与参考完全一致，符合预期）。
+2. Lexical Coverage = 0.5733（并非满分）。
+3. PPL = 1646139.34（显著高于部分 baseline）。
+4. LLM Judge = 2.24 / 2.34（高于大多数 SFT/DPO 方法，但未显著高于 Baseline 2 的流畅度分）。
+
+这说明：
+
+1. 词典覆盖指标并不等价于“真实翻译质量”，会受到词典覆盖范围与释义粒度限制。
+2. 以现代通用 LM 计算的 PPL 不一定适配古汉语/题名体翻译风格，因此可出现“真实译文 PPL 很高”。
+3. 单一自动指标不足以给出可靠结论，必须使用多指标联合解释。
+
+### 6.7 补充评估设计方案（建议纳入后续实验）
+
+为提高论文结论稳健性，建议在现有协议上补充以下设计：
+
+1. 双锚点评估：同时报告 model-vs-reference 与 human_reference-vs-reference，避免把“绝对值”误读为“可比质量”。
+2. 归一化汇报：增加相对指标
+  RelativeScore = model_score / human_reference_score（对“越高越好”指标），
+  RelativePPL = human_reference_ppl / model_ppl（对“越低越好”指标）。
+3. 风格分层评估：按题名类、句子类、术语密集类分组统计，减少不同文本类型混合导致的方差。
+4. 偏好数据质检：在 DPO 构造阶段强制剔除 non-finite reward 与 chosen=rejected 的样本，记录剔除率。
+5. 评测一致性校验：对 LLM Judge 进行重复采样（不同随机种子或多次请求）并报告方差区间。
 
 ## 7. 局限性
 

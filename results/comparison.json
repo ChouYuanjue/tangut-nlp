@@ -124,5 +124,19 @@
     "llm_semantic":1.52,
     "llm_fluency":1.76,
     "num_examples":50
+  },
+  {
+    "experiment":"human_reference",
+    "lex_coverage_mean":0.5732625153,
+    "lex_coverage_min":0.0,
+    "lex_coverage_max":1.0,
+    "ppl_mean":1646139.3420049557,
+    "ppl_min":108.7558034796,
+    "ppl_max":82031846.6020855606,
+    "chrf_corpus":100.0,
+    "chrf_mean_sentence":100.0,
+    "llm_semantic":2.24,
+    "llm_fluency":2.34,
+    "num_examples":50
   }
 ]
