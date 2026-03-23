@@ -131,7 +131,7 @@ python eval/aggregate_results.py
 ```
 
 4. 关键输出
-- 各基线指标：results/<experiment>/metrics.json
+- 各基线指标：results/[experiment]/metrics.json
 - 总表：results/comparison.csv 与 results/comparison.json
 - 可视化：results/comparison.png 与 results/comparison_radar.png
 
