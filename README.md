@@ -239,14 +239,8 @@ python eval/aggregate_results.py
   [results/comparison_dual_anchor.json](results/comparison_dual_anchor.json)
 
 2. 归一化汇报（已实现）
-- 对“越高越好”指标（Lexical/chrF/LLM）：
-$$
-  \text{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
-$$ 
-- 对“越低越好”指标（PPL）：
-$$
-  \text{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
-$$
+- 对“越高越好”指标（Lexical/chrF/LLM）：**model_score/human_reference_score**
+- 对“越低越好”指标（PPL）：**human_reference_ppl/model_ppl**
 - 对应列名：relative_lex, relative_chrf, relative_llm_semantic, relative_llm_fluency, relative_ppl。
 - 解释规则：
   1) 取值为 1 表示与 human_reference 持平；
