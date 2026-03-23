@@ -190,7 +190,7 @@ def save_dual_anchor_comparison(df: pd.DataFrame, results_root: str = RESULTS_RO
 
 
 def create_bar_chart(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
-    """Create a grouped bar chart comparing key metrics across experiments.
+    """Create a grouped bar chart with unified normalization across metrics.
 
     Saves the chart to results/comparison.png.
 
@@ -198,47 +198,77 @@ def create_bar_chart(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
         df: Comparison DataFrame.
         results_root: Root results directory.
     """
-    # Select key metrics for visualization
-    metric_cols = [
-        ("lex_coverage_mean", "Lex Coverage"),
-        ("chrf_corpus", "chrF++ (corpus)"),
-        ("llm_semantic", "LLM Semantic"),
-        ("llm_fluency", "LLM Fluency"),
+    required_cols = [
+        "lex_coverage_mean",
+        "ppl_mean",
+        "chrf_corpus",
+        "llm_semantic",
+        "llm_fluency",
     ]
-
-    # Filter to columns that exist and have data
-    valid_cols = []
-    for col, label in metric_cols:
-        if col in df.columns and df[col].notna().any():
-            valid_cols.append((col, label))
-
-    if not valid_cols:
-        print("  [WARNING] No valid metric columns found for chart.")
+    missing = [c for c in required_cols if c not in df.columns or df[c].isna().all()]
+    if missing:
+        print(f"  [WARNING] Missing/empty columns for normalized chart: {missing}")
         return
 
-    experiments = df["experiment"].tolist()
+    def _clip_series(series: pd.Series, lo: float, hi: float) -> pd.Series:
+        return series.astype(float).clip(lower=lo, upper=hi)
+
+    # Unified [0,1] normalization so no single metric dominates chart scale.
+    normalized = pd.DataFrame(
+        {
+            "Lex": _clip_series(df["lex_coverage_mean"], 0.0, 1.0),
+            "PPLQ": (
+                6.0 - np.log10(_clip_series(df["ppl_mean"], 1.0, 1_000_000.0))
+            )
+            / 6.0,
+            "chrF": _clip_series(df["chrf_corpus"], 0.0, 100.0) / 100.0,
+            "Sem": (_clip_series(df["llm_semantic"], 1.0, 5.0) - 1.0) / 4.0,
+            "Flu": (_clip_series(df["llm_fluency"], 1.0, 5.0) - 1.0) / 4.0,
+        }
+    ).fillna(0.0)
+
+    experiments = df["experiment"].astype(str).tolist()
+    # Wrap long experiment names to avoid overlap in bottom text.
+    wrapped_labels = [
+        exp.replace("_", "_\n") if len(exp) > 10 else exp for exp in experiments
+    ]
+
     n_experiments = len(experiments)
-    n_metrics = len(valid_cols)
+    metric_labels = list(normalized.columns)
+    n_metrics = len(metric_labels)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(15.2, 7.8))
 
-    bar_width = 0.8 / n_metrics
-    x = range(n_experiments)
+    # Wider gaps between experiment groups reduce cross-group visual interference
+    # when some bars are near zero.
+    group_gap = 1.34
+    group_span = 0.68
+    bar_width = group_span / n_metrics
+    x = np.arange(n_experiments) * group_gap
+    colors = plt.cm.Set2(np.linspace(0, 1, n_metrics))
 
-    for i, (col, label) in enumerate(valid_cols):
-        offsets = [xi + i * bar_width for xi in x]
-        values = df[col].fillna(0).tolist()
-        ax.bar(offsets, values, bar_width, label=label)
+    for i, label in enumerate(metric_labels):
+        offsets = x + (i - (n_metrics - 1) / 2.0) * bar_width
+        values = normalized[label].tolist()
+        ax.bar(offsets, values, bar_width, label=label, color=colors[i], edgecolor="white", linewidth=0.5)
 
     ax.set_xlabel("Experiment")
-    ax.set_ylabel("Score")
-    ax.set_title("Tangut-NLP Evaluation: Metric Comparison Across Experiments")
-    ax.set_xticks([xi + bar_width * (n_metrics - 1) / 2 for xi in x])
-    ax.set_xticklabels(experiments)
-    ax.legend()
-    ax.grid(axis="y", alpha=0.3)
+    ax.set_ylabel("Normalized Score (0-1, higher is better)")
+    ax.set_title("Tangut-NLP Evaluation: Unified Normalized Metric Comparison")
+    ax.set_xticks(x)
+    ax.set_xticklabels(wrapped_labels, rotation=18, ha="right", fontsize=9)
+    ax.set_ylim(0, 1.02)
+    if n_experiments > 1:
+        split_points = (x[:-1] + x[1:]) / 2.0
+        for s in split_points:
+            ax.axvline(s, color="#d9d9d9", linestyle="--", linewidth=0.7, alpha=0.55, zorder=0)
 
-    plt.tight_layout()
+    ax.set_xlim(x[0] - group_gap * 0.6, x[-1] + group_gap * 0.6)
+    ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.15), frameon=False)
+    ax.grid(axis="y", alpha=0.28)
+
+    # Extra bottom margin to keep long labels readable.
+    plt.subplots_adjust(bottom=0.24, top=0.83)
     chart_path = os.path.join(results_root, "comparison.png")
     plt.savefig(chart_path, dpi=150)
     plt.close()
