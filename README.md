@@ -144,6 +144,7 @@ python eval/aggregate_results.py
 1. 总览柱状图：[results/comparison.png](results/comparison.png)
 2. 全方法雷达图：[results/comparison_radar.png](results/comparison_radar.png)
 3. 分方法雷达图：[results/comparison_radar_each.png](results/comparison_radar_each.png)
+4. 相对人类基线雷达图：[results/comparison_radar_relative.png](results/comparison_radar_relative.png)
 
 ### 6.1 核心观测
 
@@ -240,13 +241,17 @@ python eval/aggregate_results.py
 2. 归一化汇报（已实现）
 - 对“越高越好”指标（Lexical/chrF/LLM）：
   $$
-  	ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
+	ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
   $$
 - 对“越低越好”指标（PPL）：
   $$
-  	ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
+	ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
   $$
 - 对应列名：relative_lex, relative_chrf, relative_llm_semantic, relative_llm_fluency, relative_ppl。
+- 解释规则：
+  1) 取值为 1 表示与 human_reference 持平；
+  2) 对 relative_ppl 而言，值越大表示在该 PPL 评估器下越“语言模型友好”；
+  3) relative_ppl 普遍大于 1 并不等价于“翻译质量超过人工”，因为当前语料以题名体为主，PPL 评估器与文体存在失配。
 
 尚未实现（后续可扩展）：
 

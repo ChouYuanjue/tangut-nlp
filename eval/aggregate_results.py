@@ -387,6 +387,115 @@ def create_radar_chart(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
     print(f"  Saved {radar_each_path}")
 
 
+def create_relative_radar_chart(df: pd.DataFrame, results_root: str = RESULTS_ROOT):
+    """Create radar chart using metrics relative to human_reference baseline.
+
+    Relative columns come from build_dual_anchor_dataframe:
+      - relative_lex
+      - relative_chrf
+      - relative_llm_semantic
+      - relative_llm_fluency
+      - relative_ppl
+
+    1.0 indicates parity with human_reference on that metric.
+    """
+    dual_df = build_dual_anchor_dataframe(df)
+
+    required_cols = [
+        "relative_lex",
+        "relative_chrf",
+        "relative_llm_semantic",
+        "relative_llm_fluency",
+        "relative_ppl",
+    ]
+    for col in required_cols:
+        if col not in dual_df.columns or dual_df[col].isna().all():
+            print(f"  [WARNING] Missing/empty column for relative radar chart: {col}")
+            return
+
+    plot_df = dual_df.copy()
+
+    # General ratio clip for non-PPL relative metrics.
+    ratio_clip_max = 2.0
+    for col in [
+        "relative_lex",
+        "relative_chrf",
+        "relative_llm_semantic",
+        "relative_llm_fluency",
+    ]:
+        plot_df[col] = (
+            plot_df[col]
+            .astype(float)
+            .replace([np.inf, -np.inf], np.nan)
+            .fillna(0.0)
+            .clip(lower=0.0, upper=ratio_clip_max)
+        )
+
+    # For PPL, use adaptive log scaling around parity=1 to avoid collapse.
+    # Step 1: signed log ratio d = log10(relative_ppl), where d=0 means parity.
+    # Step 2: normalize by p90(|d|) so most points are spread in [0, 2].
+    # plot value = 1 + clip(d / scale, -1, 1)
+    ppl_ratio = (
+        plot_df["relative_ppl"]
+        .astype(float)
+        .replace([np.inf, -np.inf], np.nan)
+        .fillna(1.0)
+        .clip(lower=1e-6, upper=1e6)
+    )
+    ppl_delta = np.log10(ppl_ratio)
+    ppl_scale = float(np.nanpercentile(np.abs(ppl_delta), 90))
+    if not np.isfinite(ppl_scale) or ppl_scale < 1e-6:
+        ppl_scale = 1.0
+    plot_df["relative_ppl_plot"] = 1.0 + np.clip(ppl_delta / ppl_scale, -1.0, 1.0)
+
+    metric_labels = [
+        "Rel Lex",
+        "Rel chrF++",
+        "Rel Semantic",
+        "Rel Fluency",
+        "Rel PPL\n(adaptive log, centered@1)",
+    ]
+
+    n = len(metric_labels)
+    angles = np.linspace(0, 2 * np.pi, n, endpoint=False).tolist()
+    angles += angles[:1]
+
+    fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={"polar": True})
+    colors = plt.cm.get_cmap("tab10", len(plot_df))
+
+    for idx, row in plot_df.iterrows():
+        values = [
+            row["relative_lex"],
+            row["relative_chrf"],
+            row["relative_llm_semantic"],
+            row["relative_llm_fluency"],
+            row["relative_ppl_plot"],
+        ]
+        values += values[:1]
+        exp_name = plot_df.loc[idx, "experiment"]
+        color = colors(idx % 10)
+        ax.plot(angles, values, linewidth=1.8, marker="o", markersize=3, label=exp_name, color=color)
+
+    # Human baseline parity ring.
+    ax.plot(angles, [1.0] * (n + 1), linestyle="--", linewidth=1.2, color="gray", alpha=0.7)
+
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(metric_labels)
+    ax.set_ylim(0, 2.0)
+    ax.set_yticks([0.5, 1.0, 1.5, 2.0])
+    ax.set_yticklabels(["0.5", "1.0", "1.5", "2.0"])
+    ax.set_title("Tangut-NLP Evaluation: Relative Radar (Human Reference = 1.0)", pad=28)
+    ax.grid(alpha=0.35)
+    ax.legend(loc="upper right", bbox_to_anchor=(1.38, 1.15), fontsize=8)
+
+    plt.tight_layout()
+    path = os.path.join(results_root, "comparison_radar_relative.png")
+    plt.savefig(path, dpi=180, bbox_inches="tight")
+    plt.close()
+
+    print(f"  Saved {path}")
+
+
 def main():
     print("Aggregating evaluation results ...")
     print()
@@ -409,6 +518,7 @@ def main():
     save_dual_anchor_comparison(df)
     create_bar_chart(df)
     create_radar_chart(df)
+    create_relative_radar_chart(df)
 
     print("\nDone.")
 
