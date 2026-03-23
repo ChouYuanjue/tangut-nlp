@@ -1,6 +1,7 @@
 """Final method: DPO training on preference pairs from SFT model."""
 
 import sys
+import os
 import argparse
 import json
 import torch
@@ -14,6 +15,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.prompt_templates import SYSTEM_SFT
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+def enable_resume_compat_if_needed(resume_path):
+    if not resume_path:
+        return
+
+    # PyTorch 2.6 changed torch.load default to weights_only=True, which can
+    # break loading legacy Trainer RNG state when resuming.
+    version_core = torch.__version__.split("+")[0]
+    parts = version_core.split(".")
+    major = int(parts[0]) if len(parts) > 0 and parts[0].isdigit() else 0
+    minor = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 0
+    if (major, minor) >= (2, 6):
+        os.environ.setdefault("TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD", "1")
+        print(
+            "[resume] Enabled TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 for trusted checkpoint compatibility."
+        )
 
 
 def sync_special_token_ids(model, tokenizer):
@@ -58,6 +76,8 @@ def main():
     parser.add_argument("--max-length", type=int, default=512)
     parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
+
+    enable_resume_compat_if_needed(args.resume)
 
     with open(args.dpo_data, "r", encoding="utf-8") as f:
         raw = [json.loads(line) for line in f]
