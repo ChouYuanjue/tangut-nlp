@@ -241,11 +241,11 @@ python eval/aggregate_results.py
 2. 归一化汇报（已实现）
 - 对“越高越好”指标（Lexical/chrF/LLM）：
 $$
-  ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
+  \text{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
 $$ 
 - 对“越低越好”指标（PPL）：
 $$
-  ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
+  \text{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
 $$
 - 对应列名：relative_lex, relative_chrf, relative_llm_semantic, relative_llm_fluency, relative_ppl。
 - 解释规则：
