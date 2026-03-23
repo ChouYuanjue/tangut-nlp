@@ -22,7 +22,7 @@
 
 我们构建了三条递进流派，形成统一消融矩阵。
 
-### 2.1 推理层过渡（Inference Track）
+### 2.1 推理层过渡
 
 1. Baseline 1: Zero-shot
 - 直接对西夏文输入进行指令翻译。
@@ -36,7 +36,7 @@
 - Prompt 显式拆分为“字面对齐-直译-意译重写”。
 - 变量：仅改变推理提示词结构。
 
-### 2.2 数据与 SFT 过渡（Data & SFT Track）
+### 2.2 数据与 SFT 过渡
 
 1. Baseline 3: 混合输入 SFT
 - 合成阶段保留部分汉字，输入并非完全纯西夏。
@@ -52,7 +52,7 @@
 - 与 3.1 形成对照：
   语义断裂替换 vs 语义扭曲替换。
 
-### 2.3 架构与对齐过渡（Architecture & Alignment Track）
+### 2.3 架构与对齐过渡
 
 1. Baseline 3.2: 多任务结构化 SFT
 - 在目标端引入结构化字段约束（例如 dict_match 与 literal 段落）。
@@ -135,7 +135,7 @@ python eval/aggregate_results.py
 - 总表：results/comparison.csv 与 results/comparison.json
 - 可视化：results/comparison.png 与 results/comparison_radar.png
 
-## 6. 现有结果分析（忠实记录）
+## 6. 现有结果分析
 
 本节基于当前仓库中的已落盘结果进行陈述，数据来源为 [results/comparison.csv](results/comparison.csv) 与 [results/comparison.json](results/comparison.json)。
 
@@ -218,7 +218,7 @@ python eval/aggregate_results.py
 
 1. chrF++ = 100.00（与参考完全一致，符合预期）。
 2. Lexical Coverage = 0.5733（并非满分）。
-3. PPL = 1646139.34（显著高于部分 baseline）。
+3. PPL = 1646139.34（显著高于所有 baseline）。
 4. LLM Judge = 2.24 / 2.34（高于大多数 SFT/DPO 方法，但未显著高于 Baseline 2 的流畅度分）。
 
 这说明：
@@ -241,11 +241,11 @@ python eval/aggregate_results.py
 2. 归一化汇报（已实现）
 - 对“越高越好”指标（Lexical/chrF/LLM）：
   $$
-	ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
-  $$
+  ext{RelativeScore}=\frac{\text{model\_score}}{\text{human\_reference\_score}}
+  $$ 
 - 对“越低越好”指标（PPL）：
   $$
-	ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
+  ext{RelativePPL}=\frac{\text{human\_reference\_ppl}}{\text{model\_ppl}}
   $$
 - 对应列名：relative_lex, relative_chrf, relative_llm_semantic, relative_llm_fluency, relative_ppl。
 - 解释规则：
