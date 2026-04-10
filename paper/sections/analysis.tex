@@ -12,13 +12,23 @@ By contrast, the older local dictionary-prompting baseline often produces output
 
 \input{tables/diagnostics}
 
+\subsection{Oracle complementarity and workflow value}
+
+The strongest new result is not another single-system win, but the size of the best-of-two upper bound. Table~\ref{tab:oracle-complementarity} compares the strongest frontier system against the strongest local system and then reports separate item-level oracles for exact match, chrF++, and the reference-aware overall score.
+
+\input{tables/oracle_complementarity}
+
+The oracle numbers are much larger than either system alone. The exact-match union rises from 12/50 for the frontier baseline and 5/50 for the best local model to 13/50 overall. More importantly, the corpus chrF++ oracle rises to 40.16 and the reference-aware overall oracle rises to 3.06. This gap is too large to dismiss as noise or a trivial restatement of the pairwise win/loss counts. It means the local model is not merely a worse copy of the frontier model; it is generating hypotheses that are often different and sometimes decisively useful. Indeed, the two systems produce identical outputs on only 4/50 items, while on the remaining 46 items the better of the two reaches mean judge overall 2.89.
+
+This changes the practical reading of the paper. The strongest deployment claim is no longer ``use the local model instead of a frontier API.'' It is instead ``if a frontier API is available, the local model is still useful as a complementary hypothesis generator.'' That is a stronger scholar-facing story than simple replacement: one can generate a frontier candidate, generate a local candidate, and then either ask a judge to arbitrate or surface the disagreement to a human annotator.
+
 \subsection{A direct test of stronger CoT prompting}
 
 The obvious objection to this project is straightforward: why not simply use a stronger Chinese frontier LLM with better chain-of-thought prompting? The new DeepSeek-V3.2 few-shot baseline lets us answer that objection directly. The short answer is that strong frontier prompting is indeed very effective. On the reference-aware judge, it reaches overall 2.80, above the best local score of 2.22, and in direct pairwise comparison it beats the strict gap-$0.4$ sigmoid model on 20 items, ties on 23, and loses on 7.
 
 But this does not make the local-model story empty. The frontier advantage is concentrated on canonical or bibliographically regular titles, where broad Chinese title priors help a great deal. It is exact or near-exact on cases such as ``\zh{百千印陀羅尼經}'', ``\zh{同音}'', ``\zh{類林}'', and ``\zh{地藏菩薩本願經}'', where the best local model drifts badly. At the same time, the local model still wins a non-trivial minority of hard cases that are short, elliptical, or lexically awkward: it preserves ``\zh{五部經}'' where the frontier model normalizes it to ``\zh{五類經}''; it stays close to ``\zh{正理滴之句義顯具}'' while the frontier model rewrites it as ``\zh{德宜點義句顯宣論}''; it translates ``\zh{到賢}'' as ``\zh{達賢}'' while the frontier model hallucinates ``\zh{五台山觀音普賢殿寺}''; and it exactly recovers ``\zh{番言金剛王乘根}'' while the frontier model collapses to ``\zh{番}''.
 
-The comparison therefore sharpens the paper rather than invalidating it. A paper claiming that ``stronger CoT still cannot do the task'' would now be wrong. A stronger and more honest claim is that frontier prompting is a proprietary upper bound, while structured local adaptation remains scientifically useful because it changes the error regime, remains trainable and reproducible, and can still outperform the frontier prompt-only system on raw overlap (30.01 vs.\ 28.54 chrF++).
+The comparison therefore sharpens the paper rather than invalidating it. A paper claiming that ``stronger CoT still cannot do the task'' would now be wrong. A stronger and more honest claim is that frontier prompting is a proprietary upper bound, while structured local adaptation remains scientifically useful because it changes the error regime, remains trainable and reproducible, and supplies complementary hypotheses that substantially enlarge the best-of-two upper bound.
 
 \subsection{Reference-aware judging changes the ranking}
 
@@ -35,6 +45,14 @@ The subset breakdown makes the new trade-off sharper. On the 27 reference titles
 One of the strongest pieces of evidence in the repository is the \texttt{human\_reference} experiment. The gold reference receives perfect chrF++ and perfect reference-aware judge scores, as expected, but only moderate lexical coverage and catastrophic perplexity. This reveals a core evaluation issue: the current lexical coverage metric measures overlap with dictionary-derived semantics rather than agreement with the gold title, while the perplexity model penalizes compact title style and historical transliterations.
 
 The implication is methodological, not cosmetic. If we were to select models purely by lexical coverage or perplexity, we would risk preferring systems that paraphrase, overgenerate, or stop poorly instead of systems that best reconstruct the true title. The new frontier baseline makes this even clearer: it is strong overall under the reference-aware judge, but not because it wins lexical coverage or perplexity outright. Conversely, the strict gap-$0.4$ sigmoid model reaches the best non-reference chrF++ while remaining far below the frontier model on the reference-aware judge. Therefore, in the paper, lexical coverage and perplexity should be reported as supporting diagnostics, not as the primary decision criteria.
+
+\subsection{Statistical robustness and data hygiene}
+
+\input{tables/statistical_robustness}
+
+The 50-example test set is too small to justify raw point estimates without uncertainty. The bootstrap results in Table~\ref{tab:statistical-robustness} clarify which claims are stable. The local chrF++ gain from multitask SFT to strict gap-$0.4$ sigmoid DPO survives resampling, with a 95\% confidence interval entirely above zero. The frontier model's advantage over the best local model on reference-aware overall and exact match also survives resampling. By contrast, the chrF++ difference between those two systems does not: its 95\% interval crosses zero widely. This is exactly the kind of mixed picture that the paper should surface rather than hide. The correct interpretation is therefore not ``local beats frontier'' or ``frontier dominates local'' in the abstract, but ``different metrics support different deployment decisions, while the oracle shows the systems are complementary.''
+
+The overlap audit addresses a separate reviewer concern. There is zero exact source, target, or source-target-pair overlap across the train/dev/test splits; zero exact overlap between test references and the 50k synthetic multitask targets; and zero exact overlap between the four frontier few-shot exemplars and the test references. Real-split character $n$-gram overlap is non-zero, which is expected in a domain where many titles share Buddhist morphemes and suffixes, but the synthetic multitask set is not memorizing the held-out titles: its mean maximum Jaccard overlap with test references is only 0.027 for character bigrams, 0.004 for trigrams, and 0.000 for 4-grams. That does not prove complete immunity from leakage in a broader sense, but it does rule out the simplest exact-copy explanation for the current results.
 
 \subsection{Legacy DPO fails for different reasons than multitask-base DPO}
 

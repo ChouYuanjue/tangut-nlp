@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+System & Exact Match & chrF++ & Overall \\
+\midrule
+\textit{Frontier DeepSeek} & 12/50 & 28.54 & 2.80 \\
+MT-DPO g0.4 sig & 5/50 & 30.01 & 2.22 \\
+Best-of-two oracle & 13/50 & 40.16 & 3.06 \\
+\bottomrule
+\end{tabular}
+\caption{Complementarity between the strongest frontier and local systems. The two systems produce identical outputs on only 4/50 items, so the oracle is not just restating a near-duplicate ranking. Instead, it shows that local adaptation supplies genuinely different useful hypotheses: selecting the better output of the two systems yields large gains on both raw overlap and reference-aware utility.}
+\label{tab:oracle-complementarity}
+\end{table}

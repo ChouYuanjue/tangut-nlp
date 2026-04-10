@@ -1,0 +1,4 @@
+method_a,method_b,delta_corpus_chrf_b_minus_a,delta_corpus_chrf_ci_low,delta_corpus_chrf_ci_high,delta_mean_judge_overall_b_minus_a,delta_mean_judge_ci_low,delta_mean_judge_ci_high,delta_exact_rate_b_minus_a,delta_exact_ci_low,delta_exact_ci_high
+frontier_deepseek_v32_fewshot_cot,final_gap04_multitask_sigmoid,1.4653,-8.0948,10.2946,-0.58,-1.04,-0.12,-0.14,-0.26,-0.04
+baseline3_2_multitask,final_gap04_multitask_sigmoid,4.018,0.8444,7.8042,0.24,0.0,0.46,0.0,0.0,0.0
+baseline3_2_multitask,final_v2,-6.5982,-11.8407,-1.7307,-0.3,-0.64,0.04,-0.06,-0.14,0.0

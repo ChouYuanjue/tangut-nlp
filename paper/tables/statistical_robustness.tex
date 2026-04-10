@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Comparison ($B-A$) & $\Delta$ chrF++ & $\Delta$ Overall & $\Delta$ Exact \\
+\midrule
+Local -- Frontier & +1.47 [$-8.09$, 10.29] & $-0.58$ [$-1.04$, $-0.12$] & $-0.14$ [$-0.26$, $-0.04$] \\
+Local -- MT-SFT & +4.02 [0.84, 7.80] & +0.24 [0.00, 0.46] & 0.00 [0.00, 0.00] \\
+Legacy DPO -- MT-SFT & $-6.60$ [$-11.84$, $-1.73$] & $-0.30$ [$-0.64$, 0.04] & $-0.06$ [$-0.14$, 0.00] \\
+\bottomrule
+\end{tabular}
+\caption{Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes the mean reference-aware judge score, and ``Exact'' denotes exact-match rate. The table shows that the local chrF++ gain over multitask SFT is robust, while the frontier system retains a robust advantage over the best local model on reference-aware overall and exact match.}
+\label{tab:statistical-robustness}
+\end{table}

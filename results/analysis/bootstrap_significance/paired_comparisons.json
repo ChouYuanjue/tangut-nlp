@@ -1,0 +1,41 @@
+[
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "delta_corpus_chrf_b_minus_a": 1.4653,
+    "delta_corpus_chrf_ci_low": -8.0948,
+    "delta_corpus_chrf_ci_high": 10.2946,
+    "delta_mean_judge_overall_b_minus_a": -0.58,
+    "delta_mean_judge_ci_low": -1.04,
+    "delta_mean_judge_ci_high": -0.12,
+    "delta_exact_rate_b_minus_a": -0.14,
+    "delta_exact_ci_low": -0.26,
+    "delta_exact_ci_high": -0.04
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "delta_corpus_chrf_b_minus_a": 4.018,
+    "delta_corpus_chrf_ci_low": 0.8444,
+    "delta_corpus_chrf_ci_high": 7.8042,
+    "delta_mean_judge_overall_b_minus_a": 0.24,
+    "delta_mean_judge_ci_low": 0.0,
+    "delta_mean_judge_ci_high": 0.46,
+    "delta_exact_rate_b_minus_a": 0.0,
+    "delta_exact_ci_low": 0.0,
+    "delta_exact_ci_high": 0.0
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "delta_corpus_chrf_b_minus_a": -6.5982,
+    "delta_corpus_chrf_ci_low": -11.8407,
+    "delta_corpus_chrf_ci_high": -1.7307,
+    "delta_mean_judge_overall_b_minus_a": -0.3,
+    "delta_mean_judge_ci_low": -0.64,
+    "delta_mean_judge_ci_high": 0.04,
+    "delta_exact_rate_b_minus_a": -0.06,
+    "delta_exact_ci_low": -0.14,
+    "delta_exact_ci_high": 0.0
+  }
+]
