@@ -1,0 +1,6 @@
+{"input": "𘕕𗡪𘕋𗍓𗖍", "reference": "三個懺罪頌", "prediction": "三種罪懺根", "method": "final_gap04_multitask_sigmoid"}
+{"input": "𗏁𗴮𗖰𗚩", "reference": "五部經", "prediction": "五部經典", "method": "final_gap04_multitask_sigmoid"}
+{"input": "𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪", "reference": "正理滴之句義顯具", "prediction": "正理滴之句義顯了", "method": "final_gap04_multitask_sigmoid"}
+{"input": "𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇", "reference": "金剛王燈炬心中所持可", "prediction": "金剛王燈心以面持西", "method": "final_gap04_multitask_sigmoid"}
+{"input": "𗫡𗾈", "reference": "到賢", "prediction": "達賢", "method": "final_gap04_multitask_sigmoid"}
+{"input": "𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾", "reference": "大蓋白母之總持誦順要論", "prediction": "大蓋白母之總持門順要論", "method": "final_gap04_multitask_sigmoid"}

@@ -1,5 +1,17 @@
 [
   {
+    "method": "hybrid_select_frontier_local_gpt54",
+    "corpus_chrf": 30.0469,
+    "corpus_chrf_ci_low": 22.2899,
+    "corpus_chrf_ci_high": 39.2767,
+    "mean_judge_overall": 2.88,
+    "mean_judge_overall_ci_low": 2.5,
+    "mean_judge_overall_ci_high": 3.28,
+    "exact_match_rate": 0.26,
+    "exact_match_rate_ci_low": 0.14,
+    "exact_match_rate_ci_high": 0.38
+  },
+  {
     "method": "frontier_deepseek_v32_fewshot_cot",
     "corpus_chrf": 28.5403,
     "corpus_chrf_ci_low": 20.872,
@@ -12,18 +24,6 @@
     "exact_match_rate_ci_high": 0.36
   },
   {
-    "method": "final_gap04_multitask_sigmoid",
-    "corpus_chrf": 30.0055,
-    "corpus_chrf_ci_low": 22.0407,
-    "corpus_chrf_ci_high": 38.8623,
-    "mean_judge_overall": 2.22,
-    "mean_judge_overall_ci_low": 1.9,
-    "mean_judge_overall_ci_high": 2.56,
-    "exact_match_rate": 0.1,
-    "exact_match_rate_ci_low": 0.02,
-    "exact_match_rate_ci_high": 0.18
-  },
-  {
     "method": "final_v2",
     "corpus_chrf": 19.3893,
     "corpus_chrf_ci_low": 12.9729,
@@ -34,6 +34,18 @@
     "exact_match_rate": 0.04,
     "exact_match_rate_ci_low": 0.0,
     "exact_match_rate_ci_high": 0.1
+  },
+  {
+    "method": "final_gap04_multitask_sigmoid",
+    "corpus_chrf": 30.0055,
+    "corpus_chrf_ci_low": 22.0407,
+    "corpus_chrf_ci_high": 38.8623,
+    "mean_judge_overall": 2.22,
+    "mean_judge_overall_ci_low": 1.9,
+    "mean_judge_overall_ci_high": 2.56,
+    "exact_match_rate": 0.1,
+    "exact_match_rate_ci_low": 0.02,
+    "exact_match_rate_ci_high": 0.18
   },
   {
     "method": "baseline3_2_multitask",

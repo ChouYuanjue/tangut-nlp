@@ -15,11 +15,14 @@ import sacrebleu
 
 DEFAULT_METHODS = [
     "frontier_deepseek_v32_fewshot_cot",
+    "hybrid_select_frontier_local_gpt54",
     "baseline3_2_multitask",
     "final_gap04_multitask_sigmoid",
 ]
 
 DEFAULT_COMPARISONS = [
+    ("frontier_deepseek_v32_fewshot_cot", "hybrid_select_frontier_local_gpt54"),
+    ("final_gap04_multitask_sigmoid", "hybrid_select_frontier_local_gpt54"),
     ("frontier_deepseek_v32_fewshot_cot", "final_gap04_multitask_sigmoid"),
     ("baseline3_2_multitask", "final_gap04_multitask_sigmoid"),
     ("baseline3_2_multitask", "final_v2"),
