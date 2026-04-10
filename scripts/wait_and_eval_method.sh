@@ -9,6 +9,7 @@ Usage:
     --gpu 0 \
     --model checkpoints/dpo_xxx/final \
     --method final_xxx \
+    [--inference-backend hf] \
     [--poll-seconds 60]
 EOF
 }
@@ -16,6 +17,7 @@ EOF
 GPU=""
 MODEL=""
 METHOD=""
+INFERENCE_BACKEND="vllm"
 POLL_SECONDS="60"
 
 while [[ $# -gt 0 ]]; do
@@ -30,6 +32,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --method)
       METHOD="$2"
+      shift 2
+      ;;
+    --inference-backend)
+      INFERENCE_BACKEND="$2"
       shift 2
       ;;
     --poll-seconds)
@@ -82,6 +88,7 @@ if [[ ! -f "$PRED_PATH" ]]; then
     --test-set data/eval/test_set.jsonl \
     --output "$PRED_PATH" \
     --method-name "$METHOD" \
+    --backend "$INFERENCE_BACKEND" \
     --tensor-parallel 1
 else
   echo "[$(date -u +%FT%TZ)] Predictions already exist: $PRED_PATH"

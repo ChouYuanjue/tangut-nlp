@@ -5,17 +5,17 @@
 \toprule
 Method & Exact Match & Contam. Rate & Suffix Preserve & Len. Ratio \\
 \midrule
-Dict prompt & 0/50 & 0.00 & 1.83 & 3/27 \\
-UNK-SFT & 3/50 & 0.06 & 17/27 & 1.05 \\
+Dict prompt & 0/50 & 0.00 & 3/27 & 1.83 \\
+UNK-SFT & 3/50 & 0.06 & 17/27 & \textbf{1.05} \\
 MT-SFT & \textbf{5/50} & 0.02 & 19/27 & 1.10 \\
 Legacy DPO & 2/50 & 0.18 & 18/27 & 1.88 \\
 MT-DPO g0.2 sig & \textbf{5/50} & \textbf{0.00} & 19/27 & 1.74 \\
 MT-DPO g0.2 rob & 4/50 & 0.14 & \textbf{23/27} & 1.58 \\
-MT-DPO g0.4 sig & \textbf{5/50} & 0.04 & 22/27 & \textbf{1.12} \\
+MT-DPO g0.4 sig & \textbf{5/50} & 0.04 & 22/27 & 1.12 \\
 MT-DPO g0.4 rob & \textbf{5/50} & 0.04 & 22/27 & 1.26 \\
 Human ref. & 50/50 & 0.00 & 27/27 & 1.00 \\
 \bottomrule
 \end{tabular}
-\caption{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. In the last two columns, the table reports suffix-preservation count first and length ratio second. Bold marks the best learned-system value in each column, excluding the human reference. The new gap-$0.4$ variants keep most of the suffix gains of multitask-base DPO while restoring near-reference length and sharply reducing contamination relative to their gap-$0.2$ counterparts.}
+\caption{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. In the last two columns, the table reports suffix-preservation count first and length ratio second. Bold marks the best learned-system value in each column, excluding prompt-only baselines and the human reference. The new gap-$0.4$ variants keep most of the suffix gains of multitask-base DPO while restoring near-reference length and sharply reducing contamination relative to their gap-$0.2$ counterparts.}
 \label{tab:diagnostics}
 \end{table}

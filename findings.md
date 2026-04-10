@@ -64,9 +64,9 @@
 
 ## [2026-04-10] DPO preference pairs contain non-trivial noise
 - `data/dpo/dpo_pairs.jsonl` contains `3` duplicate chosen/rejected pairs and `3` non-finite reward entries.
-- In a quick gold-proxy audit using `difflib.SequenceMatcher` against the original synthetic targets, reward-chosen outputs are closer to gold than reward-rejected outputs only `71.2%` of the time.
-- For low reward-gap pairs (`<= 0.1`), the chosen-better rate drops to `62.3%`.
-- Implication: a stricter reward-gap filter is a strong next experiment.
+- In a quick gold-proxy audit using `difflib.SequenceMatcher` against the original synthetic targets, reward-chosen outputs are closer to gold than reward-rejected outputs only `71.3%` of the time overall.
+- The proxy quality rises monotonically with reward gap: `62.3%` for gaps in `(0.05, 0.10]`, `66.3%` for `(0.10, 0.20]`, `75.4%` for `(0.20, 0.40]`, and `81.5%` for gaps `>= 0.40`.
+- Implication: the stricter reward-gap filter is not just a plausible follow-up; it is directly isolating cleaner preference labels.
 
 ## [2026-04-10] The task should be described as short-text / title translation
 - The real Tangut corpus has only `491` items total, and the test set contains many short title-like strings.

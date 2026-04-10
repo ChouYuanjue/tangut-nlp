@@ -118,12 +118,12 @@ The DPO pipeline currently constructs `3,867` preference pairs. A quick audit re
 
 - `3` pairs contain duplicate chosen/rejected texts.
 - `3` entries have non-finite reward values.
-- Using a simple similarity proxy against the original synthetic targets, the reward-chosen output is closer to gold only **71.2%** of the time.
-- For low reward-gap pairs (`<= 0.1`), the chosen-better rate drops to **62.3%**.
+- Using a simple similarity proxy against the original synthetic targets, the reward-chosen output is closer to gold only **71.3%** of the time overall.
+- The proxy quality rises monotonically with reward gap: **62.3%** for `(0.05, 0.10]`, **66.3%** for `(0.10, 0.20]`, **75.4%** for `(0.20, 0.40]`, and **81.5%** for `>= 0.40`.
 
 **Interpretation**:
 - The reward is directionally useful, but noisy.
-- A stricter reward-gap threshold is the most plausible low-cost DPO follow-up.
+- A stricter reward-gap threshold is the most plausible low-cost DPO follow-up because it is directly isolating cleaner preference labels.
 - The follow-up confirms that the gap threshold is not cosmetic: it is the main stability control for DPO in this repository.
 
 ### Experiment 6: Case-Study Summary

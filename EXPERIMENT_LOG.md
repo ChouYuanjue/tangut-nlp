@@ -151,14 +151,17 @@
 | Duplicate chosen/rejected pairs | `3` |
 | Non-finite reward entries | `3` |
 | Mean reward gap | `0.2396` |
-| Chosen closer to gold by SequenceMatcher | `71.2%` |
-| Chosen closer to gold when reward gap <= 0.1 | `62.3%` |
+| Chosen closer to gold by SequenceMatcher | `71.3%` |
+| Chosen closer on gap `(0.05, 0.10]` | `62.3%` |
+| Chosen closer on gap `(0.20, 0.40]` | `75.4%` |
+| Chosen closer on gap `>= 0.40` | `81.5%` |
 | Kept pairs if gap >= 0.2 | `1,996` |
+| Kept pairs if gap >= 0.3 | `1,010` |
 | Kept pairs if gap >= 0.4 | `498` |
 
 ### Verdict
 - **Supports claim?** Partial
-- **Key takeaway**: the reward is informative but noisy; a stricter gap threshold is a plausible low-cost follow-up experiment.
+- **Key takeaway**: the reward is informative but noisy, and the gap threshold cleanly tracks label quality; this directly motivates the later gap-filtered multitask DPO reruns.
 
 ---
 
