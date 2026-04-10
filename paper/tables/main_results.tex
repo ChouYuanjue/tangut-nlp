@@ -5,9 +5,13 @@
 \toprule
 Method & Lex $\uparrow$ & PPL $\downarrow$ & chrF++ $\uparrow$ & Sem $\uparrow$ & Flu $\uparrow$ \\
 \midrule
+\multicolumn{6}{l}{\textit{Prompt-only}} \\
 Zero-shot & 0.1165 & 20.21 & 0.19 & 1.00 & 1.56 \\
 Dict prompt & 0.8187 & 4474.44 & 6.13 & 2.30 & 2.40 \\
 Dict+CoT & 0.8723 & 18119.16 & 7.59 & 2.30 & 1.88 \\
+\textit{Frontier DeepSeek} & 0.6234 & 7438.72 & 28.54 & 2.62 & 2.78 \\
+\midrule
+\multicolumn{6}{l}{\textit{Local learned}} \\
 Mixed-SFT & 0.3192 & 298684.91 & 17.85 & 1.42 & 1.88 \\
 UNK-SFT & 0.3514 & 11031.18 & 22.11 & 1.66 & 1.96 \\
 MT-SFT & 0.4839 & \textbf{3322.93} & 25.99 & 1.70 & \textbf{2.26} \\
@@ -17,9 +21,10 @@ MT-DPO g0.2 sig & \textbf{0.5694} & 303438.00 & 20.93 & \textbf{1.88} & 1.86 \\
 MT-DPO g0.2 rob & 0.5249 & 238892.42 & 27.67 & \textbf{1.88} & 1.88 \\
 MT-DPO g0.4 sig & 0.4833 & 9573.71 & \textbf{30.01} & 1.84 & 2.04 \\
 MT-DPO g0.4 rob & 0.4547 & 20012.69 & 27.52 & 1.74 & 2.08 \\
+\midrule
 Human ref. & 0.5733 & 1646139.34 & 100.00 & 2.24 & 2.34 \\
 \bottomrule
 \end{tabular}
-\caption{Repository-level metrics on the 50-example Tangut test set. Here \texttt{g0.2} and \texttt{g0.4} denote minimum preference-gap thresholds of 0.2 and 0.4. Bold marks the best learned-system value in each column, excluding prompt-only baselines and the human reference. The strongest pure SFT baseline is MT-SFT, but stricter gap-$0.4$ filtering changes the DPO story again: MT-DPO g0.4 sig gives the highest learned-system chrF++ and later ties for the best reference-aware overall score.}
+\caption{Repository-level metrics on the 50-example Tangut test set. The Frontier DeepSeek row is a proprietary prompt-only upper bound using dictionary grounding plus four development-set few-shot exemplars. Here \texttt{g0.2} and \texttt{g0.4} denote minimum preference-gap thresholds of 0.2 and 0.4. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The key comparison is no longer ``prompting versus training'' in the abstract: frontier prompting is strongest on several reference-free metrics, but strict gap-$0.4$ multitask DPO still gives the best non-reference chrF++ and the strongest local raw-overlap result.}
 \label{tab:main-results}
 \end{table}

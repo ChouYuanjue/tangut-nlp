@@ -78,9 +78,20 @@ class PerplexityScorer:
         if not scores:
             return {"mean_ppl": 0.0, "min_ppl": 0.0, "max_ppl": 0.0, "scores": []}
 
+        finite_scores = [score for score in scores if math.isfinite(score)]
+        if not finite_scores:
+            return {
+                "mean_ppl": None,
+                "min_ppl": None,
+                "max_ppl": None,
+                "scores": scores,
+                "num_nonfinite": len(scores),
+            }
+
         return {
-            "mean_ppl": sum(scores) / len(scores),
-            "min_ppl": min(scores),
-            "max_ppl": max(scores),
+            "mean_ppl": sum(finite_scores) / len(finite_scores),
+            "min_ppl": min(finite_scores),
+            "max_ppl": max(finite_scores),
             "scores": scores,
+            "num_nonfinite": len(scores) - len(finite_scores),
         }

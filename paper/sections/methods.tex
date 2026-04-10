@@ -2,9 +2,11 @@
 
 \subsection{Inference-only baselines}
 
-The first family contains no weight updates. \texttt{baseline1} directly prompts the base model with the Tangut string. \texttt{baseline2} augments the prompt with dictionary glosses. \texttt{baseline2\_1\_cot} further restructures the prompt into a three-step process intended to encourage alignment, literal drafting, and rewriting. This family is closest in spirit to lexicon-augmented or terminology-aware MT, except that the lexicon is injected through prompting rather than through decoding constraints or model-side features \cite{chen2017incorporating, hokamp2017lexically}.
+The first family contains no weight updates. \texttt{baseline1} directly prompts the local base model with the Tangut string. \texttt{baseline2} augments the prompt with dictionary glosses. \texttt{baseline2\_1\_cot} further restructures the prompt into a three-step process intended to encourage alignment, literal drafting, and rewriting. This family is closest in spirit to lexicon-augmented or terminology-aware MT, except that the lexicon is injected through prompting rather than through decoding constraints or model-side features \cite{chen2017incorporating, hokamp2017lexically}.
 
-These methods are important because they show what can be achieved from symbol injection alone. In the current results, dictionary prompting is substantially better than zero-shot generation, but it often expands compact titles into explanatory paraphrases rather than reconstructing the reference form.
+We also add a deliberately stronger prompt-only comparison based on DeepSeek-V3.2 with few-shot dictionary prompting. This baseline is served through OpenRouter, receives the same dictionary gloss construction, uses a stricter title-only system prompt, and is given four development-set few-shot exemplars. The goal is not to build a straw baseline but to answer a reviewer-style question directly: if a modern frontier Chinese model with carefully engineered prompting already solves the task, then claims about the necessity of local adaptation should be narrowed accordingly.
+
+These methods are important because they show what can be achieved from symbol injection alone. In the current results, local dictionary prompting is substantially better than zero-shot generation, but it often expands compact titles into explanatory paraphrases rather than reconstructing the reference form. The frontier DeepSeek variant shows that prompt-only inference becomes much stronger once both the model and the prompt design are upgraded aggressively.
 
 \subsection{Synthetic SFT baselines}
 

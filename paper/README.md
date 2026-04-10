@@ -12,8 +12,21 @@ This directory contains a compile-friendly LaTeX draft derived from the current 
 
 ```bash
 cd paper
-pdflatex main.tex
-pdflatex main.tex
+lualatex main.tex
+lualatex main.tex
+```
+
+The draft now expects a Unicode engine for inline Chinese examples:
+
+- `lualatex`: supported on the current machine
+- `xelatex`: also works on systems where XeTeX is installed
+
+If `xelatex` is installed on your machine, you can compile with:
+
+```bash
+cd paper
+xelatex main.tex
+xelatex main.tex
 ```
 
 ## Pending before submission

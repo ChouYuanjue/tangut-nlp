@@ -27,6 +27,7 @@ from typing import Iterable, List
 DEFAULT_METHODS = [
     "baseline3_1_unk",
     "baseline3_2_multitask",
+    "frontier_deepseek_v32_fewshot_cot",
     "final_gap02_multitask_sigmoid",
     "final_gap02_multitask_robustwpo",
     "final_gap04_multitask_sigmoid",
@@ -193,6 +194,9 @@ def main() -> None:
     pairings = [
         ("baseline3_2_multitask", "baseline3_1_unk"),
         ("baseline3_2_multitask", "final_v2"),
+        ("frontier_deepseek_v32_fewshot_cot", "baseline3_2_multitask"),
+        ("frontier_deepseek_v32_fewshot_cot", "final_gap04_multitask_sigmoid"),
+        ("frontier_deepseek_v32_fewshot_cot", "final_gap04_multitask_robustwpo"),
         ("baseline3_2_multitask", "final_gap02_multitask_sigmoid"),
         ("baseline3_2_multitask", "final_gap02_multitask_robustwpo"),
         ("baseline3_2_multitask", "final_gap04_multitask_sigmoid"),

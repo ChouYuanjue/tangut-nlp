@@ -1,0 +1,65 @@
+{
+  "num_pairs": 3867,
+  "duplicate_pairs": 3,
+  "nonfinite_reward_pairs": 3,
+  "mean_reward_gap": 0.2396042154932047,
+  "min_reward_gap": 0.05000070145290558,
+  "max_reward_gap": 1.02475204944587,
+  "gold_proxy_found": 3864,
+  "chosen_better_than_rejected": 2754,
+  "rejected_better_than_chosen": 1068,
+  "equal_proxy_similarity": 42,
+  "chosen_better_rate": 0.7127329192546584,
+  "low_gap_total": 514,
+  "low_gap_chosen_better": 320,
+  "low_gap_chosen_better_rate": 0.622568093385214,
+  "gap_threshold_counts": {
+    "ge_0.05": 3864,
+    "ge_0.10": 3350,
+    "ge_0.20": 1996,
+    "ge_0.30": 1010,
+    "ge_0.40": 498
+  },
+  "gap_bin_proxy_quality": {
+    "le_0.05": {
+      "count": 0,
+      "gold_proxy_found": 0,
+      "chosen_better": 0,
+      "rejected_better": 0,
+      "equal": 0,
+      "chosen_better_rate": null
+    },
+    "0.05_0.10": {
+      "count": 514,
+      "gold_proxy_found": 514,
+      "chosen_better": 320,
+      "rejected_better": 182,
+      "equal": 12,
+      "chosen_better_rate": 0.622568093385214
+    },
+    "0.10_0.20": {
+      "count": 1354,
+      "gold_proxy_found": 1354,
+      "chosen_better": 898,
+      "rejected_better": 444,
+      "equal": 12,
+      "chosen_better_rate": 0.6632200886262924
+    },
+    "0.20_0.40": {
+      "count": 1498,
+      "gold_proxy_found": 1498,
+      "chosen_better": 1130,
+      "rejected_better": 354,
+      "equal": 14,
+      "chosen_better_rate": 0.7543391188251002
+    },
+    "ge_0.40": {
+      "count": 498,
+      "gold_proxy_found": 498,
+      "chosen_better": 406,
+      "rejected_better": 88,
+      "equal": 4,
+      "chosen_better_rate": 0.8152610441767069
+    }
+  }
+}

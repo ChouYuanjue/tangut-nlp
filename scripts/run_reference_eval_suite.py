@@ -18,6 +18,7 @@ DEFAULT_METHODS = [
     "baseline2",
     "baseline3_1_unk",
     "baseline3_2_multitask",
+    "frontier_deepseek_v32_fewshot_cot",
     "final_gap02_multitask_sigmoid",
     "final_gap02_multitask_robustwpo",
     "final_gap04_multitask_sigmoid",

@@ -1,0 +1,626 @@
+[
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "all",
+    "a_wins": 14,
+    "ties": 26,
+    "b_wins": 10
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "title_suffix",
+    "a_wins": 6,
+    "ties": 17,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "no_title_suffix",
+    "a_wins": 8,
+    "ties": 9,
+    "b_wins": 6
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "len_le_6",
+    "a_wins": 7,
+    "ties": 6,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "len_7_9",
+    "a_wins": 5,
+    "ties": 10,
+    "b_wins": 3
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "baseline3_1_unk",
+    "subset": "len_ge_10",
+    "a_wins": 2,
+    "ties": 10,
+    "b_wins": 3
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "all",
+    "a_wins": 18,
+    "ties": 24,
+    "b_wins": 8
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "title_suffix",
+    "a_wins": 9,
+    "ties": 15,
+    "b_wins": 3
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "no_title_suffix",
+    "a_wins": 9,
+    "ties": 9,
+    "b_wins": 5
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "len_le_6",
+    "a_wins": 9,
+    "ties": 4,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "len_7_9",
+    "a_wins": 5,
+    "ties": 11,
+    "b_wins": 2
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_v2",
+    "subset": "len_ge_10",
+    "a_wins": 4,
+    "ties": 9,
+    "b_wins": 2
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "all",
+    "a_wins": 27,
+    "ties": 17,
+    "b_wins": 6
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "title_suffix",
+    "a_wins": 14,
+    "ties": 9,
+    "b_wins": 4
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "no_title_suffix",
+    "a_wins": 13,
+    "ties": 8,
+    "b_wins": 2
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "len_le_6",
+    "a_wins": 7,
+    "ties": 7,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "len_7_9",
+    "a_wins": 10,
+    "ties": 7,
+    "b_wins": 1
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "baseline3_2_multitask",
+    "subset": "len_ge_10",
+    "a_wins": 10,
+    "ties": 3,
+    "b_wins": 2
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "all",
+    "a_wins": 20,
+    "ties": 23,
+    "b_wins": 7
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "title_suffix",
+    "a_wins": 12,
+    "ties": 11,
+    "b_wins": 4
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "no_title_suffix",
+    "a_wins": 8,
+    "ties": 12,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_le_6",
+    "a_wins": 6,
+    "ties": 8,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_7_9",
+    "a_wins": 6,
+    "ties": 10,
+    "b_wins": 2
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_ge_10",
+    "a_wins": 8,
+    "ties": 5,
+    "b_wins": 2
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "all",
+    "a_wins": 18,
+    "ties": 24,
+    "b_wins": 8
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "title_suffix",
+    "a_wins": 11,
+    "ties": 11,
+    "b_wins": 5
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "no_title_suffix",
+    "a_wins": 7,
+    "ties": 13,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_le_6",
+    "a_wins": 5,
+    "ties": 9,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_7_9",
+    "a_wins": 7,
+    "ties": 8,
+    "b_wins": 3
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_ge_10",
+    "a_wins": 6,
+    "ties": 7,
+    "b_wins": 2
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "all",
+    "a_wins": 7,
+    "ties": 25,
+    "b_wins": 18
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "title_suffix",
+    "a_wins": 5,
+    "ties": 14,
+    "b_wins": 8
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "no_title_suffix",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 10
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "len_le_6",
+    "a_wins": 2,
+    "ties": 8,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "len_7_9",
+    "a_wins": 3,
+    "ties": 8,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_sigmoid",
+    "subset": "len_ge_10",
+    "a_wins": 2,
+    "ties": 9,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "all",
+    "a_wins": 7,
+    "ties": 30,
+    "b_wins": 13
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "title_suffix",
+    "a_wins": 3,
+    "ties": 19,
+    "b_wins": 5
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "no_title_suffix",
+    "a_wins": 4,
+    "ties": 11,
+    "b_wins": 8
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "len_le_6",
+    "a_wins": 4,
+    "ties": 6,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "len_7_9",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 5
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap02_multitask_robustwpo",
+    "subset": "len_ge_10",
+    "a_wins": 1,
+    "ties": 13,
+    "b_wins": 1
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "all",
+    "a_wins": 4,
+    "ties": 31,
+    "b_wins": 15
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "title_suffix",
+    "a_wins": 2,
+    "ties": 17,
+    "b_wins": 8
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "no_title_suffix",
+    "a_wins": 2,
+    "ties": 14,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_le_6",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_7_9",
+    "a_wins": 0,
+    "ties": 11,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_ge_10",
+    "a_wins": 2,
+    "ties": 9,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "all",
+    "a_wins": 4,
+    "ties": 29,
+    "b_wins": 17
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "title_suffix",
+    "a_wins": 2,
+    "ties": 16,
+    "b_wins": 9
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "no_title_suffix",
+    "a_wins": 2,
+    "ties": 13,
+    "b_wins": 8
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_le_6",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_7_9",
+    "a_wins": 1,
+    "ties": 10,
+    "b_wins": 7
+  },
+  {
+    "method_a": "baseline3_2_multitask",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_ge_10",
+    "a_wins": 1,
+    "ties": 8,
+    "b_wins": 6
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "all",
+    "a_wins": 11,
+    "ties": 30,
+    "b_wins": 9
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "title_suffix",
+    "a_wins": 4,
+    "ties": 17,
+    "b_wins": 6
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "no_title_suffix",
+    "a_wins": 7,
+    "ties": 13,
+    "b_wins": 3
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_le_6",
+    "a_wins": 7,
+    "ties": 8,
+    "b_wins": 2
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_7_9",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 5
+  },
+  {
+    "method_a": "final_gap02_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_sigmoid",
+    "subset": "len_ge_10",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 2
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "all",
+    "a_wins": 9,
+    "ties": 27,
+    "b_wins": 14
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "title_suffix",
+    "a_wins": 3,
+    "ties": 16,
+    "b_wins": 8
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "no_title_suffix",
+    "a_wins": 6,
+    "ties": 11,
+    "b_wins": 6
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_le_6",
+    "a_wins": 6,
+    "ties": 8,
+    "b_wins": 3
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_7_9",
+    "a_wins": 2,
+    "ties": 11,
+    "b_wins": 5
+  },
+  {
+    "method_a": "final_gap02_multitask_robustwpo",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_ge_10",
+    "a_wins": 1,
+    "ties": 8,
+    "b_wins": 6
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "all",
+    "a_wins": 6,
+    "ties": 38,
+    "b_wins": 6
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "title_suffix",
+    "a_wins": 4,
+    "ties": 19,
+    "b_wins": 4
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "no_title_suffix",
+    "a_wins": 2,
+    "ties": 19,
+    "b_wins": 2
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_le_6",
+    "a_wins": 2,
+    "ties": 14,
+    "b_wins": 1
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_7_9",
+    "a_wins": 3,
+    "ties": 13,
+    "b_wins": 2
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "final_gap04_multitask_robustwpo",
+    "subset": "len_ge_10",
+    "a_wins": 1,
+    "ties": 11,
+    "b_wins": 3
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "all",
+    "a_wins": 12,
+    "ties": 32,
+    "b_wins": 6
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "title_suffix",
+    "a_wins": 8,
+    "ties": 17,
+    "b_wins": 2
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "no_title_suffix",
+    "a_wins": 4,
+    "ties": 15,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "len_le_6",
+    "a_wins": 4,
+    "ties": 9,
+    "b_wins": 4
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "len_7_9",
+    "a_wins": 3,
+    "ties": 14,
+    "b_wins": 1
+  },
+  {
+    "method_a": "baseline3_1_unk",
+    "method_b": "final_v2",
+    "subset": "len_ge_10",
+    "a_wins": 5,
+    "ties": 9,
+    "b_wins": 1
+  }
+]

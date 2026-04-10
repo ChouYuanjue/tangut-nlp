@@ -1,5 +1,7 @@
+% !TEX program = lualatex
 \documentclass[11pt]{article}
 
+\usepackage{iftex}
 \usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
 \usepackage{array}
@@ -7,6 +9,20 @@
 \usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+
+\ifPDFTeX
+\PackageError{tangut-paper}{This draft requires LuaLaTeX or XeLaTeX for inline Chinese examples}{Use lualatex main.tex on this machine, or xelatex main.tex on a system with XeTeX installed.}
+\else
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+\newfontfamily\CJKseriffont{Noto Serif CJK SC}
+\newfontfamily\CJKsansfont{Noto Sans CJK SC}
+\newfontfamily\CJKmonofont{Noto Sans Mono CJK SC}
+\newcommand{\zh}[1]{{\CJKseriffont #1}}
+\newcommand{\zhmono}[1]{{\CJKmonofont #1}}
+\fi
 
 \title{Structured Synthetic Supervision and Metric Pitfalls in Ultra-Low-Resource Tangut Short-Text Translation}
 \author{Anonymous Authors}

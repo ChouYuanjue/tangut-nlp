@@ -275,6 +275,7 @@ def main() -> None:
             ("baseline3_1_unk", Path(args.results_dir) / "baseline3_1_unk" / "predictions.jsonl"),
             ("baseline3_2_multitask", Path(args.results_dir) / "baseline3_2_multitask" / "predictions_cleaned.jsonl"),
             ("baseline3_3_semantic", Path(args.results_dir) / "baseline3_3_semantic" / "predictions.jsonl"),
+            ("frontier_deepseek_v32_fewshot_cot", Path(args.results_dir) / "frontier_deepseek_v32_fewshot_cot" / "predictions.jsonl"),
             ("final", Path(args.results_dir) / "final" / "predictions.jsonl"),
             ("final_v2", Path(args.results_dir) / "final_v2" / "predictions.jsonl"),
             ("final_gap02_multitask_sigmoid", Path(args.results_dir) / "final_gap02_multitask_sigmoid" / "predictions.jsonl"),
