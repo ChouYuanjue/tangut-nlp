@@ -33,7 +33,6 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Ancient and historical language processing.}{2}{section*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Synthetic supervision and lexical grounding.}{2}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Preference optimization.}{2}{section*.3}\protected@file@percent }
 \citation{popovic2017chrfpp}
 \citation{rei2020comet}
 \citation{kepler2019openkiwi}
@@ -42,6 +41,7 @@
 \citation{kepler2019openkiwi}
 \citation{chen2017incorporating}
 \citation{hokamp2017lexically}
+\@writefile{toc}{\contentsline {paragraph}{Preference optimization.}{3}{section*.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Evaluation for non-standard translation outputs.}{3}{section*.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Task Setting}{3}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{3}{section.4}\protected@file@percent }
@@ -51,29 +51,29 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Synthetic SFT baselines}{4}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Preference optimization}{4}{subsection.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Main Results}{4}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Analysis}{4}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Reference-aligned diagnostics}{4}{subsection.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Repository-level metrics on the 50-example Tangut test set. The best non-reference result is \texttt  {baseline3\_2\_multitask}.}}{5}{table.1}\protected@file@percent }
-\newlabel{tab:main-results}{{1}{5}{Repository-level metrics on the 50-example Tangut test set. The best non-reference result is \texttt {baseline3\_2\_multitask}}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination.}}{5}{table.2}\protected@file@percent }
-\newlabel{tab:diagnostics}{{2}{5}{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination}{table.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Reference-aware judging confirms the main ranking}{5}{subsection.6.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output. \texttt  {baseline3\_2\_multitask} is the strongest non-reference system on agreement, faithfulness, and overall quality.}}{6}{table.3}\protected@file@percent }
-\newlabel{tab:reference-aware-eval}{{3}{6}{Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output. \texttt {baseline3\_2\_multitask} is the strongest non-reference system on agreement, faithfulness, and overall quality}{table.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Human-reference anchor}{6}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Why the current DPO fails}{6}{subsection.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion and Limitations}{6}{section.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Repository-level metrics on the 50-example Tangut test set. The strongest pure SFT baseline is \texttt  {baseline3\_2\_multitask}, but stricter gap-$0.4$ filtering changes the DPO story again: \texttt  {final\_gap04\_multitask\_sigmoid} now gives the highest learned-system chrF++ and later ties for the best reference-aware overall score.}}{5}{table.1}\protected@file@percent }
+\newlabel{tab:main-results}{{1}{5}{Repository-level metrics on the 50-example Tangut test set. The strongest pure SFT baseline is \texttt {baseline3\_2\_multitask}, but stricter gap-$0.4$ filtering changes the DPO story again: \texttt {final\_gap04\_multitask\_sigmoid} now gives the highest learned-system chrF++ and later ties for the best reference-aware overall score}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Analysis}{5}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Reference-aligned diagnostics}{5}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. The new gap-$0.4$ variants keep most of the suffix gains of multitask-base DPO while restoring near-reference length and sharply reducing contamination relative to their gap-$0.2$ counterparts.}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:diagnostics}{{2}{6}{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. The new gap-$0.4$ variants keep most of the suffix gains of multitask-base DPO while restoring near-reference length and sharply reducing contamination relative to their gap-$0.2$ counterparts}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. The best overall score is now shared by three multitask-base DPO variants. Among them, the stricter gap-$0.4$ runs win the tie-break dimensions: the strict sigmoid model leads on reference agreement and source faithfulness, while the strict robust+weighted model leads on title-style fitness.}}{6}{table.3}\protected@file@percent }
+\newlabel{tab:reference-aware-eval}{{3}{6}{Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. The best overall score is now shared by three multitask-base DPO variants. Among them, the stricter gap-$0.4$ runs win the tie-break dimensions: the strict sigmoid model leads on reference agreement and source faithfulness, while the strict robust+weighted model leads on title-style fitness}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Reference-aware judging changes the DPO story}{6}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Human-reference anchor}{7}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Legacy DPO fails for different reasons than multitask-base DPO}{7}{subsection.6.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Lightweight audit of the current DPO pair construction pipeline. Lower-gap pairs are noticeably noisier.}}{8}{table.4}\protected@file@percent }
+\newlabel{tab:dpo-audit}{{4}{8}{Lightweight audit of the current DPO pair construction pipeline. Lower-gap pairs are noticeably noisier}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion and Limitations}{8}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{8}{section.8}\protected@file@percent }
 \bibcite{sommerschield2023ancient}{1}
 \bibcite{wang2023evahan}{2}
 \bibcite{domingo2018modernizing}{3}
 \bibcite{sennrich2016monolingual}{4}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Lightweight audit of the current DPO pair construction pipeline. Lower-gap pairs are noticeably noisier.}}{7}{table.4}\protected@file@percent }
-\newlabel{tab:dpo-audit}{{4}{7}{Lightweight audit of the current DPO pair construction pipeline. Lower-gap pairs are noticeably noisier}{table.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{7}{section.8}\protected@file@percent }
 \bibcite{chen2017incorporating}{5}
 \bibcite{hokamp2017lexically}{6}
 \bibcite{rafailov2023dpo}{7}
 \bibcite{popovic2017chrfpp}{8}
 \bibcite{rei2020comet}{9}
 \bibcite{kepler2019openkiwi}{10}
-\gdef \@abspage@last{8}
+\gdef \@abspage@last{9}

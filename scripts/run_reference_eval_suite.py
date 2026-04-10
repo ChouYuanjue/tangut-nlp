@@ -18,6 +18,10 @@ DEFAULT_METHODS = [
     "baseline2",
     "baseline3_1_unk",
     "baseline3_2_multitask",
+    "final_gap02_multitask_sigmoid",
+    "final_gap02_multitask_robustwpo",
+    "final_gap04_multitask_sigmoid",
+    "final_gap04_multitask_robustwpo",
     "final_v2",
     "human_reference",
 ]
@@ -33,6 +37,19 @@ def prediction_path(results_dir: Path, method: str) -> Path:
         "baseline3_2_multitask": results_dir / method / "predictions_cleaned.jsonl",
     }
     return custom.get(method, results_dir / method / "predictions.jsonl")
+
+
+def existing_result_path(results_dir: Path, output_dir: Path, method: str) -> Path | None:
+    candidates = [
+        output_dir / f"{method}.json",
+        results_dir / "reference_eval_suite_fixedkey" / f"{method}.json",
+        results_dir / "reference_eval_suite" / f"{method}.json",
+        results_dir / method / "reference_aware_judge.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return None
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -60,6 +77,11 @@ def main() -> None:
         default="results/reference_eval_suite",
         help="Directory to store per-method and summary outputs.",
     )
+    parser.add_argument(
+        "--reuse-existing",
+        action="store_true",
+        help="Reuse existing per-method judge JSON when available instead of scoring again.",
+    )
     parser.add_argument("--mock", action="store_true")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--api-key", default=None, help="Optional explicit Azure API key override.")
@@ -67,37 +89,44 @@ def main() -> None:
 
     results_dir = Path(args.results_dir)
     test_set = load_jsonl(Path(args.test_set))
-    judge = ReferenceAwareJudge(api_key=args.api_key, mock=args.mock, timeout=args.timeout)
+    judge = None if args.reuse_existing else ReferenceAwareJudge(
+        api_key=args.api_key, mock=args.mock, timeout=args.timeout
+    )
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     summary_rows = []
     for method in args.methods:
-        pred_path = prediction_path(results_dir, method)
-        if not pred_path.exists():
-            raise FileNotFoundError(f"Missing predictions for {method}: {pred_path}")
+        existing_path = existing_result_path(results_dir, output_dir, method) if args.reuse_existing else None
+        if existing_path is not None:
+            print(f"\n=== Reusing existing reference-aware judge output: {method} ===")
+            result = json.loads(existing_path.read_text(encoding="utf-8"))
+        else:
+            pred_path = prediction_path(results_dir, method)
+            if not pred_path.exists():
+                raise FileNotFoundError(f"Missing predictions for {method}: {pred_path}")
 
-        predictions = load_jsonl(pred_path)
-        if len(predictions) != len(test_set):
-            raise ValueError(
-                f"Prediction/reference length mismatch for {method}: "
-                f"{len(predictions)} vs {len(test_set)}"
-            )
+            predictions = load_jsonl(pred_path)
+            if len(predictions) != len(test_set):
+                raise ValueError(
+                    f"Prediction/reference length mismatch for {method}: "
+                    f"{len(predictions)} vs {len(test_set)}"
+                )
 
-        items = []
-        for pred, ref in zip(predictions, test_set):
-            items.append(
-                {
-                    "input": pred["input"],
-                    "reference": ref["output"],
-                    "prediction": pred["prediction"],
-                    "method": method,
-                }
-            )
+            items = []
+            for pred, ref in zip(predictions, test_set):
+                items.append(
+                    {
+                        "input": pred["input"],
+                        "reference": ref["output"],
+                        "prediction": pred["prediction"],
+                        "method": method,
+                    }
+                )
 
-        print(f"\n=== Running reference-aware judge: {method} ===")
-        result = judge.score_batch(items)
+            print(f"\n=== Running reference-aware judge: {method} ===")
+            result = judge.score_batch(items)
 
         out_path = output_dir / f"{method}.json"
         with out_path.open("w", encoding="utf-8") as f:

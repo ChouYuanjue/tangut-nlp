@@ -9,10 +9,10 @@
 ## [2026-04-10] Structured multitask SFT is the strongest pure SFT baseline in the current snapshot
 - `baseline3_2_multitask` remains the best non-DPO training result and the strongest pure SFT baseline.
 - Evidence:
-  - chrF++ `25.99`, the highest among non-reference systems.
+  - chrF++ `25.99`, the highest among pure SFT systems.
   - Exact match `5/50`, higher than `baseline3_1_unk` (`3/50`) and `final_v2` (`2/50`).
-  - Output contamination `1/50` after cleaning, much better than DPO systems.
-  - Title-suffix preservation `19/27`, the strongest among evaluated non-reference systems.
+  - Output contamination `1/50` after cleaning, much better than legacy or loose-filter DPO systems.
+  - Title-suffix preservation `19/27`, which remains strong even after the later DPO follow-ups.
 - Implication: the paper should still headline explicit structural alignment as the key base recipe, but no longer claim that DPO is uniformly worse.
 
 ## [2026-04-10] Input purity helps more than noisy semantic projection in the current setup
@@ -25,9 +25,9 @@
 - `baseline2` and `baseline2_1_cot` score higher on dictionary coverage and LLM-judge semantic scores than several more reference-aligned systems, despite much lower chrF++ and exact match.
 - Implication: lexical coverage, PPL, and the current dictionary-conditioned LLM judge must be downgraded to diagnostic metrics.
 
-## [2026-04-10] A reference-aware judge validates the main ranking and sharpens the task boundary
+## [2026-04-10] A reference-aware judge validates the pre-DPO baseline ranking and sharpens the task boundary
 - `human_reference` receives perfect `5.0/5.0/5.0/5.0` scores on reference agreement, source faithfulness, title-style fitness, and overall quality.
-- `baseline3_2_multitask` is the strongest non-reference system on reference agreement (`1.92`), source faithfulness (`2.08`), and overall quality (`2.06`).
+- Before the multitask-base DPO follow-ups were added, `baseline3_2_multitask` was the strongest non-reference system on reference agreement (`1.92`), source faithfulness (`2.08`), and overall quality (`2.06`).
 - `baseline3_1_unk` is slightly more conservative on title shape (`4.50` vs `4.24` title-style fitness), but this does not translate into stronger content recovery.
 - On the `27` title-suffix examples, `baseline3_2_multitask` reaches `14.8%` exact match with `0.0%` contamination, versus `7.4%` and `11.1%` for `baseline3_1_unk`.
 - Implication: the paper can now argue more strongly that the repository supports Tangut short-title translation specifically, not general sentence translation.
@@ -39,6 +39,17 @@
   - `sigmoid` is strongest overall and strongest on source faithfulness (`2.24`).
   - `robustwpo` is strongest on raw chrF++ (`27.67`) and title-suffix preservation (`23/27`), but its title-style score drops to `3.78` because of contamination.
 - Implication: the paper should no longer frame DPO as a blanket negative result. The defensible claim is that DPO helps once the base model and pair quality are controlled, but different objectives expose different failure modes.
+
+## [2026-04-10] Stricter gap-$0.4$ filtering stabilizes multitask-base DPO and produces the strongest overall learned systems
+- `final_gap04_multitask_sigmoid` reaches chrF++ `30.01`, reference-aware overall `2.22`, exact match `5/50`, contamination `2/50`, length ratio `1.12`, and title-suffix preservation `22/27`.
+- `final_gap04_multitask_robustwpo` also reaches reference-aware overall `2.22`, with the strongest title-style score among learned systems (`4.70`) and the same `5/50` exact matches.
+- Relative to the looser gap-$0.2$ variants, the main gain is not higher judge overall, but much cleaner title behavior:
+  - sigmoid: chrF++ `20.93 -> 30.01`, length ratio `1.74 -> 1.12`;
+  - robust+wpo: contamination `7/50 -> 2/50`, length ratio `1.58 -> 1.26`.
+- The subset effect is structured:
+  - on title-suffix items, both gap-$0.4$ variants reach mean overall `2.41`, above `baseline3_2_multitask` (`2.15`) and above the gap-$0.2$ variants;
+  - on non-suffix items, gap-$0.2$ sigmoid remains stronger (`2.30`), so strict filtering appears to trade breadth for cleaner canonical-title reconstruction.
+- Implication: the new paper claim should be that structured multitask SFT is the right base, and aggressive pair filtering is the key step that turns DPO from an unstable add-on into a genuinely competitive method.
 
 ## [2026-04-10] Legacy UNK-base DPO remains unstable and should still be reported as a negative control
 - `final_v2` is worse than its selected SFT base (`baseline3_1_unk`) on chrF++ (`19.39` vs `22.11`), exact match (`2/50` vs `3/50`), and contamination (`9/50` vs `3/50`).

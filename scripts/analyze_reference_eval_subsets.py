@@ -7,6 +7,10 @@ families:
 1. Whether the gold title contains common title-suffix characters.
 2. Reference length bins, which roughly separate very short labels from longer
    title-like strings.
+
+Judge files can come either from a dedicated suite directory or from each
+method's result directory. This lets us mix the older fixed-key suite outputs
+with newer per-method judge files without rerunning the judge.
 """
 
 from __future__ import annotations
@@ -21,9 +25,12 @@ from typing import Iterable, List
 
 
 DEFAULT_METHODS = [
-    "baseline2",
     "baseline3_1_unk",
     "baseline3_2_multitask",
+    "final_gap02_multitask_sigmoid",
+    "final_gap02_multitask_robustwpo",
+    "final_gap04_multitask_sigmoid",
+    "final_gap04_multitask_robustwpo",
     "final_v2",
     "human_reference",
 ]
@@ -51,7 +58,16 @@ def prediction_path(results_dir: Path, method: str) -> Path:
 
 
 def judge_path(reference_eval_dir: Path, method: str) -> Path:
-    return reference_eval_dir / f"{method}.json"
+    candidates = [
+        reference_eval_dir / f"{method}.json",
+        reference_eval_dir / method / "reference_aware_judge.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    raise FileNotFoundError(
+        f"Missing reference-aware judge output for {method} under {reference_eval_dir}"
+    )
 
 
 def subset_names(reference: str) -> list[str]:
@@ -136,7 +152,11 @@ def main() -> None:
     all_scores_by_method: dict[str, list[dict]] = {}
     for method in args.methods:
         pred_rows = load_jsonl(prediction_path(results_dir, method))
-        judge_rows = load_json(judge_path(reference_eval_dir, method))["scores"]
+        try:
+            judge_rows = load_json(judge_path(reference_eval_dir, method))["scores"]
+        except FileNotFoundError:
+            fallback_path = results_dir / method / "reference_aware_judge.json"
+            judge_rows = load_json(fallback_path)["scores"]
         if len(pred_rows) != len(test_rows) or len(judge_rows) != len(test_rows):
             raise ValueError(f"Length mismatch for {method}")
 
@@ -173,6 +193,13 @@ def main() -> None:
     pairings = [
         ("baseline3_2_multitask", "baseline3_1_unk"),
         ("baseline3_2_multitask", "final_v2"),
+        ("baseline3_2_multitask", "final_gap02_multitask_sigmoid"),
+        ("baseline3_2_multitask", "final_gap02_multitask_robustwpo"),
+        ("baseline3_2_multitask", "final_gap04_multitask_sigmoid"),
+        ("baseline3_2_multitask", "final_gap04_multitask_robustwpo"),
+        ("final_gap02_multitask_sigmoid", "final_gap04_multitask_sigmoid"),
+        ("final_gap02_multitask_robustwpo", "final_gap04_multitask_robustwpo"),
+        ("final_gap04_multitask_sigmoid", "final_gap04_multitask_robustwpo"),
         ("baseline3_1_unk", "final_v2"),
     ]
     pairwise_rows = []

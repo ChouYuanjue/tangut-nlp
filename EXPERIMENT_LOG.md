@@ -44,12 +44,12 @@
 |--------|------:|------:|---------:|--------------:|-------|
 | `baseline3` | 0.3192 | 298684.91 | 17.85 | 1/50 | Mixed-input baseline |
 | `baseline3_1_unk` | 0.3514 | 11031.18 | 22.11 | 3/50 | Pure-input baseline; strong reference alignment |
-| `baseline3_2_multitask` | 0.4839 | 3322.93 | 25.99 | 5/50 | Best current main model after cleaning tags |
+| `baseline3_2_multitask` | 0.4839 | 3322.93 | 25.99 | 5/50 | Best pure SFT model after cleaning tags |
 | `baseline3_3_semantic` | 0.3723 | 17064.38 | 17.03 | 1/50 | Semantic projection does not beat UNK |
 
 ### Verdict
 - **Supports claim?** Yes
-- **Key takeaway**: Explicit structural alignment in the target text is the strongest current design choice. Pure input helps; noisy semantic projection does not yet pay off.
+- **Key takeaway**: Explicit structural alignment in the target text is the strongest pure SFT design choice. Pure input helps; noisy semantic projection does not yet pay off.
 
 ---
 
@@ -159,3 +159,35 @@
 ### Verdict
 - **Supports claim?** Partial
 - **Key takeaway**: the reward is informative but noisy; a stricter gap threshold is a plausible low-cost follow-up experiment.
+
+---
+
+## Experiment Block: Multitask-Base DPO with Gap Filtering
+
+**Date**: 2026-04-10  
+**Goal**: Test whether moving DPO onto the strongest multitask SFT base and tightening the reward-gap filter can convert the earlier negative result into a stable gain.
+
+### Setup
+- **Base model**: `checkpoints/sft_multitask/merged`
+- **Gap-0.2 pairs**: `1,996`
+- **Gap-0.4 pairs**: `498`
+- **Variants**:
+  - `final_gap02_multitask_sigmoid`
+  - `final_gap02_multitask_robustwpo`
+  - `final_gap04_multitask_sigmoid`
+  - `final_gap04_multitask_robustwpo`
+
+### Results
+
+| Method | chrF++ ↑ | Exact Match ↑ | Contamination ↓ | Length Ratio ↓ | Ref-Aware Overall ↑ |
+|--------|---------:|--------------:|----------------:|---------------:|--------------------:|
+| `baseline3_2_multitask` | 25.99 | 5/50 | 1/50 | 1.10 | 1.98 |
+| `final_gap02_multitask_sigmoid` | 20.93 | 5/50 | 0/50 | 1.74 | 2.22 |
+| `final_gap02_multitask_robustwpo` | 27.67 | 4/50 | 7/50 | 1.58 | 2.12 |
+| `final_gap04_multitask_sigmoid` | **30.01** | **5/50** | 2/50 | **1.12** | **2.22** |
+| `final_gap04_multitask_robustwpo` | 27.52 | **5/50** | 2/50 | 1.26 | **2.22** |
+
+### Verdict
+- **Supports claim?** Yes
+- **Key takeaway**: DPO is not uniformly bad. Once it is moved onto the multitask base and filtered aggressively, it becomes the strongest overall learned approach in the repository.
+- **Subset note**: the strict gap-0.4 variants reach mean overall judge score `2.41` on title-suffix items, above `2.15` for `baseline3_2_multitask`. The looser gap-0.2 sigmoid variant remains strongest on non-suffix items (`2.30`), so the gap threshold acts as a quality-control knob rather than a monotonic improvement axis.

@@ -13,6 +13,7 @@ This script computes:
    - non-finite rewards
    - reward-gap histogram
    - similarity-to-gold proxy via SequenceMatcher
+   - similarity-to-gold proxy by reward-gap bin
 
 The goal is to make paper-writing numbers reproducible from repository state.
 """
@@ -106,6 +107,28 @@ def similarity_ratio(a: str, b: str) -> float:
     return difflib.SequenceMatcher(None, a, b).ratio()
 
 
+def make_gap_bin_bucket() -> dict:
+    return {
+        "count": 0,
+        "gold_proxy_found": 0,
+        "chosen_better": 0,
+        "rejected_better": 0,
+        "equal": 0,
+    }
+
+
+def gap_bin_name(gap: float) -> str:
+    if gap <= 0.05:
+        return "le_0.05"
+    if gap <= 0.10:
+        return "0.05_0.10"
+    if gap <= 0.20:
+        return "0.10_0.20"
+    if gap <= 0.40:
+        return "0.20_0.40"
+    return "ge_0.40"
+
+
 def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
     duplicate_pairs = 0
     nonfinite_rewards = 0
@@ -126,6 +149,15 @@ def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
             ("ge_0.40", 0),
         ]
     )
+    gap_bin_stats = OrderedDict(
+        [
+            ("le_0.05", make_gap_bin_bucket()),
+            ("0.05_0.10", make_gap_bin_bucket()),
+            ("0.10_0.20", make_gap_bin_bucket()),
+            ("0.20_0.40", make_gap_bin_bucket()),
+            ("ge_0.40", make_gap_bin_bucket()),
+        ]
+    )
 
     for row in pairs:
         if row.get("chosen") == row.get("rejected"):
@@ -139,6 +171,7 @@ def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
 
         gap = chosen_reward - rejected_reward
         gaps.append(gap)
+        gap_bin_stats[gap_bin_name(gap)]["count"] += 1
         for key, threshold in (
             ("ge_0.05", 0.05),
             ("ge_0.10", 0.10),
@@ -154,14 +187,19 @@ def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
             continue
 
         found += 1
+        gap_bucket = gap_bin_stats[gap_bin_name(gap)]
+        gap_bucket["gold_proxy_found"] += 1
         chosen_score = similarity_ratio(row["chosen"], gold)
         rejected_score = similarity_ratio(row["rejected"], gold)
         if chosen_score > rejected_score:
             chosen_better += 1
+            gap_bucket["chosen_better"] += 1
         elif rejected_score > chosen_score:
             rejected_better += 1
+            gap_bucket["rejected_better"] += 1
         else:
             equal += 1
+            gap_bucket["equal"] += 1
 
         if gap <= 0.10:
             low_gap_total += 1
@@ -171,6 +209,13 @@ def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
     mean_gap = (sum(gaps) / len(gaps)) if gaps else None
     min_gap = min(gaps) if gaps else None
     max_gap = max(gaps) if gaps else None
+    gap_bin_quality = OrderedDict()
+    for name, bucket in gap_bin_stats.items():
+        denom = bucket["gold_proxy_found"]
+        gap_bin_quality[name] = {
+            **bucket,
+            "chosen_better_rate": (bucket["chosen_better"] / denom) if denom else None,
+        }
 
     return {
         "num_pairs": len(pairs),
@@ -188,6 +233,7 @@ def audit_dpo_pairs(pairs: List[dict], train_lookup: Dict[str, str]) -> dict:
         "low_gap_chosen_better": low_gap_good,
         "low_gap_chosen_better_rate": (low_gap_good / low_gap_total) if low_gap_total else None,
         "gap_threshold_counts": gap_threshold_counts,
+        "gap_bin_proxy_quality": gap_bin_quality,
     }
 
 
@@ -231,6 +277,11 @@ def main() -> None:
             ("baseline3_3_semantic", Path(args.results_dir) / "baseline3_3_semantic" / "predictions.jsonl"),
             ("final", Path(args.results_dir) / "final" / "predictions.jsonl"),
             ("final_v2", Path(args.results_dir) / "final_v2" / "predictions.jsonl"),
+            ("final_gap02_multitask_sigmoid", Path(args.results_dir) / "final_gap02_multitask_sigmoid" / "predictions.jsonl"),
+            ("final_gap02_multitask_robustwpo", Path(args.results_dir) / "final_gap02_multitask_robustwpo" / "predictions.jsonl"),
+            ("final_gap04_multitask_sigmoid", Path(args.results_dir) / "final_gap04_multitask_sigmoid" / "predictions.jsonl"),
+            ("final_gap04_multitask_robustwpo", Path(args.results_dir) / "final_gap04_multitask_robustwpo" / "predictions.jsonl"),
+            ("final_gap02_multitask_robustwpo_titleclean", Path(args.results_dir) / "final_gap02_multitask_robustwpo_titleclean" / "predictions.jsonl"),
             ("human_reference", Path(args.results_dir) / "human_reference" / "predictions.jsonl"),
         ]
     )
