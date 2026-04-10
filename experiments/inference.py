@@ -21,7 +21,11 @@ def merge_lora_if_needed(model_path):
             config = json.load(f)
         base_model_path = config.get("base_model_name_or_path", "models/qwen2.5-7b-instruct")
 
-        tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_path,
+            trust_remote_code=True,
+            fix_mistral_regex=True,
+        )
         base_model = AutoModelForCausalLM.from_pretrained(
             base_model_path, dtype=torch.bfloat16, trust_remote_code=True,
         )

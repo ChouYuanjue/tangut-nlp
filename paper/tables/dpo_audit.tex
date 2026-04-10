@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lc}
+\toprule
+Audit item & Value \\
+\midrule
+Total preference pairs & 3867 \\
+Duplicate chosen/rejected pairs & 3 \\
+Non-finite reward entries & 3 \\
+Mean reward gap & 0.2396 \\
+Chosen closer to gold proxy & 71.3\% \\
+Chosen closer on low-gap pairs ($\leq 0.10$) & 62.3\% \\
+Pairs kept with gap $\geq 0.20$ & 1996 \\
+Pairs kept with gap $\geq 0.40$ & 498 \\
+\bottomrule
+\end{tabular}
+\caption{Lightweight audit of the current DPO pair construction pipeline. Lower-gap pairs are noticeably noisier.}
+\label{tab:dpo-audit}
+\end{table}

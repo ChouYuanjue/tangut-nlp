@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Method & Ref. Agr. & Src. Faith. & Title Style & Overall \\
+\midrule
+baseline3\_1\_unk & 1.78 & 1.84 & \textbf{4.36} & 1.82 \\
+baseline3\_2\_multitask & 1.92 & 1.98 & 4.18 & 1.98 \\
+final\_v2 & 1.64 & 1.72 & 3.80 & 1.68 \\
+final\_gap02\_multitask\_sigmoid & 2.08 & \textbf{2.24} & 4.14 & \textbf{2.22} \\
+final\_gap02\_multitask\_robustwpo & \textbf{2.10} & 2.16 & 3.78 & 2.12 \\
+human\_reference & 5.00 & 5.00 & 5.00 & 5.00 \\
+\bottomrule
+\end{tabular}
+\caption{Fixed-key reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. Under this stricter view, both multitask-base DPO variants beat the strongest pure SFT baseline on overall quality, but they do so with different trade-offs: \texttt{sigmoid} is strongest overall, while \texttt{robustwpo} is strongest on reference agreement.}
+\label{tab:reference-aware-eval}
+\end{table}

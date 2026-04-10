@@ -1,0 +1,7 @@
+method,num_examples,mean_reference_agreement,mean_source_faithfulness,mean_title_style_fitness,mean_overall,output_json
+baseline3_1_unk,50,4.06,4.06,5.0,4.06,results/reference_eval_local_qwen7b/baseline3_1_unk.json
+baseline3_2_multitask,50,4.08,4.1,5.0,4.08,results/reference_eval_local_qwen7b/baseline3_2_multitask.json
+final_v2,50,4.04,4.04,5.0,4.04,results/reference_eval_local_qwen7b/final_v2.json
+final_gap02_multitask_sigmoid,50,4.1,4.1,5.0,4.1,results/reference_eval_local_qwen7b/final_gap02_multitask_sigmoid.json
+final_gap02_multitask_robustwpo,50,4.1,4.1,5.0,4.1,results/reference_eval_local_qwen7b/final_gap02_multitask_robustwpo.json
+human_reference,50,4.86,4.86,5.0,4.86,results/reference_eval_local_qwen7b/human_reference.json

@@ -94,7 +94,11 @@ def main():
     dataset = Dataset.from_list(formatted)
     print(f"Loaded {len(dataset)} training samples")
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_path, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model_path,
+        trust_remote_code=True,
+        fix_mistral_regex=True,
+    )
     tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(

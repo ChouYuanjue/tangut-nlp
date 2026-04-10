@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Method & Exact Match & Contam. Rate & Len. Ratio & Suffix Preserve \\
+\midrule
+baseline2 & 0/50 & 0.00 & 1.83 & 3/27 \\
+baseline3\_1\_unk & 3/50 & 0.06 & 1.05 & 17/27 \\
+baseline3\_2\_multitask & \textbf{5/50} & 0.02 & 1.10 & 19/27 \\
+final\_v2 & 2/50 & 0.18 & 1.88 & 18/27 \\
+final\_gap02\_multitask\_sigmoid & \textbf{5/50} & \textbf{0.00} & 1.74 & 19/27 \\
+final\_gap02\_multitask\_robustwpo & 4/50 & 0.14 & 1.58 & \textbf{23/27} \\
+human\_reference & 50/50 & 0.00 & 1.00 & 27/27 \\
+\bottomrule
+\end{tabular}
+\caption{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. The new DPO variants expose the key trade-off in this paper: \texttt{sigmoid} is cleaner, while \texttt{robustwpo} preserves title suffixes more aggressively.}
+\label{tab:diagnostics}
+\end{table}

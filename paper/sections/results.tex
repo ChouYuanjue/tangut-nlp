@@ -1,0 +1,9 @@
+\section{Main Results}
+
+Table~\ref{tab:main-results} summarizes the repository metrics. The central pattern is no longer a simple ``SFT good, DPO bad'' split. Zero-shot generation still fails, dictionary prompting is still strong on coverage-like diagnostics, and structured multitask SFT remains the strongest pure supervised baseline. But once we rerun DPO on the multitask base with gap-filtered preference pairs, the two DPO variants expose a sharper trade-off between string overlap, stopping behavior, and reference-aware adequacy.
+
+The most important raw-metric comparison is now between \texttt{baseline3\_2\_multitask}, \texttt{final\_gap02\_multitask\_sigmoid}, and \texttt{final\_gap02\_multitask\_robustwpo}. The multitask SFT model keeps the best perplexity and one of the best exact-match counts. The sigmoid DPO variant preserves the same 5 exact matches with zero contamination, but its average output becomes much longer, which depresses raw chrF++ to 20.93. The robust+weighted DPO variant moves in the opposite direction: it reaches the highest raw chrF++ in the entire learned-system comparison (27.67) and the strongest title-suffix preservation (23/27), but it also introduces visible mixed-script contamination.
+
+\input{tables/main_results}
+
+These disagreements are precisely why the paper should not rely on a single automatic metric. Raw chrF++, contamination, and the later reference-aware judge each reward different parts of the short-title problem. In the current Tangut setting, the more defensible claim is therefore narrower: structured SFT is the best starting point, but carefully filtered multitask-base DPO can improve some reference-aligned dimensions beyond that baseline.

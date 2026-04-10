@@ -1,0 +1,18 @@
+\section{Introduction}
+
+Machine translation for historical and ultra-low-resource languages is difficult for two separate reasons. First, parallel data is often scarce or nearly absent. Second, the outputs that matter to scholars are not always long, natural modern sentences: they may be titles, glosses, liturgical fragments, or compact bibliographic strings. Recent work on ancient-language NLP and historical-text translation has made this setting more visible, but it has also shown that data scarcity and evaluation instability are especially severe outside modern benchmark conditions \cite{sommerschield2023ancient, wang2023evahan, domingo2018modernizing}. Tangut is a canonical example. The script is historically important, but usable parallel Tangut-Chinese resources remain tiny. In the current repository snapshot, we only have 491 real Tangut-Chinese pairs.
+
+This small-data regime creates a practical question: when full supervised translation is impossible, what kind of signal is most helpful? A natural first option is dictionary-augmented prompting, in the spirit of lexicon-guided translation. A second option is to synthesize pseudo-parallel training data from dictionary knowledge and monolingual Chinese. A third option is to add preference optimization on top of an SFT base \cite{chen2017incorporating, sennrich2016monolingual, rafailov2023dpo}. The repository already contains experiments spanning all three options, which makes it possible to write a focused empirical paper from the existing evidence.
+
+Our main finding is that structured synthetic supervision currently works best. Among all non-reference systems, the strongest model is a multitask SFT variant that asks the model to expose intermediate alignment structure during training. This system is not best because it maximizes dictionary coverage or because it looks best under a generic Chinese language model. It is best because it most closely matches the reference outputs in shape and content: it has the highest current chrF++, the highest exact-match rate, and the best title-suffix preservation among learned systems.
+
+The repository also reveals two important failure modes. First, reference-free metrics can be badly misleading. The human reference itself is penalized by lexical coverage and perplexity, which means those metrics cannot serve as primary model-selection criteria for this task. Second, preference optimization is unstable under the current reward design. The DPO model underperforms its SFT base and frequently produces contaminated outputs, suggesting a mismatch between the reward and the actual task objective.
+
+The current draft therefore makes three contributions:
+\begin{enumerate}
+\item an empirical comparison of prompting, synthetic SFT, and DPO for Tangut short-text translation;
+\item a positive method result showing that structured synthetic supervision is the strongest current approach;
+\item a reference-aware evaluation and alignment analysis showing why reference-free metrics and the current DPO reward can fail.
+\end{enumerate}
+
+The rest of the paper situates the task against related work, describes the experimental setting and the three method families, and then separates the positive result from the metric and alignment failure analysis that makes the result interpretable.

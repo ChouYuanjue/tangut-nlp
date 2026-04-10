@@ -1,0 +1,33 @@
+\section{Analysis}
+
+\subsection{Reference-aligned diagnostics}
+
+Repository-level metrics alone do not fully explain the new ranking. Additional diagnostics from stored predictions make the trade-off clearer. The multitask model remains the cleanest pure SFT system, with 5 exact matches, only 1 contaminated output, and a near-reference output length ratio (1.10). The new sigmoid DPO follow-up keeps the same 5 exact matches and drops contamination to 0/50, but stretches titles to 1.74 times the reference length. The robust+weighted follow-up instead preserves title suffixes most aggressively (23/27), but pays for that with 7 contaminated outputs.
+
+By contrast, the dictionary-prompting baseline often produces outputs that are too long and too explanatory. Its average output is about 1.83 times the reference length. This helps lexical coverage but hurts exact title reconstruction.
+
+\input{tables/diagnostics}
+
+\subsection{Reference-aware judging changes the DPO story}
+
+The legacy LLM judge in the repository is reference-free, so we reran evaluation with a stricter judge that sees the Tangut input, the gold reference, and the candidate output simultaneously. This rerun serves two purposes. First, it checks whether the human reference is correctly ranked when the judge has the information it should need. Second, it tests whether the raw-metric ranking survives once the judge can penalize explanatory overgeneration and content drift directly.
+
+\input{tables/reference_aware_eval}
+
+Table~\ref{tab:reference-aware-eval} changes the current paper narrative in an important way. The human reference still receives perfect 5.0 scores on all dimensions, so the judge is well anchored. But among non-reference systems, the best overall score is no longer the multitask SFT baseline. Instead, \texttt{final\_gap02\_multitask\_sigmoid} reaches the highest overall quality (2.22) and the highest source-faithfulness score (2.24), while \texttt{final\_gap02\_multitask\_robustwpo} reaches the highest reference-agreement score (2.10). The older \texttt{final\_v2} checkpoint remains worse than \texttt{baseline3\_2\_multitask}, so the positive result is specific to the stronger base and stricter pair filtering, not to DPO in the abstract.
+
+The subset breakdown makes the trade-off sharper. On the 27 reference titles containing common title suffixes, \texttt{final\_gap02\_multitask\_robustwpo} slightly exceeds \texttt{baseline3\_2\_multitask} on mean overall judge score (2.19 vs.\ 2.15), but with a much worse contamination rate (11.1\% vs.\ 0.0\%). On the 23 non-suffix items, \texttt{final\_gap02\_multitask\_sigmoid} is the clearest winner, raising mean overall score to 2.30 versus 1.78 for \texttt{baseline3\_2\_multitask}. At the example level, \texttt{sigmoid} beats \texttt{baseline3\_2\_multitask} on the judge's overall score for 18 test items, loses on 7, and ties on 25. The robust variant wins 13, loses 7, and ties 30. This is strong evidence that DPO can help content alignment in this setting, but that different variants expose the gain through different surface behaviors.
+
+\subsection{Human-reference anchor}
+
+One of the strongest pieces of evidence in the repository is the \texttt{human\_reference} experiment. The gold reference receives perfect chrF++ and perfect reference-aware judge scores, as expected, but only moderate lexical coverage and catastrophic perplexity. This reveals a core evaluation issue: the current lexical coverage metric measures overlap with dictionary-derived semantics rather than agreement with the gold title, while the perplexity model penalizes compact title style and historical transliterations.
+
+The implication is methodological, not cosmetic. If we were to select models purely by lexical coverage or perplexity, we would risk preferring systems that paraphrase, overgenerate, or stop poorly instead of systems that best reconstruct the true title. The new multitask-base DPO follow-up makes this especially clear: its sigmoid variant improves the reference-aware judge while hurting raw chrF++, while the robust+weighted variant improves raw chrF++ while hurting title cleanliness. Therefore, in the paper, lexical coverage and perplexity should be reported as supporting diagnostics, not as the primary decision criteria.
+
+\subsection{Legacy DPO fails for different reasons than multitask-base DPO}
+
+The old negative result is not a random bad run. The preference data itself is imperfect. The repository contains 3,867 preference pairs, including a small number of duplicate or invalid entries. More importantly, a quick audit against the original synthetic targets shows that the reward-chosen candidate is closer to gold only about 71\% of the time under a simple similarity proxy, and the low-gap pairs are much noisier. This means that the reward is informative but far from clean.
+
+The legacy selector also excludes the strongest multitask model from the DPO-base search. That turns out to matter. Once we switch to the multitask base and keep only pairs with reward gap $\ge 0.2$, both new DPO variants beat the multitask SFT baseline under the fixed-key reference-aware judge. What remains unstable is not content alignment in general, but surface behavior. A deterministic short-title normalization pass raises \texttt{final\_gap02\_multitask\_robustwpo} from chrF++ 27.67 to 29.06 and removes all contamination, while barely changing its judge score (2.12 overall before and after). The same normalization improves \texttt{final\_v2} only modestly, from chrF++ 19.39 to 21.98. This suggests that the newer robust variant learns more useful title content than the old DPO model, but still needs better stopping control or decoding constraints.
+
+\input{tables/dpo_audit}

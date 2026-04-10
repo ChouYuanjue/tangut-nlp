@@ -1,0 +1,6 @@
+method,num_examples,mean_reference_agreement,mean_source_faithfulness,mean_title_style_fitness,mean_overall,output_json
+baseline3_2_multitask,50,2.02,2.06,4.26,2.04,results/reference_eval_titleclean_fixedkey/baseline3_2_multitask.json
+final_v2_titleclean,50,1.72,1.86,4.08,1.8,results/reference_eval_titleclean_fixedkey/final_v2_titleclean.json
+final_gap02_multitask_sigmoid_titleclean,50,2.04,2.22,4.24,2.12,results/reference_eval_titleclean_fixedkey/final_gap02_multitask_sigmoid_titleclean.json
+final_gap02_multitask_robustwpo_titleclean,50,2.12,2.22,3.9,2.2,results/reference_eval_titleclean_fixedkey/final_gap02_multitask_robustwpo_titleclean.json
+human_reference,50,5.0,5.0,5.0,5.0,results/reference_eval_titleclean_fixedkey/human_reference.json

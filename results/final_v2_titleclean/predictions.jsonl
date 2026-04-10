@@ -1,0 +1,50 @@
+{"input": "𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩", "reference": "佛説聖大乘三歸依經", "prediction": "佛説聖大乘三隨義經", "method": "final_v2_dpo", "prediction_raw": "佛説聖大乘三隨義經"}
+{"input": "𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩", "reference": "百千印陀羅尼經", "prediction": "百千頌大羅羅經誦持順", "method": "final_v2_dpo", "prediction_raw": "百千頌大羅羅經誦持順"}
+{"input": "𘕕𗡪𘕋𗍓𗖍", "reference": "三個懺罪頌", "prediction": "三種惡趣之對頌", "method": "final_v2_dpo", "prediction_raw": "三種惡趣之對頌"}
+{"input": "𘓐𗢳𗨻𗰲𗵘𘞵", "reference": "人佛為自道長", "prediction": "人佛使華嚴經", "method": "final_v2_dpo", "prediction_raw": "人佛使華嚴經"}
+{"input": "𗦬𘍞𗵘𘐡", "reference": "共丸道次", "prediction": "重譯道次", "method": "final_v2_dpo", "prediction_raw": "重譯道次"}
+{"input": "𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩", "reference": "聖大悟蔭王求隨皆得經", "prediction": "聖大乘無垢王維隨集了經典", "method": "final_v2_dpo", "prediction_raw": "聖大乘無垢王維隨集了經典"}
+{"input": "𗏁𗴮𗖰𗚩", "reference": "五部經", "prediction": "五摩經", "method": "final_v2_dpo", "prediction_raw": "五摩經"}
+{"input": "𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶", "reference": "此於已到僧於隨歸順", "prediction": "此長於聖觀道為順", "method": "final_v2_dpo", "prediction_raw": "此長Shows於聖觀道為順"}
+{"input": "𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩", "reference": "七寶華踏佛陀羅尼經", "prediction": "七寶華嚴大羅經", "method": "final_v2_dpo", "prediction_raw": "七寶華嚴大羅Networks經"}
+{"input": "𗬀𗔇𘂫𘅜𘏒𘖜", "reference": "伏藏變化解鍵", "prediction": "护当法事開決順", "method": "final_v2_dpo", "prediction_raw": "护当法事開決順"}
+{"input": "𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾", "reference": "默有者隨勝住令順要論", "prediction": "默有惡趣淨令順要論", "method": "final_v2_dpo", "prediction_raw": "默有惡趣淨令順要論"}
+{"input": "𘕕𗤀𘎆𗮔𗟲𗰖𘝞", "reference": "三世屬明言集文", "prediction": "三世諸説禪源集記", "method": "final_v2_dpo", "prediction_raw": "三世諸説禪源集記"}
+{"input": "𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎", "reference": "如上流凡多義不同見順大鳳凰□□説□清", "prediction": "過去謗誹多聞之難所説大鳳凰涅槃經膏藥疏□□依不□□為順", "method": "final_v2_dpo", "prediction_raw": "過去謗誹多聞之難所説大鳳凰涅槃經膏藥疏□□依不□□為順"}
+{"input": "𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝", "reference": "根本一切有説部目得迦", "prediction": "根本一切有説部覆母", "method": "final_v2_dpo", "prediction_raw": "根本一切有説部覆母Manuals of the Translated Scriptures"}
+{"input": "𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔", "reference": "菩提勇識大勇識不價菩薩衆之歸依禮拜", "prediction": "菩提勇識大菩提識見所當法爾隨尊順拜-", "method": "final_v2_dpo", "prediction_raw": "菩提勇識大菩提識見所當法爾隨尊順拜preciouS-rock"}
+{"input": "𗏇𘉅", "reference": "雜字", "prediction": "譯順", "method": "final_v2_dpo", "prediction_raw": "譯順"}
+{"input": "𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫", "reference": "深廣雙入七枝法事", "prediction": "玄入順七種法事", "method": "final_v2_dpo", "prediction_raw": "玄 GRAT入順七種法事"}
+{"input": "𘋢𗥤𘝦𗗙𗍫𗑝𗆔", "reference": "菩薩業之二節綱", "prediction": "菩薩業空渡之思定二第", "method": "final_v2_dpo", "prediction_raw": "菩薩業空渡之思定二第"}
+{"input": "𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩", "reference": "佛説障蓋除菩薩問經", "prediction": "佛説因(~(至)忍無義問答經)", "method": "final_v2_dpo", "prediction_raw": "佛説因 (~(至)忍無義問答經)"}
+{"input": "𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪", "reference": "正理滴之句義顯具", "prediction": "正理滴著之曰為順顯釋", "method": "final_v2_dpo", "prediction_raw": "正理滴著之曰為順顯釋"}
+{"input": "𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩", "reference": "集頌般若波羅蜜多經", "prediction": "集頌般若波羅蜜多經", "method": "final_v2_dpo", "prediction_raw": "集頌般若波羅蜜多經"}
+{"input": "𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶", "reference": "金剛王亥母隨淨瓶以親誦作順", "prediction": "金剛王亥母隨集了定作順亦爾來順要論", "method": "final_v2_dpo", "prediction_raw": "金剛王亥母隨集了定作順亦爾來順要論"}
+{"input": "𗄭𘚢𗴿𗒀𘃡𗡶𘐡", "reference": "聚輪供養作次第", "prediction": "集轉求順變", "method": "final_v2_dpo", "prediction_raw": "集轉求順變 Emblem"}
+{"input": "𗵒𗒛𘁨", "reference": "金乘序", "prediction": "金剛乘根", "method": "final_v2_dpo", "prediction_raw": "金剛乘根"}
+{"input": "𗩾𗨁𗉣𗖰𗚩", "reference": "最上意經", "prediction": "上樂輪經", "method": "final_v2_dpo", "prediction_raw": "上樂輪經"}
+{"input": "𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓", "reference": "佛説智(?)□□佛觀經□註", "prediction": "佛説壽年無量佛觀經膏藥疏", "method": "final_v2_dpo", "prediction_raw": "佛説壽年無量佛觀經膏藥疏"}
+{"input": "𗼑𗼑𗫉𗊱", "reference": "月月樂詩", "prediction": "月月乐詩", "method": "final_v2_dpo", "prediction_raw": "月月乐詩"}
+{"input": "𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍", "reference": "勝慧彼岸到要論教學現量解莊嚴論顯頌", "prediction": "勝慧到彼岸要論教學現量解莊嚴疏之廣釋明鏡疏", "method": "final_v2_dpo", "prediction_raw": "勝慧到彼岸要論　教學現量解莊嚴疏之廣釋明鏡疏"}
+{"input": "𗢭𗵫𗴿𗒀𗺉", "reference": "九曜供養根", "prediction": "九地順求根", "method": "final_v2_dpo", "prediction_raw": "九地順求根"}
+{"input": "𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩", "reference": "十一面神咒心經", "prediction": "十一面譚光菩薩心經", "method": "final_v2_dpo", "prediction_raw": "十一面譚光菩薩心經"}
+{"input": "𗙏𘙰", "reference": "同音", "prediction": "音譯為", "method": "final_v2_dpo", "prediction_raw": "音譯為"}
+{"input": "𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇", "reference": "金剛王燈炬心中所持可", "prediction": "金剛王燃燈心持合加讚", "method": "final_v2_dpo", "prediction_raw": "金剛王燃燈心持合加讚"}
+{"input": "𗒹𗢳𘎪𗾈𗥺𗖰𗚩", "reference": "七佛説神咒經", "prediction": "七佛説賢劫經", "method": "final_v2_dpo", "prediction_raw": "七佛説賢劫經"}
+{"input": "𗆧𗰖𗵒𗭭𘃎𘐏𘝞", "reference": "新集碎金置掌文", "prediction": "新集金剛王置法文", "method": "final_v2_dpo", "prediction_raw": "新集金剛王置法文"}
+{"input": "𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶", "reference": "統依要集三品子□正法中入順", "prediction": "勅隨業順三為順皆入順法事í,-(ṛṣ-ā)(-)", "method": "final_v2_dpo", "prediction_raw": "勅隨業順三 SharedModule為順皆入順法事 Artículo\n Mandates,  by  Tsenpo  for  the  Training  of  Monks  and  Nuns  on  the  Three  Pa  -  ro  System  (Kṛiṣna-pā)  (A  Manual  for  the  Training  of  Monks  and  Nuns  on  the  Three  Pa  -  ro  System  )"}
+{"input": "𗫡𗾈", "reference": "到賢", "prediction": "至賢", "method": "final_v2_dpo", "prediction_raw": "至賢"}
+{"input": "𗯨𗣈𗒹𗵘𗹙𘅫", "reference": "世離七道法事", "prediction": "國出七道法事", "method": "final_v2_dpo", "prediction_raw": "國出七道法事"}
+{"input": "𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩", "reference": "聖六字壽增大蔭王陀羅尼經", "prediction": "聖六種壽無量大悲願大羅經", "method": "final_v2_dpo", "prediction_raw": "聖六種壽無量大悲願大羅Network經"}
+{"input": "𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓", "reference": "壞有出聖柔吉祥之攝受讚顯", "prediction": "壞有渡聖柔吉祥之名誦受持為順", "method": "final_v2_dpo", "prediction_raw": "壞有渡聖柔吉祥之名誦受持為順"}
+{"input": "𗤻𗵽𗹙𗐯𘝯𗆔", "reference": "華嚴法界觀幹", "prediction": "護丹法界之網ệ", "method": "final_v2_dpo", "prediction_raw": "護丹法界之網ện"}
+{"input": "𗼇𗟲𗍥𘟙𗒛𗺉", "reference": "番言金剛王乘根", "prediction": "番言金剛王乘根", "method": "final_v2_dpo", "prediction_raw": "番言金剛王乘根"}
+{"input": "𗴮𘊳", "reference": "類林", "prediction": "名林", "method": "final_v2_dpo", "prediction_raw": "名林"}
+{"input": "𗵒𘗁𘄒𘎑𘓋𘐇𘝞", "reference": "金剛般若略記文", "prediction": "金剛般若略計文", "method": "final_v2_dpo", "prediction_raw": "金剛般若略計文"}
+{"input": "𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡", "reference": "金剛王默有母隨集輪求記作順次", "prediction": "金剛王默有母隨集了爾時聞順次第", "method": "final_v2_dpo", "prediction_raw": "金剛王默有母隨集了爾時聞順次第"}
+{"input": "𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩", "reference": "佛説父母恩重經", "prediction": "佛説父母誦經大樞順", "method": "final_v2_dpo", "prediction_raw": "佛説父母誦經大樞順"}
+{"input": "𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾", "reference": "大蓋白母之總持誦順要論", "prediction": "大蓋白母之總持功德誦順要論", "method": "final_v2_dpo", "prediction_raw": "大蓋白母之總持功德誦順要論"}
+{"input": "𗣼𗟭𘞫𘈃𘍳𘃨", "reference": "正理滴特殊造", "prediction": "正理滴第一義釋", "method": "final_v2_dpo", "prediction_raw": "正理滴第一義釋"}
+{"input": "𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩", "reference": "地藏菩薩本願經", "prediction": "土地生信總持功德經", "method": "final_v2_dpo", "prediction_raw": "土地生信總持功德經"}
+{"input": "𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾", "reference": "道之間休止順要論", "prediction": "道之氣體中塞順要論", "method": "final_v2_dpo", "prediction_raw": "道之氣體中塞順要論"}
+{"input": "𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩", "reference": "觀彌勒菩薩足知皇上生觀經", "prediction": "聞虎耳法界足尊無量壽經", "method": "final_v2_dpo", "prediction_raw": "聞虎耳法界足尊無量壽經"}

@@ -74,6 +74,36 @@ def main():
     parser.add_argument("--lora-rank", type=int, default=32)
     parser.add_argument("--lora-alpha", type=int, default=64)
     parser.add_argument("--max-length", type=int, default=512)
+    parser.add_argument(
+        "--loss-type",
+        nargs="+",
+        default=["sigmoid"],
+        help="TRL DPO loss type(s), e.g. sigmoid, robust, ipo.",
+    )
+    parser.add_argument(
+        "--loss-weights",
+        nargs="+",
+        type=float,
+        default=None,
+        help="Optional weights for multi-loss training. Must match --loss-type length.",
+    )
+    parser.add_argument(
+        "--label-smoothing",
+        type=float,
+        default=0.0,
+        help="Noise rate / label smoothing used by robust DPO variants.",
+    )
+    parser.add_argument(
+        "--use-weighting",
+        action="store_true",
+        help="Enable WPO-style weighting for off-policy preference data.",
+    )
+    parser.add_argument("--warmup-ratio", type=float, default=0.1)
+    parser.add_argument("--logging-steps", type=int, default=10)
+    parser.add_argument("--save-steps", type=int, default=100)
+    parser.add_argument("--max-steps", type=int, default=-1)
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--run-name", type=str, default=None)
     parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
     args = parser.parse_args()
 
@@ -84,8 +114,15 @@ def main():
     formatted = [format_dpo_sample(d) for d in raw]
     dataset = Dataset.from_list(formatted)
     print(f"Loaded {len(dataset)} DPO pairs")
+    Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+    with open(Path(args.output_dir) / "run_config.json", "w", encoding="utf-8") as f:
+        json.dump(vars(args), f, ensure_ascii=False, indent=2)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.sft_model, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.sft_model,
+        trust_remote_code=True,
+        fix_mistral_regex=True,
+    )
     tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
@@ -116,20 +153,27 @@ def main():
     training_args = DPOConfig(
         output_dir=args.output_dir,
         num_train_epochs=args.epochs,
+        max_steps=args.max_steps,
         per_device_train_batch_size=args.batch_size,
         gradient_accumulation_steps=args.grad_accum,
         learning_rate=args.lr,
         beta=args.beta,
         lr_scheduler_type="cosine",
-        warmup_ratio=0.1,
+        warmup_ratio=args.warmup_ratio,
         bf16=True,
-        logging_steps=10,
+        logging_steps=args.logging_steps,
         save_strategy="steps",
-        save_steps=100,
+        save_steps=args.save_steps,
         save_total_limit=3,
         max_length=args.max_length,
         gradient_checkpointing=True,
         report_to="none",
+        loss_type=args.loss_type,
+        loss_weights=args.loss_weights,
+        label_smoothing=args.label_smoothing,
+        use_weighting=args.use_weighting,
+        seed=args.seed,
+        run_name=args.run_name,
     )
 
     trainer = DPOTrainer(

@@ -16,16 +16,19 @@ class PerplexityScorer:
     def __init__(
         self,
         model_path: str = "models/qwen2.5-0.5b",
-        device: str = "cuda:1",
+        device: str | None = None,
         max_length: int = 512,
     ):
         """Load model and tokenizer.
 
         Args:
             model_path: Path (or HF hub name) for Qwen2.5-0.5B.
-            device: Torch device string.
+            device: Torch device string. Defaults to the first visible CUDA
+                device, or CPU when CUDA is unavailable.
             max_length: Maximum token length for input truncation.
         """
+        if device is None:
+            device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.device = device
         self.max_length = max_length
 

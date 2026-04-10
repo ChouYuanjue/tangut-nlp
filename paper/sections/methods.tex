@@ -1,0 +1,25 @@
+\section{Methods}
+
+\subsection{Inference-only baselines}
+
+The first family contains no weight updates. \texttt{baseline1} directly prompts the base model with the Tangut string. \texttt{baseline2} augments the prompt with dictionary glosses. \texttt{baseline2\_1\_cot} further restructures the prompt into a three-step process intended to encourage alignment, literal drafting, and rewriting. This family is closest in spirit to lexicon-augmented or terminology-aware MT, except that the lexicon is injected through prompting rather than through decoding constraints or model-side features \cite{chen2017incorporating, hokamp2017lexically}.
+
+These methods are important because they show what can be achieved from symbol injection alone. In the current results, dictionary prompting is substantially better than zero-shot generation, but it often expands compact titles into explanatory paraphrases rather than reconstructing the reference form.
+
+\subsection{Synthetic SFT baselines}
+
+The second family uses synthetic training data.
+\begin{itemize}
+\item \texttt{baseline3} uses mixed Tangut-Chinese inputs.
+\item \texttt{baseline3\_1\_unk} enforces pure Tangut inputs by replacing dictionary misses with \texttt{UNK}.
+\item \texttt{baseline3\_3\_semantic} also enforces pure inputs, but replaces misses through vector-space semantic projection instead of \texttt{UNK}.
+\item \texttt{baseline3\_2\_multitask} introduces a structured target containing explicit alignment scaffolding.
+\end{itemize}
+
+The central design question is whether the model benefits more from input purity, approximate semantic preservation, or explicit alignment structure. At a high level, this family plays the role that synthetic parallel data often plays in low-resource MT: it converts monolingual or weakly aligned resources into supervised signals that a translation model can absorb \cite{sennrich2016monolingual}. The current evidence favors explicit alignment structure.
+
+\subsection{Preference optimization}
+
+The final family applies DPO to an SFT base using reward-defined chosen/rejected pairs \cite{rafailov2023dpo}. In the current repository, the reward combines lexical coverage with a penalty on log perplexity. The pipeline first selects the best SFT base among the mixed, \texttt{UNK}, and semantic variants using chrF++, then builds preference pairs from that base. In the current snapshot, the selected base is the \texttt{UNK} model.
+
+This design is informative even though it does not currently succeed. Because the reward is partly built from misaligned signals, DPO becomes a useful negative-result case study.

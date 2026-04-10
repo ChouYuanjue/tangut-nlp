@@ -1,0 +1,47 @@
+[
+  {
+    "method": "baseline3_2_multitask",
+    "num_examples": 50,
+    "mean_reference_agreement": 2.02,
+    "mean_source_faithfulness": 2.06,
+    "mean_title_style_fitness": 4.26,
+    "mean_overall": 2.04,
+    "output_json": "results/reference_eval_titleclean_fixedkey/baseline3_2_multitask.json"
+  },
+  {
+    "method": "final_v2_titleclean",
+    "num_examples": 50,
+    "mean_reference_agreement": 1.72,
+    "mean_source_faithfulness": 1.86,
+    "mean_title_style_fitness": 4.08,
+    "mean_overall": 1.8,
+    "output_json": "results/reference_eval_titleclean_fixedkey/final_v2_titleclean.json"
+  },
+  {
+    "method": "final_gap02_multitask_sigmoid_titleclean",
+    "num_examples": 50,
+    "mean_reference_agreement": 2.04,
+    "mean_source_faithfulness": 2.22,
+    "mean_title_style_fitness": 4.24,
+    "mean_overall": 2.12,
+    "output_json": "results/reference_eval_titleclean_fixedkey/final_gap02_multitask_sigmoid_titleclean.json"
+  },
+  {
+    "method": "final_gap02_multitask_robustwpo_titleclean",
+    "num_examples": 50,
+    "mean_reference_agreement": 2.12,
+    "mean_source_faithfulness": 2.22,
+    "mean_title_style_fitness": 3.9,
+    "mean_overall": 2.2,
+    "output_json": "results/reference_eval_titleclean_fixedkey/final_gap02_multitask_robustwpo_titleclean.json"
+  },
+  {
+    "method": "human_reference",
+    "num_examples": 50,
+    "mean_reference_agreement": 5.0,
+    "mean_source_faithfulness": 5.0,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 5.0,
+    "output_json": "results/reference_eval_titleclean_fixedkey/human_reference.json"
+  }
+]

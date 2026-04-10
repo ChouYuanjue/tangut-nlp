@@ -1,0 +1,21 @@
+{
+  "lexical_coverage": {
+    "mean": 0.4833034188034189,
+    "min": 0.0,
+    "max": 1.0
+  },
+  "perplexity": {
+    "mean_ppl": 9573.706536015627,
+    "min_ppl": 108.75580347959365,
+    "max_ppl": 73566.00719276567
+  },
+  "chrf": {
+    "corpus_chrf": 30.005529126443363,
+    "mean_sentence_chrf": 29.85100279309419
+  },
+  "llm_judge": {
+    "mean_semantic_completeness": 1.84,
+    "mean_fluency": 2.04
+  },
+  "num_examples": 50
+}
