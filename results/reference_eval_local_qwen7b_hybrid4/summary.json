@@ -1,0 +1,11 @@
+[
+  {
+    "method": "hybrid_multi4_catalog_gpt54",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.22,
+    "mean_source_faithfulness": 4.22,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.22,
+    "output_json": "results/reference_eval_local_qwen7b_hybrid4/hybrid_multi4_catalog_gpt54.json"
+  }
+]

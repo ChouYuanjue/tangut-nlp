@@ -19,11 +19,13 @@ MT-DPO g0.4 sig & \textbf{5/50} & 0.04 & 22/27 & 1.12 \\
 MT-DPO g0.4 rob & \textbf{5/50} & 0.04 & 22/27 & 1.26 \\
 \midrule
 \multicolumn{5}{l}{\textit{Hybrid workflow}} \\
-\textit{Catalog hybrid} & 14/50 & 0.00 & 26/27 & 0.95 \\
+Open selector (3-way) & 12/50 & 0.00 & 23/27 & 0.98 \\
+\textit{Catalog hybrid (3-way)} & 14/50 & 0.00 & 26/27 & 0.95 \\
+Catalog hybrid (4-way) & 13/50 & 0.00 & 25/27 & 0.95 \\
 \midrule
 Human ref. & 50/50 & 0.00 & 27/27 & 1.00 \\
 \bottomrule
 \end{tabular}
-\caption{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference.}
+\caption{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or prompt-artifact contamination. ``Suffix Preserve'' is computed on references containing at least one title-suffix character in \{\zh{經論記疏頌儀義傳錄贊序字品}\} and marks a prediction correct when it preserves all such reference-side suffix characters. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference.}
 \label{tab:diagnostics}
 \end{table}

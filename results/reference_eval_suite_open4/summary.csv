@@ -1,0 +1,2 @@
+method,num_examples,mean_reference_agreement,mean_source_faithfulness,mean_title_style_fitness,mean_overall,output_json
+open_hybrid_heuristic_guarded4,50,2.6,2.74,4.42,2.7,results/reference_eval_suite_open4/open_hybrid_heuristic_guarded4.json

@@ -1,0 +1,42 @@
+{
+  "0.0": {
+    "chosen_better_rate": 0.7582104990949056,
+    "rejected_better_rate": 0.230411171450737,
+    "equal_rate": 0.011378329454357383,
+    "kept_ge_0_2": 1994,
+    "kept_ge_0_4": 504,
+    "kept_ge_0_2_good_rate": 0.8269809428284854,
+    "kept_ge_0_4_good_rate": 0.8908730158730159,
+    "sign_flips_vs_current": 0
+  },
+  "0.005": {
+    "chosen_better_rate": 0.7582104990949056,
+    "rejected_better_rate": 0.230411171450737,
+    "equal_rate": 0.011378329454357383,
+    "kept_ge_0_2": 1997,
+    "kept_ge_0_4": 498,
+    "kept_ge_0_2_good_rate": 0.8232348522784176,
+    "kept_ge_0_4_good_rate": 0.8855421686746988,
+    "sign_flips_vs_current": 0
+  },
+  "0.01": {
+    "chosen_better_rate": 0.7582104990949056,
+    "rejected_better_rate": 0.230411171450737,
+    "equal_rate": 0.011378329454357383,
+    "kept_ge_0_2": 1996,
+    "kept_ge_0_4": 498,
+    "kept_ge_0_2_good_rate": 0.8236472945891784,
+    "kept_ge_0_4_good_rate": 0.8855421686746988,
+    "sign_flips_vs_current": 0
+  },
+  "0.02": {
+    "chosen_better_rate": 0.7582104990949056,
+    "rejected_better_rate": 0.230411171450737,
+    "equal_rate": 0.011378329454357383,
+    "kept_ge_0_2": 1999,
+    "kept_ge_0_4": 500,
+    "kept_ge_0_2_good_rate": 0.8239119559779889,
+    "kept_ge_0_4_good_rate": 0.88,
+    "sign_flips_vs_current": 0
+  }
+}

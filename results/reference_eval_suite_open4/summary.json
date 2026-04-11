@@ -1,0 +1,11 @@
+[
+  {
+    "method": "open_hybrid_heuristic_guarded4",
+    "num_examples": 50,
+    "mean_reference_agreement": 2.6,
+    "mean_source_faithfulness": 2.74,
+    "mean_title_style_fitness": 4.42,
+    "mean_overall": 2.7,
+    "output_json": "results/reference_eval_suite_open4/open_hybrid_heuristic_guarded4.json"
+  }
+]

@@ -1,0 +1,2 @@
+method,num_examples,mean_reference_agreement,mean_source_faithfulness,mean_title_style_fitness,mean_overall,output_json
+hybrid_multi4_catalog_gpt54,50,4.22,4.22,5.0,4.22,results/reference_eval_local_qwen7b_hybrid4/hybrid_multi4_catalog_gpt54.json
