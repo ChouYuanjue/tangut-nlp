@@ -1,33 +1,27 @@
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{lccccc}
+\begin{tabular}{lccc}
 \toprule
-Method & Lex $\uparrow$ & PPL $\downarrow$ & chrF++ $\uparrow$ & Sem $\uparrow$ & Flu $\uparrow$ \\
+Method & chrF++ $\uparrow$ & Exact Match $\uparrow$ & Ref.-Aware Overall $\uparrow$ \\
 \midrule
-\multicolumn{6}{l}{\textit{Prompt-only}} \\
-Zero-shot & 0.1165 & 20.21 & 0.19 & 1.00 & 1.56 \\
-Dict prompt & 0.8187 & 4474.44 & 6.13 & 2.30 & 2.40 \\
-Dict+CoT & 0.8723 & 18119.16 & 7.59 & 2.30 & 1.88 \\
-\textit{Frontier DeepSeek} & 0.6234 & 7438.72 & 28.54 & 2.62 & 2.78 \\
+\multicolumn{4}{l}{\textit{Prompt-only}} \\
+Dict prompt & 6.13 & 0/50 & 1.50 \\
+\textit{Frontier DeepSeek} & 28.54 & 12/50 & 2.80 \\
 \midrule
-\multicolumn{6}{l}{\textit{Local learned}} \\
-Mixed-SFT & 0.3192 & 298684.91 & 17.85 & 1.42 & 1.88 \\
-UNK-SFT & 0.3514 & 11031.18 & 22.11 & 1.66 & 1.96 \\
-MT-SFT & 0.4839 & \textbf{3322.93} & 25.99 & 1.70 & \textbf{2.26} \\
-Sem-SFT & 0.3723 & 17064.38 & 17.03 & 1.46 & 1.84 \\
-Legacy DPO & 0.4224 & 314577.16 & 19.39 & 1.52 & 1.76 \\
-MT-DPO g0.2 sig & \textbf{0.5694} & 303438.00 & 20.93 & \textbf{1.88} & 1.86 \\
-MT-DPO g0.2 rob & 0.5249 & 238892.42 & 27.67 & \textbf{1.88} & 1.88 \\
-MT-DPO g0.4 sig & 0.4833 & 9573.71 & \textbf{30.01} & 1.84 & 2.04 \\
-MT-DPO g0.4 rob & 0.4547 & 20012.69 & 27.52 & 1.74 & 2.08 \\
+\multicolumn{4}{l}{\textit{Local learned}} \\
+UNK-SFT & 22.11 & 3/50 & 1.82 \\
+MT-SFT & 25.99 & 5/50 & 1.98 \\
+Legacy DPO & 19.39 & 2/50 & 1.68 \\
+\textit{MT-DPO g0.4 sig} & 30.01 & 5/50 & 2.22 \\
 \midrule
-\multicolumn{6}{l}{\textit{Hybrid workflow}} \\
-\textit{Catalog hybrid} & 0.6189 & 6351.88 & 34.87 & 2.56 & 2.70 \\
+\multicolumn{4}{l}{\textit{Hybrid workflow}} \\
+\textit{Open selector (3-way, open)} & 32.62 & 12/50 & 2.90 \\
+Catalog adjudicator (3-way, closed) & 34.87 & 14/50 & 3.02 \\
 \midrule
-Human ref. & 0.5733 & 1646139.34 & 100.00 & 2.24 & 2.34 \\
+Human ref. & 100.00 & 50/50 & 5.00 \\
 \bottomrule
 \end{tabular}
-\caption{Repository-level metrics on the 50-example Tangut test set. Frontier DeepSeek is the strongest single-model baseline. The catalog hybrid adjudicates among the frontier output, UNK-SFT, and MT-DPO g0.4 sig. Here \texttt{g0.2} and \texttt{g0.4} denote minimum preference-gap thresholds. Bold marks the best local learned value in each column.}
+\caption{Representative systems aligned with the paper's first three research questions. Frontier DeepSeek is the strongest single model, MT-DPO g0.4 sig is the strongest local learned model, and the open 3-way selector is the main reproducible workflow result. The closed 3-way catalog adjudicator is reported as an upper bound on recoverable complementarity. The full ablation matrix remains in the repository and does not change these conclusions.}
 \label{tab:main-results}
 \end{table}

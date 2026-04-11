@@ -6,13 +6,11 @@
 Workflow & Pool & Exact Match & chrF++ & Overall \\
 \midrule
 \textit{Frontier DeepSeek} & single & 12/50 & 28.54 & 2.80 \\
-3-way open selector & F+UNK+DPO & 12/50 & 32.62 & 2.90 \\
-\textit{3-way catalog hybrid} & F+UNK+DPO & 14/50 & 34.87 & 3.02 \\
-4-way open selector & F+UNK+MT+DPO & 12/50 & 32.47 & 2.70 \\
-4-way catalog hybrid & F+UNK+MT+DPO & 13/50 & 35.64 & 2.98 \\
+\textit{3-way open selector} & F+UNK+DPO & 12/50 & 32.62 & 2.90 \\
+3-way catalog adjudicator (closed) & F+UNK+DPO & 14/50 & 34.87 & 3.02 \\
 Best-of-3 oracle & F+UNK+DPO & 14/50 & 41.85 & 3.12 \\
 \bottomrule
 \end{tabular}
-\caption{Consolidated workflow comparison. ``F'' = frontier DeepSeek, ``UNK'' = UNK-SFT, ``MT'' = MT-SFT, and ``DPO'' = MT-DPO g0.4 sig. The deterministic selectors are fully open and never edit text. Adding MT-SFT as a fourth candidate slightly raises chrF++ under GPT adjudication but weakens exact match and reference-aware overall, so the 3-way pool remains the best conservative operating point.}
+\caption{Consolidated workflow comparison. ``F'' = frontier DeepSeek, ``UNK'' = UNK-SFT, and ``DPO'' = MT-DPO g0.4 sig. The deterministic selector is fully open and never edits text. The closed catalog adjudicator is reported as a stronger but less reproducible upper bound, while the oracle shows remaining headroom inside the same 3-way candidate pool.}
 \label{tab:oracle-complementarity}
 \end{table}

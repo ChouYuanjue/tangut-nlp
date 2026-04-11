@@ -5,13 +5,13 @@
 \toprule
 Comparison ($B-A$) & $\Delta$ chrF++ & $\Delta$ Overall & $\Delta$ Exact \\
 \midrule
-3-way catalog hybrid -- Frontier & +6.33 [2.10, 11.67] & +0.22 [0.00, 0.48] & +0.04 [0.00, 0.10] \\
-3-way open selector -- Frontier & +4.08 [$-2.28$, 10.64] & +0.10 [$-0.20$, 0.40] & 0.00 [$-0.08$, 0.08] \\
-Local -- MT-SFT & +4.02 [0.84, 7.80] & +0.24 [0.00, 0.46] & 0.00 [0.00, 0.00] \\
-Local -- Frontier & +1.47 [$-8.09$, 10.29] & $-0.58$ [$-1.04$, $-0.12$] & $-0.14$ [$-0.26$, $-0.04$] \\
+Closed 3-way -- Frontier & +6.33 [2.10, 11.67] & +0.22 [0.00, 0.48] & +0.04 [0.00, 0.10] \\
+Open 3-way -- Frontier & +4.08 [$-2.28$, 10.64] & +0.10 [$-0.20$, 0.40] & 0.00 [$-0.08$, 0.08] \\
+MT-DPO g0.4 sig -- MT-SFT & +4.02 [0.84, 7.80] & +0.24 [0.00, 0.46] & 0.00 [0.00, 0.00] \\
+MT-DPO g0.4 sig -- Frontier & +1.47 [$-8.09$, 10.29] & $-0.58$ [$-1.04$, $-0.12$] & $-0.14$ [$-0.26$, $-0.04$] \\
 Legacy DPO -- MT-SFT & $-6.60$ [$-11.84$, $-1.73$] & $-0.30$ [$-0.64$, 0.04] & $-0.06$ [$-0.14$, 0.00] \\
 \bottomrule
 \end{tabular}
-\caption{Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes mean reference-aware judge score, and ``Exact'' denotes exact-match rate.}
+\caption{Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes mean reference-aware judge score, and ``Exact'' denotes exact-match rate. The selected rows correspond to the paper's core claims: the open and closed workflow gains over frontier, the local DPO gain over MT-SFT, and the failure of legacy DPO.}
 \label{tab:statistical-robustness}
 \end{table}

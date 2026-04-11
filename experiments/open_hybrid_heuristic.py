@@ -60,6 +60,14 @@ def candidate_score(
     source_length: int,
     median_length: int,
     is_frontier: bool,
+    prefix_weight: float,
+    suffix_weight: float,
+    title_suffix_bonus: float,
+    length_penalty_weight: float,
+    contamination_penalty: float,
+    too_short_penalty: float,
+    too_long_penalty: float,
+    frontier_prior: float,
 ) -> tuple[float, dict]:
     prefix_consensus = 0
     suffix_consensus = 0
@@ -78,15 +86,15 @@ def candidate_score(
     length_penalty = abs(len(pred) - median_length)
 
     score = 0.0
-    score += 1.4 * prefix_consensus
-    score += 1.2 * suffix_consensus
-    score += 2.5 * has_title_suffix
-    score -= 1.0 * length_penalty
-    score -= 6.0 * contamination
-    score -= 4.0 * too_short
-    score -= 2.0 * too_long
+    score += prefix_weight * prefix_consensus
+    score += suffix_weight * suffix_consensus
+    score += title_suffix_bonus * has_title_suffix
+    score -= length_penalty_weight * length_penalty
+    score -= contamination_penalty * contamination
+    score -= too_short_penalty * too_short
+    score -= too_long_penalty * too_long
     if is_frontier:
-        score += 0.75
+        score += frontier_prior
 
     diagnostics = {
         "prefix_consensus": prefix_consensus,
@@ -96,12 +104,18 @@ def candidate_score(
         "too_short": too_short,
         "too_long": too_long,
         "length_penalty": length_penalty,
-        "frontier_prior": 0.75 if is_frontier else 0.0,
+        "frontier_prior": frontier_prior if is_frontier else 0.0,
     }
     return score, diagnostics
 
 
-def choose_guarded(scored: list[dict], frontier_name: str) -> dict:
+def choose_guarded(
+    scored: list[dict],
+    frontier_name: str,
+    *,
+    switch_margin: float,
+    switch_consensus_delta: int,
+) -> dict:
     frontier = next((item for item in scored if item["name"] == frontier_name), None)
     if frontier is None:
         return max(scored, key=lambda x: (x["score"], x["name"] == frontier_name))
@@ -126,8 +140,8 @@ def choose_guarded(scored: list[dict], frontier_name: str) -> dict:
 
     # Switch only when the local option has materially stronger conservative evidence.
     if (
-        local_margin >= 3.0
-        and local_consensus >= frontier_consensus + 2
+        local_margin >= switch_margin
+        and local_consensus >= frontier_consensus + switch_consensus_delta
         and ld["too_short"] == 0
         and ld["contamination"] == 0
         and (ld["has_title_suffix"] or not fd["has_title_suffix"])
@@ -163,6 +177,16 @@ def main() -> None:
         default="guarded",
         help="Selection strategy: guarded frontier-first switch or raw score maximization.",
     )
+    parser.add_argument("--prefix-weight", type=float, default=1.4)
+    parser.add_argument("--suffix-weight", type=float, default=1.2)
+    parser.add_argument("--title-suffix-bonus", type=float, default=2.5)
+    parser.add_argument("--length-penalty-weight", type=float, default=1.0)
+    parser.add_argument("--contamination-penalty", type=float, default=6.0)
+    parser.add_argument("--too-short-penalty", type=float, default=4.0)
+    parser.add_argument("--too-long-penalty", type=float, default=2.0)
+    parser.add_argument("--frontier-prior", type=float, default=0.75)
+    parser.add_argument("--switch-margin", type=float, default=3.0)
+    parser.add_argument("--switch-consensus-delta", type=int, default=2)
     args = parser.parse_args()
 
     rows_by_name: dict[str, list[dict]] = {}
@@ -207,6 +231,14 @@ def main() -> None:
                 source_length=len(source or ""),
                 median_length=median_length,
                 is_frontier=(cand["name"] == args.frontier_name),
+                prefix_weight=args.prefix_weight,
+                suffix_weight=args.suffix_weight,
+                title_suffix_bonus=args.title_suffix_bonus,
+                length_penalty_weight=args.length_penalty_weight,
+                contamination_penalty=args.contamination_penalty,
+                too_short_penalty=args.too_short_penalty,
+                too_long_penalty=args.too_long_penalty,
+                frontier_prior=args.frontier_prior,
             )
             scored.append(
                 {
@@ -218,7 +250,12 @@ def main() -> None:
             )
 
         if args.mode == "guarded":
-            best = choose_guarded(scored, args.frontier_name)
+            best = choose_guarded(
+                scored,
+                args.frontier_name,
+                switch_margin=args.switch_margin,
+                switch_consensus_delta=args.switch_consensus_delta,
+            )
         else:
             best = max(scored, key=lambda x: (x["score"], x["name"] == args.frontier_name))
         output_rows.append(
