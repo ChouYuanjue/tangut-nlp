@@ -32,6 +32,8 @@ DEFAULT_METHODS = [
     "final_gap02_multitask_robustwpo",
     "final_gap04_multitask_sigmoid",
     "final_gap04_multitask_robustwpo",
+    "hybrid_select_frontier_local_gpt54",
+    "hybrid_multi3_catalog_gpt54",
     "final_v2",
     "human_reference",
 ]
@@ -197,6 +199,8 @@ def main() -> None:
         ("frontier_deepseek_v32_fewshot_cot", "baseline3_2_multitask"),
         ("frontier_deepseek_v32_fewshot_cot", "final_gap04_multitask_sigmoid"),
         ("frontier_deepseek_v32_fewshot_cot", "final_gap04_multitask_robustwpo"),
+        ("frontier_deepseek_v32_fewshot_cot", "hybrid_select_frontier_local_gpt54"),
+        ("frontier_deepseek_v32_fewshot_cot", "hybrid_multi3_catalog_gpt54"),
         ("baseline3_2_multitask", "final_gap02_multitask_sigmoid"),
         ("baseline3_2_multitask", "final_gap02_multitask_robustwpo"),
         ("baseline3_2_multitask", "final_gap04_multitask_sigmoid"),
@@ -204,6 +208,8 @@ def main() -> None:
         ("final_gap02_multitask_sigmoid", "final_gap04_multitask_sigmoid"),
         ("final_gap02_multitask_robustwpo", "final_gap04_multitask_robustwpo"),
         ("final_gap04_multitask_sigmoid", "final_gap04_multitask_robustwpo"),
+        ("final_gap04_multitask_sigmoid", "hybrid_multi3_catalog_gpt54"),
+        ("hybrid_select_frontier_local_gpt54", "hybrid_multi3_catalog_gpt54"),
         ("baseline3_1_unk", "final_v2"),
     ]
     pairwise_rows = []

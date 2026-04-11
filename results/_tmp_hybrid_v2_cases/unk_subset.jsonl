@@ -1,0 +1,7 @@
+{"input": "𘕕𗡪𘕋𗍓𗖍", "reference": "三個懺罪頌", "prediction": "三種惡趣淨拔", "method": "baseline3_1_unk"}
+{"input": "𗏁𗴮𗖰𗚩", "reference": "五部經", "prediction": "五部經", "method": "baseline3_1_unk"}
+{"input": "𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪", "reference": "正理滴之句義顯具", "prediction": "正理滴第一義釋顯", "method": "baseline3_1_unk"}
+{"input": "𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇", "reference": "金剛王燈炬心中所持可", "prediction": "金剛王燃施舍頌", "method": "baseline3_1_unk"}
+{"input": "𗫡𗾈", "reference": "到賢", "prediction": "次智", "method": "baseline3_1_unk"}
+{"input": "𗼇𗟲𗍥𘟙𗒛𗺉", "reference": "番言金剛王乘根", "prediction": "番言金剛王乘根", "method": "baseline3_1_unk"}
+{"input": "𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾", "reference": "大蓋白母之總持誦順要論", "prediction": "大蓋白母之總持順要論", "method": "baseline3_1_unk"}

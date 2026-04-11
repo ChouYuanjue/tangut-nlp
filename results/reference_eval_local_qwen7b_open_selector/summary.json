@@ -1,0 +1,38 @@
+[
+  {
+    "method": "frontier_deepseek_v32_fewshot_cot",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.2,
+    "mean_source_faithfulness": 4.2,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.2,
+    "output_json": "results/reference_eval_local_qwen7b_open_selector/frontier_deepseek_v32_fewshot_cot.json"
+  },
+  {
+    "method": "open_hybrid_heuristic",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.18,
+    "mean_source_faithfulness": 4.18,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.18,
+    "output_json": "results/reference_eval_local_qwen7b_open_selector/open_hybrid_heuristic.json"
+  },
+  {
+    "method": "hybrid_multi3_catalog_gpt54",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.24,
+    "mean_source_faithfulness": 4.24,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.24,
+    "output_json": "results/reference_eval_local_qwen7b_open_selector/hybrid_multi3_catalog_gpt54.json"
+  },
+  {
+    "method": "human_reference",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.88,
+    "mean_source_faithfulness": 4.88,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.88,
+    "output_json": "results/reference_eval_local_qwen7b_open_selector/human_reference.json"
+  }
+]

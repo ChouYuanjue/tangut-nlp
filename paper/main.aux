@@ -19,16 +19,24 @@
 \citation{sommerschield2023ancient}
 \citation{wang2023evahan}
 \citation{domingo2018modernizing}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{chen2017incorporating}
 \citation{sennrich2016monolingual}
 \citation{rafailov2023dpo}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{sommerschield2023ancient}
 \citation{wang2023evahan}
 \citation{domingo2018modernizing}
 \citation{sennrich2016monolingual}
+\citation{gu2018universal}
+\citation{ranathunga2021survey}
 \citation{chen2017incorporating}
 \citation{hokamp2017lexically}
+\citation{lu2023cod}
+\citation{liao2024lfm}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ancient and historical language processing.}{2}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Low-resource MT, synthetic supervision, and lexical grounding.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dictionary-structured prompting and error-aware prompting.}{2}{section*.3}\protected@file@percent }
 \citation{rafailov2023dpo}
 \citation{yang2024dqo}
 \citation{bogoychev2025wordalign}
@@ -37,61 +45,65 @@
 \citation{popovic2017chrfpp}
 \citation{rei2020comet}
 \citation{kepler2019openkiwi}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Ancient and historical language processing.}{3}{section*.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Synthetic supervision and lexical grounding.}{3}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Preference optimization.}{3}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Evaluation for non-standard translation outputs.}{3}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Task Setting}{3}{section.3}\protected@file@percent }
+\citation{zouhar2024cometpitfalls}
+\citation{pombal2025mint}
 \citation{popovic2017chrfpp}
 \citation{rei2020comet}
 \citation{kepler2019openkiwi}
+\citation{zouhar2024cometpitfalls}
+\citation{pombal2025mint}
+\@writefile{toc}{\contentsline {paragraph}{Preference optimization.}{3}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation for non-standard translation outputs.}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Task Setting}{3}{section.3}\protected@file@percent }
 \citation{chen2017incorporating}
 \citation{hokamp2017lexically}
+\citation{rafailov2023dpo}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{4}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Inference-only baselines}{4}{subsection.4.1}\protected@file@percent }
-\citation{sennrich2016monolingual}
-\citation{rafailov2023dpo}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Synthetic SFT baselines}{4}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Preference optimization}{4}{subsection.4.3}\protected@file@percent }
 \citation{chen2024robustdpo}
 \citation{pang2024wpo}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Synthetic SFT baselines}{5}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Preference optimization}{5}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Training and judge details}{6}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Catalog-aware hybrid adjudication}{5}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Training and judge details}{5}{subsection.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Repository-level metrics on the 50-example Tangut test set. Frontier DeepSeek is the strongest single-model baseline. The catalog hybrid adjudicates among the frontier output, UNK-SFT, and MT-DPO g0.4 sig. Here \texttt  {g0.2} and \texttt  {g0.4} denote minimum preference-gap thresholds. Bold marks the best local learned value in each column.}}{6}{table.1}\protected@file@percent }
+\newlabel{tab:main-results}{{1}{6}{Repository-level metrics on the 50-example Tangut test set. Frontier DeepSeek is the strongest single-model baseline. The catalog hybrid adjudicates among the frontier output, UNK-SFT, and MT-DPO g0.4 sig. Here \texttt {g0.2} and \texttt {g0.4} denote minimum preference-gap thresholds. Bold marks the best local learned value in each column}{table.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Main Results}{6}{section.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Repository-level metrics on the 50-example Tangut test set. The Frontier DeepSeek row is a proprietary prompt-only upper bound using dictionary grounding plus four development-set few-shot exemplars. Here \texttt  {g0.2} and \texttt  {g0.4} denote minimum preference-gap thresholds of 0.2 and 0.4. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The key comparison is no longer ``prompting versus training'' in the abstract: frontier prompting is strongest on several reference-free metrics, but strict gap-$0.4$ multitask DPO still gives the best non-reference chrF++ and the strongest local raw-overlap result.}}{7}{table.1}\protected@file@percent }
-\newlabel{tab:main-results}{{1}{7}{Repository-level metrics on the 50-example Tangut test set. The Frontier DeepSeek row is a proprietary prompt-only upper bound using dictionary grounding plus four development-set few-shot exemplars. Here \texttt {g0.2} and \texttt {g0.4} denote minimum preference-gap thresholds of 0.2 and 0.4. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The key comparison is no longer ``prompting versus training'' in the abstract: frontier prompting is strongest on several reference-free metrics, but strict gap-$0.4$ multitask DPO still gives the best non-reference chrF++ and the strongest local raw-overlap result}{table.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Analysis}{8}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Reference-aligned diagnostics}{8}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Oracle complementarity and workflow value}{8}{subsection.6.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. In the last two columns, the table reports suffix-preservation count first and length ratio second. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The frontier DeepSeek row shows that strong prompt-only inference can already reconstruct many short titles cleanly, while the new gap-$0.4$ local DPO variants keep most of the suffix gains of multitask-base DPO and restore near-reference length relative to their gap-$0.2$ counterparts.}}{9}{table.2}\protected@file@percent }
-\newlabel{tab:diagnostics}{{2}{9}{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. In the last two columns, the table reports suffix-preservation count first and length ratio second. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The frontier DeepSeek row shows that strong prompt-only inference can already reconstruct many short titles cleanly, while the new gap-$0.4$ local DPO variants keep most of the suffix gains of multitask-base DPO and restore near-reference length relative to their gap-$0.2$ counterparts}{table.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Complementarity between the strongest frontier and local systems. The two systems produce identical outputs on only 4/50 items, so the oracle is not just restating a near-duplicate ranking. Instead, it shows that local adaptation supplies genuinely different useful hypotheses: selecting the better output of the two systems yields large gains on both raw overlap and reference-aware utility.}}{9}{table.3}\protected@file@percent }
-\newlabel{tab:oracle-complementarity}{{3}{9}{Complementarity between the strongest frontier and local systems. The two systems produce identical outputs on only 4/50 items, so the oracle is not just restating a near-duplicate ranking. Instead, it shows that local adaptation supplies genuinely different useful hypotheses: selecting the better output of the two systems yields large gains on both raw overlap and reference-aware utility}{table.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}A direct test of stronger CoT prompting}{9}{subsection.6.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The frontier DeepSeek baseline is the strongest non-reference system overall, but within the local family the best overall score is shared by three multitask-base DPO variants; the stricter gap-$0.4$ runs win the local tie-break dimensions, with MT-DPO g0.4 sig leading on reference agreement and source faithfulness and MT-DPO g0.4 rob leading on title-style fitness.}}{10}{table.4}\protected@file@percent }
-\newlabel{tab:reference-aware-eval}{{4}{10}{Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The frontier DeepSeek baseline is the strongest non-reference system overall, but within the local family the best overall score is shared by three multitask-base DPO variants; the stricter gap-$0.4$ runs win the local tie-break dimensions, with MT-DPO g0.4 sig leading on reference agreement and source faithfulness and MT-DPO g0.4 rob leading on title-style fitness}{table.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Reference-aware judging changes the ranking}{10}{subsection.6.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes the mean reference-aware judge score, and ``Exact'' denotes exact-match rate. The table shows that the local chrF++ gain over multitask SFT is robust, while the frontier system retains a robust advantage over the best local model on reference-aware overall and exact match.}}{11}{table.5}\protected@file@percent }
-\newlabel{tab:statistical-robustness}{{5}{11}{Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes the mean reference-aware judge score, and ``Exact'' denotes exact-match rate. The table shows that the local chrF++ gain over multitask SFT is robust, while the frontier system retains a robust advantage over the best local model on reference-aware overall and exact match}{table.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Human-reference anchor}{11}{subsection.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Statistical robustness and data hygiene}{11}{subsection.6.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Lightweight audit of the current DPO pair construction pipeline. Higher reward gaps correlate with cleaner preference labels under a simple gold-proxy check, which helps explain why strict filtering stabilizes the later multitask-base DPO runs.}}{12}{table.6}\protected@file@percent }
-\newlabel{tab:dpo-audit}{{6}{12}{Lightweight audit of the current DPO pair construction pipeline. Higher reward gaps correlate with cleaner preference labels under a simple gold-proxy check, which helps explain why strict filtering stabilizes the later multitask-base DPO runs}{table.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7}Legacy DPO fails for different reasons than multitask-base DPO}{12}{subsection.6.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion and Limitations}{13}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{13}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Analysis}{7}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Reference-aligned diagnostics}{7}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}From oracle complementarity to a real hybrid}{7}{subsection.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference.}}{8}{table.2}\protected@file@percent }
+\newlabel{tab:diagnostics}{{2}{8}{Reference-aligned diagnostics derived from stored predictions. ``Contam.'' denotes mixed-script or artifact contamination. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces From candidate complementarity to a real hybrid workflow. The 2-way hybrid arbitrates between the frontier system and MT-DPO g0.4 sig. The 3-way catalog hybrid adjudicates among the frontier system, UNK-SFT, and MT-DPO g0.4 sig, with optional minimal repair.}}{8}{table.3}\protected@file@percent }
+\newlabel{tab:oracle-complementarity}{{3}{8}{From candidate complementarity to a real hybrid workflow. The 2-way hybrid arbitrates between the frontier system and MT-DPO g0.4 sig. The 3-way catalog hybrid adjudicates among the frontier system, UNK-SFT, and MT-DPO g0.4 sig, with optional minimal repair}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Reference-aware judging changes the ranking}{8}{subsection.6.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference.}}{9}{table.4}\protected@file@percent }
+\newlabel{tab:reference-aware-eval}{{4}{9}{Reference-aware judge scores on a 1--5 scale. The judge sees the Tangut input, the gold reference, and the candidate output simultaneously. Bold marks the best local learned value in each column, excluding prompt-only baselines, the hybrid workflow, and the human reference}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes mean reference-aware judge score, and ``Exact'' denotes exact-match rate.}}{9}{table.5}\protected@file@percent }
+\newlabel{tab:statistical-robustness}{{5}{9}{Paired bootstrap comparisons with 5,000 resamples. ``Overall'' denotes mean reference-aware judge score, and ``Exact'' denotes exact-match rate}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Metric alignment, robustness, and filtered DPO}{9}{subsection.6.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Lightweight audit of the current DPO pair construction pipeline. Higher reward gaps correlate with cleaner preference labels under a simple gold-proxy check, which helps explain why strict filtering stabilizes the later multitask-base DPO runs.}}{10}{table.6}\protected@file@percent }
+\newlabel{tab:dpo-audit}{{6}{10}{Lightweight audit of the current DPO pair construction pipeline. Higher reward gaps correlate with cleaner preference labels under a simple gold-proxy check, which helps explain why strict filtering stabilizes the later multitask-base DPO runs}{table.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion and Limitations}{10}{section.7}\protected@file@percent }
 \bibcite{sommerschield2023ancient}{1}
 \bibcite{wang2023evahan}{2}
 \bibcite{domingo2018modernizing}{3}
 \bibcite{sennrich2016monolingual}{4}
 \bibcite{chen2017incorporating}{5}
-\bibcite{hokamp2017lexically}{6}
-\bibcite{rafailov2023dpo}{7}
-\bibcite{chen2024robustdpo}{8}
-\bibcite{pang2024wpo}{9}
-\bibcite{yang2024dqo}{10}
-\bibcite{bogoychev2025wordalign}{11}
-\bibcite{popovic2017chrfpp}{12}
-\bibcite{rei2020comet}{13}
-\bibcite{kepler2019openkiwi}{14}
-\gdef \@abspage@last{14}
+\bibcite{gu2018universal}{6}
+\bibcite{hokamp2017lexically}{7}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{11}{section.8}\protected@file@percent }
+\bibcite{ranathunga2021survey}{8}
+\bibcite{lu2023cod}{9}
+\bibcite{liao2024lfm}{10}
+\bibcite{rafailov2023dpo}{11}
+\bibcite{chen2024robustdpo}{12}
+\bibcite{pang2024wpo}{13}
+\bibcite{yang2024dqo}{14}
+\bibcite{bogoychev2025wordalign}{15}
+\bibcite{popovic2017chrfpp}{16}
+\bibcite{rei2020comet}{17}
+\bibcite{zouhar2024cometpitfalls}{18}
+\bibcite{pombal2025mint}{19}
+\bibcite{kepler2019openkiwi}{20}
+\gdef \@abspage@last{12}

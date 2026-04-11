@@ -6,10 +6,11 @@
 System & Exact Match & chrF++ & Overall \\
 \midrule
 \textit{Frontier DeepSeek} & 12/50 & 28.54 & 2.80 \\
-MT-DPO g0.4 sig & 5/50 & 30.01 & 2.22 \\
-Best-of-two oracle & 13/50 & 40.16 & 3.06 \\
+2-way select hybrid & 13/50 & 30.05 & 2.88 \\
+3-way catalog hybrid & 14/50 & 34.87 & 3.02 \\
+Best-of-3 oracle & 14/50 & 41.85 & 3.12 \\
 \bottomrule
 \end{tabular}
-\caption{Complementarity between the strongest frontier and local systems. The two systems produce identical outputs on only 4/50 items, so the oracle is not just restating a near-duplicate ranking. Instead, it shows that local adaptation supplies genuinely different useful hypotheses: selecting the better output of the two systems yields large gains on both raw overlap and reference-aware utility.}
+\caption{From candidate complementarity to a real hybrid workflow. The 2-way hybrid arbitrates between the frontier system and MT-DPO g0.4 sig. The 3-way catalog hybrid adjudicates among the frontier system, UNK-SFT, and MT-DPO g0.4 sig, with optional minimal repair.}
 \label{tab:oracle-complementarity}
 \end{table}

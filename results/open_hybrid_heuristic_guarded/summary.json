@@ -1,0 +1,32 @@
+{
+  "frontier": {
+    "corpus_chrf": 28.5403,
+    "mean_sentence_chrf": 37.646,
+    "exact_match": 12,
+    "exact_match_rate": 0.24,
+    "contamination_rate": 0.0,
+    "length_ratio": 0.9529,
+    "title_suffix_ok": 24,
+    "title_suffix_total": 27
+  },
+  "heuristic_guarded": {
+    "corpus_chrf": 32.6175,
+    "mean_sentence_chrf": 40.8101,
+    "exact_match": 12,
+    "exact_match_rate": 0.24,
+    "contamination_rate": 0.0,
+    "length_ratio": 0.9826,
+    "title_suffix_ok": 23,
+    "title_suffix_total": 27
+  },
+  "hybrid": {
+    "corpus_chrf": 34.8741,
+    "mean_sentence_chrf": 44.872,
+    "exact_match": 14,
+    "exact_match_rate": 0.28,
+    "contamination_rate": 0.0,
+    "length_ratio": 0.9479,
+    "title_suffix_ok": 26,
+    "title_suffix_total": 27
+  }
+}

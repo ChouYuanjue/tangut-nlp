@@ -1,5 +1,17 @@
 [
   {
+    "method": "final_v2",
+    "corpus_chrf": 19.3893,
+    "corpus_chrf_ci_low": 12.9729,
+    "corpus_chrf_ci_high": 26.8219,
+    "mean_judge_overall": 1.68,
+    "mean_judge_overall_ci_low": 1.4,
+    "mean_judge_overall_ci_high": 1.98,
+    "exact_match_rate": 0.04,
+    "exact_match_rate_ci_low": 0.0,
+    "exact_match_rate_ci_high": 0.1
+  },
+  {
     "method": "hybrid_select_frontier_local_gpt54",
     "corpus_chrf": 30.0469,
     "corpus_chrf_ci_low": 22.2899,
@@ -12,28 +24,16 @@
     "exact_match_rate_ci_high": 0.38
   },
   {
-    "method": "frontier_deepseek_v32_fewshot_cot",
-    "corpus_chrf": 28.5403,
-    "corpus_chrf_ci_low": 20.872,
-    "corpus_chrf_ci_high": 37.5968,
-    "mean_judge_overall": 2.8,
-    "mean_judge_overall_ci_low": 2.44,
-    "mean_judge_overall_ci_high": 3.2,
-    "exact_match_rate": 0.24,
-    "exact_match_rate_ci_low": 0.12,
-    "exact_match_rate_ci_high": 0.36
-  },
-  {
-    "method": "final_v2",
-    "corpus_chrf": 19.3893,
-    "corpus_chrf_ci_low": 12.9729,
-    "corpus_chrf_ci_high": 26.8219,
-    "mean_judge_overall": 1.68,
-    "mean_judge_overall_ci_low": 1.4,
-    "mean_judge_overall_ci_high": 1.98,
-    "exact_match_rate": 0.04,
-    "exact_match_rate_ci_low": 0.0,
-    "exact_match_rate_ci_high": 0.1
+    "method": "baseline3_2_multitask",
+    "corpus_chrf": 25.9875,
+    "corpus_chrf_ci_low": 18.5598,
+    "corpus_chrf_ci_high": 34.0117,
+    "mean_judge_overall": 1.98,
+    "mean_judge_overall_ci_low": 1.64,
+    "mean_judge_overall_ci_high": 2.36,
+    "exact_match_rate": 0.1,
+    "exact_match_rate_ci_low": 0.02,
+    "exact_match_rate_ci_high": 0.18
   },
   {
     "method": "final_gap04_multitask_sigmoid",
@@ -48,15 +48,27 @@
     "exact_match_rate_ci_high": 0.18
   },
   {
-    "method": "baseline3_2_multitask",
-    "corpus_chrf": 25.9875,
-    "corpus_chrf_ci_low": 18.5598,
-    "corpus_chrf_ci_high": 34.0117,
-    "mean_judge_overall": 1.98,
-    "mean_judge_overall_ci_low": 1.64,
-    "mean_judge_overall_ci_high": 2.36,
-    "exact_match_rate": 0.1,
-    "exact_match_rate_ci_low": 0.02,
-    "exact_match_rate_ci_high": 0.18
+    "method": "frontier_deepseek_v32_fewshot_cot",
+    "corpus_chrf": 28.5403,
+    "corpus_chrf_ci_low": 20.872,
+    "corpus_chrf_ci_high": 37.5968,
+    "mean_judge_overall": 2.8,
+    "mean_judge_overall_ci_low": 2.44,
+    "mean_judge_overall_ci_high": 3.2,
+    "exact_match_rate": 0.24,
+    "exact_match_rate_ci_low": 0.12,
+    "exact_match_rate_ci_high": 0.36
+  },
+  {
+    "method": "hybrid_multi3_catalog_gpt54",
+    "corpus_chrf": 34.8741,
+    "corpus_chrf_ci_low": 26.7461,
+    "corpus_chrf_ci_high": 44.5081,
+    "mean_judge_overall": 3.02,
+    "mean_judge_overall_ci_low": 2.64,
+    "mean_judge_overall_ci_high": 3.42,
+    "exact_match_rate": 0.28,
+    "exact_match_rate_ci_low": 0.16,
+    "exact_match_rate_ci_high": 0.4
   }
 ]

@@ -13,6 +13,45 @@
     "delta_exact_ci_high": 0.06
   },
   {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "hybrid_multi3_catalog_gpt54",
+    "delta_corpus_chrf_b_minus_a": 6.3339,
+    "delta_corpus_chrf_ci_low": 2.1045,
+    "delta_corpus_chrf_ci_high": 11.6655,
+    "delta_mean_judge_overall_b_minus_a": 0.22,
+    "delta_mean_judge_ci_low": 0.0,
+    "delta_mean_judge_ci_high": 0.48,
+    "delta_exact_rate_b_minus_a": 0.04,
+    "delta_exact_ci_low": 0.0,
+    "delta_exact_ci_high": 0.1
+  },
+  {
+    "method_a": "hybrid_select_frontier_local_gpt54",
+    "method_b": "hybrid_multi3_catalog_gpt54",
+    "delta_corpus_chrf_b_minus_a": 4.8272,
+    "delta_corpus_chrf_ci_low": 1.3994,
+    "delta_corpus_chrf_ci_high": 8.9335,
+    "delta_mean_judge_overall_b_minus_a": 0.14,
+    "delta_mean_judge_ci_low": -0.04,
+    "delta_mean_judge_ci_high": 0.34,
+    "delta_exact_rate_b_minus_a": 0.02,
+    "delta_exact_ci_low": 0.0,
+    "delta_exact_ci_high": 0.06
+  },
+  {
+    "method_a": "final_gap04_multitask_sigmoid",
+    "method_b": "hybrid_multi3_catalog_gpt54",
+    "delta_corpus_chrf_b_minus_a": 4.8686,
+    "delta_corpus_chrf_ci_low": -3.0174,
+    "delta_corpus_chrf_ci_high": 13.4381,
+    "delta_mean_judge_overall_b_minus_a": 0.8,
+    "delta_mean_judge_ci_low": 0.44,
+    "delta_mean_judge_ci_high": 1.2005,
+    "delta_exact_rate_b_minus_a": 0.18,
+    "delta_exact_ci_low": 0.08,
+    "delta_exact_ci_high": 0.3
+  },
+  {
     "method_a": "final_gap04_multitask_sigmoid",
     "method_b": "hybrid_select_frontier_local_gpt54",
     "delta_corpus_chrf_b_minus_a": 0.0414,

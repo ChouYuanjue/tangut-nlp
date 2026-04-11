@@ -22,9 +22,12 @@ MT-DPO g0.2 rob & 0.5249 & 238892.42 & 27.67 & \textbf{1.88} & 1.88 \\
 MT-DPO g0.4 sig & 0.4833 & 9573.71 & \textbf{30.01} & 1.84 & 2.04 \\
 MT-DPO g0.4 rob & 0.4547 & 20012.69 & 27.52 & 1.74 & 2.08 \\
 \midrule
+\multicolumn{6}{l}{\textit{Hybrid workflow}} \\
+\textit{Catalog hybrid} & 0.6189 & 6351.88 & 34.87 & 2.56 & 2.70 \\
+\midrule
 Human ref. & 0.5733 & 1646139.34 & 100.00 & 2.24 & 2.34 \\
 \bottomrule
 \end{tabular}
-\caption{Repository-level metrics on the 50-example Tangut test set. The Frontier DeepSeek row is a proprietary prompt-only upper bound using dictionary grounding plus four development-set few-shot exemplars. Here \texttt{g0.2} and \texttt{g0.4} denote minimum preference-gap thresholds of 0.2 and 0.4. Bold marks the best local learned value in each column, excluding prompt-only baselines and the human reference. The key comparison is no longer ``prompting versus training'' in the abstract: frontier prompting is strongest on several reference-free metrics, but strict gap-$0.4$ multitask DPO still gives the best non-reference chrF++ and the strongest local raw-overlap result.}
+\caption{Repository-level metrics on the 50-example Tangut test set. Frontier DeepSeek is the strongest single-model baseline. The catalog hybrid adjudicates among the frontier output, UNK-SFT, and MT-DPO g0.4 sig. Here \texttt{g0.2} and \texttt{g0.4} denote minimum preference-gap thresholds. Bold marks the best local learned value in each column.}
 \label{tab:main-results}
 \end{table}

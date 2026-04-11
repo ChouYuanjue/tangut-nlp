@@ -1,0 +1,29 @@
+[
+  {
+    "method": "frontier_deepseek_v32_fewshot_cot",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.2,
+    "mean_source_faithfulness": 4.2,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.2,
+    "output_json": "results/reference_eval_local_qwen7b_frontier_hybrid/frontier_deepseek_v32_fewshot_cot.json"
+  },
+  {
+    "method": "hybrid_multi3_catalog_gpt54",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.24,
+    "mean_source_faithfulness": 4.24,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.24,
+    "output_json": "results/reference_eval_local_qwen7b_frontier_hybrid/hybrid_multi3_catalog_gpt54.json"
+  },
+  {
+    "method": "human_reference",
+    "num_examples": 50,
+    "mean_reference_agreement": 4.9,
+    "mean_source_faithfulness": 4.9,
+    "mean_title_style_fitness": 5.0,
+    "mean_overall": 4.9,
+    "output_json": "results/reference_eval_local_qwen7b_frontier_hybrid/human_reference.json"
+  }
+]
