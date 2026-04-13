@@ -1,16 +1,55 @@
 [
   {
     "method_a": "frontier_deepseek_v32_fewshot_cot",
-    "method_b": "hybrid_select_frontier_local_gpt54",
-    "delta_corpus_chrf_b_minus_a": 1.5067,
+    "method_b": "candidate_pool_vote",
+    "delta_corpus_chrf_b_minus_a": 1.5245,
     "delta_corpus_chrf_ci_low": 0.0,
-    "delta_corpus_chrf_ci_high": 5.09,
-    "delta_mean_judge_overall_b_minus_a": 0.08,
-    "delta_mean_judge_ci_low": -0.1,
-    "delta_mean_judge_ci_high": 0.3,
+    "delta_corpus_chrf_ci_high": 5.1422,
+    "delta_mean_judge_overall_b_minus_a": 0.14,
+    "delta_mean_judge_ci_low": -0.04,
+    "delta_mean_judge_ci_high": 0.36,
     "delta_exact_rate_b_minus_a": 0.02,
     "delta_exact_ci_low": 0.0,
     "delta_exact_ci_high": 0.06
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "open_local_qwen_reranker",
+    "delta_corpus_chrf_b_minus_a": 2.3059,
+    "delta_corpus_chrf_ci_low": 0.1118,
+    "delta_corpus_chrf_ci_high": 5.4755,
+    "delta_mean_judge_overall_b_minus_a": 0.02,
+    "delta_mean_judge_ci_low": -0.1,
+    "delta_mean_judge_ci_high": 0.14,
+    "delta_exact_rate_b_minus_a": 0.0,
+    "delta_exact_ci_low": 0.0,
+    "delta_exact_ci_high": 0.0
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "open_hybrid_heuristic_guarded",
+    "delta_corpus_chrf_b_minus_a": 4.0772,
+    "delta_corpus_chrf_ci_low": -2.2777,
+    "delta_corpus_chrf_ci_high": 10.6352,
+    "delta_mean_judge_overall_b_minus_a": 0.1,
+    "delta_mean_judge_ci_low": -0.2,
+    "delta_mean_judge_ci_high": 0.4005,
+    "delta_exact_rate_b_minus_a": 0.0,
+    "delta_exact_ci_low": -0.08,
+    "delta_exact_ci_high": 0.08
+  },
+  {
+    "method_a": "frontier_deepseek_v32_fewshot_cot",
+    "method_b": "candidate_pool_pairwise_mbr",
+    "delta_corpus_chrf_b_minus_a": 6.2229,
+    "delta_corpus_chrf_ci_low": -2.5981,
+    "delta_corpus_chrf_ci_high": 14.5954,
+    "delta_mean_judge_overall_b_minus_a": -0.16,
+    "delta_mean_judge_ci_low": -0.5,
+    "delta_mean_judge_ci_high": 0.18,
+    "delta_exact_rate_b_minus_a": -0.02,
+    "delta_exact_ci_low": -0.08,
+    "delta_exact_ci_high": 0.04
   },
   {
     "method_a": "frontier_deepseek_v32_fewshot_cot",
@@ -26,19 +65,6 @@
     "delta_exact_ci_high": 0.1
   },
   {
-    "method_a": "hybrid_select_frontier_local_gpt54",
-    "method_b": "hybrid_multi3_catalog_gpt54",
-    "delta_corpus_chrf_b_minus_a": 4.8272,
-    "delta_corpus_chrf_ci_low": 1.3994,
-    "delta_corpus_chrf_ci_high": 8.9335,
-    "delta_mean_judge_overall_b_minus_a": 0.14,
-    "delta_mean_judge_ci_low": -0.04,
-    "delta_mean_judge_ci_high": 0.34,
-    "delta_exact_rate_b_minus_a": 0.02,
-    "delta_exact_ci_low": 0.0,
-    "delta_exact_ci_high": 0.06
-  },
-  {
     "method_a": "final_gap04_multitask_sigmoid",
     "method_b": "hybrid_multi3_catalog_gpt54",
     "delta_corpus_chrf_b_minus_a": 4.8686,
@@ -50,19 +76,6 @@
     "delta_exact_rate_b_minus_a": 0.18,
     "delta_exact_ci_low": 0.08,
     "delta_exact_ci_high": 0.3
-  },
-  {
-    "method_a": "final_gap04_multitask_sigmoid",
-    "method_b": "hybrid_select_frontier_local_gpt54",
-    "delta_corpus_chrf_b_minus_a": 0.0414,
-    "delta_corpus_chrf_ci_low": -8.266,
-    "delta_corpus_chrf_ci_high": 9.4906,
-    "delta_mean_judge_overall_b_minus_a": 0.66,
-    "delta_mean_judge_ci_low": 0.24,
-    "delta_mean_judge_ci_high": 1.1,
-    "delta_exact_rate_b_minus_a": 0.16,
-    "delta_exact_ci_low": 0.06,
-    "delta_exact_ci_high": 0.28
   },
   {
     "method_a": "frontier_deepseek_v32_fewshot_cot",

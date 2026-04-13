@@ -1,0 +1,35 @@
+{
+  "source": "EVOBC",
+  "input_mapping_file": "/tmp/character-Evolution-Dataset/Key&Value.json",
+  "num_ids": 13714,
+  "num_unique_chars": 13714,
+  "duplicate_char_count": 0,
+  "surrogate_start_codepoint": "U+F0000",
+  "preview": [
+    {
+      "external_id": "00001",
+      "modern_char": "㐁",
+      "surrogate_codepoint": "U+F0000"
+    },
+    {
+      "external_id": "00002",
+      "modern_char": "㐉",
+      "surrogate_codepoint": "U+F0001"
+    },
+    {
+      "external_id": "00003",
+      "modern_char": "㐎",
+      "surrogate_codepoint": "U+F0002"
+    },
+    {
+      "external_id": "00004",
+      "modern_char": "㐛",
+      "surrogate_codepoint": "U+F0003"
+    },
+    {
+      "external_id": "00005",
+      "modern_char": "㐭",
+      "surrogate_codepoint": "U+F0004"
+    }
+  ]
+}

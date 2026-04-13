@@ -1,0 +1,3 @@
+mode,num_examples,corpus_chrf,exact_match,exact_match_rate,contamination_rate,length_ratio,title_suffix_ok,title_suffix_total,switched_from_frontier,basis_counts
+vote,50,30.0648,13,0.26,0.0,0.9653,24,27,2,"{""frontier"": 48, ""unk"": 2}"
+pairwise_mbr,50,34.7631,11,0.22,0.06,1.1712,24,27,35,"{""dpo"": 30, ""frontier"": 15, ""unk"": 5}"

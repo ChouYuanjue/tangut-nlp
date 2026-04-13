@@ -1,0 +1,2 @@
+{"instruction": "请将以下甲骨文符号序列翻译为现代中文：", "input": "00001 00002 00005", "output": "TODO_REPLACE_WITH_REAL_SHORT_REFERENCE", "metadata": {"template": true, "decoded_hint": "㐁㐉㐭", "note": "Replace both the ID sequence and the reference with a real oracle short-text pair."}}
+{"instruction": "请将以下甲骨文符号序列翻译为现代中文：", "input": "00003 00004 00010", "output": "TODO_REPLACE_WITH_REAL_SHORT_REFERENCE", "metadata": {"template": true, "decoded_hint": "㐎㐛上", "note": "Keep the source as whitespace-delimited EVOBC IDs before running encode_oracle_jsonl.py."}}

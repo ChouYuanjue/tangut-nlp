@@ -10,8 +10,12 @@ from src.dictionary_utils import BilingualDictionary
 from src.prompt_templates import (
     SYSTEM_DICT_RAG,
     SYSTEM_DICT_RAG_COT,
+    SYSTEM_ORACLE_DICT_RAG,
+    SYSTEM_ORACLE_DICT_RAG_COT,
     USER_DICT_RAG,
     USER_DICT_RAG_COT,
+    USER_ORACLE_DICT_RAG,
+    USER_ORACLE_DICT_RAG_COT,
     build_chat_prompt,
 )
 
@@ -43,6 +47,12 @@ def main():
         default="vanilla",
         help="Prompt style: vanilla (baseline2) or cot3 (baseline2.1)",
     )
+    parser.add_argument(
+        "--prompt-profile",
+        choices=["tangut", "oracle"],
+        default="tangut",
+        help="Choose Tangut-specific or oracle-specific prompt wording.",
+    )
     args = parser.parse_args()
 
     from vllm import LLM, SamplingParams
@@ -55,12 +65,20 @@ def main():
 
     prompts = []
     glosses_list = []
-    if args.prompt_style == "cot3":
-        system_prompt = SYSTEM_DICT_RAG_COT
-        user_template = USER_DICT_RAG_COT
+    if args.prompt_profile == "oracle":
+        if args.prompt_style == "cot3":
+            system_prompt = SYSTEM_ORACLE_DICT_RAG_COT
+            user_template = USER_ORACLE_DICT_RAG_COT
+        else:
+            system_prompt = SYSTEM_ORACLE_DICT_RAG
+            user_template = USER_ORACLE_DICT_RAG
     else:
-        system_prompt = SYSTEM_DICT_RAG
-        user_template = USER_DICT_RAG
+        if args.prompt_style == "cot3":
+            system_prompt = SYSTEM_DICT_RAG_COT
+            user_template = USER_DICT_RAG_COT
+        else:
+            system_prompt = SYSTEM_DICT_RAG
+            user_template = USER_DICT_RAG
 
     for item in test_data:
         glosses = build_glosses_text(item["input"], dictionary)

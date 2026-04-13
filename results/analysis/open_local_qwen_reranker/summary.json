@@ -1,0 +1,12 @@
+{
+  "num_examples": 50,
+  "corpus_chrf": 30.8462,
+  "exact_match": 12,
+  "exact_match_rate": 0.24,
+  "contamination_rate": 0.0,
+  "length_ratio": 0.9603,
+  "title_suffix_ok": 25,
+  "title_suffix_total": 27,
+  "switched_from_frontier": 6,
+  "basis_counts": "{\"dpo\": 1, \"frontier\": 44, \"unk\": 5}"
+}

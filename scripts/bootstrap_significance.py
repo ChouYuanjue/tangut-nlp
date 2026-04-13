@@ -15,13 +15,21 @@ import sacrebleu
 
 DEFAULT_METHODS = [
     "frontier_deepseek_v32_fewshot_cot",
+    "open_hybrid_heuristic_guarded",
     "hybrid_select_frontier_local_gpt54",
     "hybrid_multi3_catalog_gpt54",
+    "candidate_pool_vote",
+    "open_local_qwen_reranker",
+    "candidate_pool_pairwise_mbr",
     "baseline3_2_multitask",
     "final_gap04_multitask_sigmoid",
 ]
 
 DEFAULT_COMPARISONS = [
+    ("frontier_deepseek_v32_fewshot_cot", "candidate_pool_vote"),
+    ("frontier_deepseek_v32_fewshot_cot", "open_local_qwen_reranker"),
+    ("frontier_deepseek_v32_fewshot_cot", "open_hybrid_heuristic_guarded"),
+    ("frontier_deepseek_v32_fewshot_cot", "candidate_pool_pairwise_mbr"),
     ("frontier_deepseek_v32_fewshot_cot", "hybrid_select_frontier_local_gpt54"),
     ("frontier_deepseek_v32_fewshot_cot", "hybrid_multi3_catalog_gpt54"),
     ("hybrid_select_frontier_local_gpt54", "hybrid_multi3_catalog_gpt54"),
@@ -31,6 +39,25 @@ DEFAULT_COMPARISONS = [
     ("baseline3_2_multitask", "final_gap04_multitask_sigmoid"),
     ("baseline3_2_multitask", "final_v2"),
 ]
+
+SPECIAL_METHOD_PATHS = {
+    "open_hybrid_heuristic_guarded": {
+        "pred": "results/open_hybrid_heuristic_guarded/predictions.jsonl",
+        "judge": "results/reference_eval_suite_open3/open_hybrid_heuristic_guarded.json",
+    },
+    "candidate_pool_vote": {
+        "pred": "results/analysis/candidate_pool_baselines/vote.jsonl",
+        "judge": "results/analysis/candidate_pool_baselines/vote_azure.json",
+    },
+    "candidate_pool_pairwise_mbr": {
+        "pred": "results/analysis/candidate_pool_baselines/pairwise_mbr.jsonl",
+        "judge": "results/analysis/candidate_pool_baselines/pairwise_mbr_azure.json",
+    },
+    "open_local_qwen_reranker": {
+        "pred": "results/analysis/open_local_qwen_reranker/predictions.jsonl",
+        "judge": "results/analysis/open_local_qwen_reranker/azure.json",
+    },
+}
 
 
 def load_json(path: Path) -> dict:
@@ -43,12 +70,16 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 def prediction_path(results_dir: Path, method: str) -> Path:
+    if method in SPECIAL_METHOD_PATHS:
+        return Path(SPECIAL_METHOD_PATHS[method]["pred"])
     if method == "baseline3_2_multitask":
         return results_dir / method / "predictions_cleaned.jsonl"
     return results_dir / method / "predictions.jsonl"
 
 
 def judge_path(results_dir: Path, reference_eval_dir: Path, method: str) -> Path:
+    if method in SPECIAL_METHOD_PATHS:
+        return Path(SPECIAL_METHOD_PATHS[method]["judge"])
     candidates = [
         reference_eval_dir / f"{method}.json",
         results_dir / method / "reference_aware_judge.json",

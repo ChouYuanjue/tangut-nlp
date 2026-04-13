@@ -6,7 +6,11 @@ import json
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.prompt_templates import SYSTEM_ZEROSHOT, USER_TRANSLATE, build_chat_prompt
+from src.prompt_templates import (
+    SYSTEM_ZEROSHOT,
+    build_chat_prompt,
+    build_user_translate,
+)
 
 
 def main():
@@ -15,6 +19,12 @@ def main():
     parser.add_argument("--model-path", default="models/qwen2.5-7b-instruct")
     parser.add_argument("--output", default="results/baseline1/predictions.jsonl")
     parser.add_argument("--tensor-parallel", type=int, default=2)
+    parser.add_argument("--source-label", default="西夏文")
+    parser.add_argument(
+        "--use-instruction-field",
+        action="store_true",
+        help="Use each row's instruction field instead of building a fixed user prompt.",
+    )
     args = parser.parse_args()
 
     from vllm import LLM, SamplingParams
@@ -34,7 +44,10 @@ def main():
 
     prompts = []
     for item in test_data:
-        user_msg = USER_TRANSLATE.format(tangut_text=item["input"])
+        if args.use_instruction_field and item.get("instruction"):
+            user_msg = f"{item['instruction']}\n{item['input']}"
+        else:
+            user_msg = build_user_translate(item["input"], source_label=args.source_label)
         prompts.append(build_chat_prompt(SYSTEM_ZEROSHOT, user_msg))
 
     outputs = llm.generate(prompts, sampling_params)

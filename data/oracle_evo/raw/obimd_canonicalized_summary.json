@@ -1,0 +1,185 @@
+{
+  "source_repo": "OBIMD",
+  "canonicalization": "OBIMD Main-character.json codepoint -> EVOBC char_to_ids -> EVOBC IDs",
+  "instruction": "请将以下甲骨文符号序列翻译为现代中文：",
+  "seed": 42,
+  "candidate_stats": {
+    "sentence_groups_seen": 17150,
+    "not_in_evo": 2451,
+    "missing_uid": 9796,
+    "skip_non_sentence": 4791,
+    "skip_length": 1550,
+    "kept_unique": 2781,
+    "dedup_collisions": 572,
+    "length_distribution": {
+      "4": 603,
+      "5": 487,
+      "6": 432,
+      "7": 334,
+      "8": 345,
+      "9": 193,
+      "10": 172,
+      "11": 95,
+      "12": 55,
+      "13": 33,
+      "14": 15,
+      "15": 7,
+      "16": 4,
+      "17": 2,
+      "18": 1,
+      "19": 3
+    }
+  },
+  "train": {
+    "count": 50,
+    "length_distribution": {
+      "4": 4,
+      "5": 4,
+      "6": 4,
+      "7": 4,
+      "8": 4,
+      "9": 3,
+      "10": 3,
+      "11": 3,
+      "12": 3,
+      "13": 3,
+      "14": 3,
+      "15": 3,
+      "16": 3,
+      "17": 2,
+      "18": 1,
+      "19": 3
+    },
+    "examples": [
+      {
+        "input": "08534 01323 07171 01481",
+        "output": "貞勿至史",
+        "rubbing_name": "H5641",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "00782 00601 08484 00802 10343",
+        "output": "伯一豕佑鬯",
+        "rubbing_name": "HD278",
+        "group_category": "InscriptionSentence9"
+      },
+      {
+        "input": "01099 00802 06836 05345 01461 00802",
+        "output": "其佑羊王受佑",
+        "rubbing_name": "H30509",
+        "group_category": "InscriptionSentence3"
+      },
+      {
+        "input": "00666 01396 01382 00802 02476 00685 00602",
+        "output": "乙卯卜佑尞于丁",
+        "rubbing_name": "H32647",
+        "group_category": "InscriptionSentence2"
+      },
+      {
+        "input": "08534 05345 02005 00613 09794 00083 00613 07286",
+        "output": "貞王夢不隹㞢不若",
+        "rubbing_name": "H17398",
+        "group_category": "InscriptionSentence1"
+      }
+    ]
+  },
+  "dev": {
+    "count": 50,
+    "length_distribution": {
+      "4": 5,
+      "5": 4,
+      "6": 4,
+      "7": 4,
+      "8": 4,
+      "9": 4,
+      "10": 4,
+      "11": 4,
+      "12": 4,
+      "13": 4,
+      "14": 4,
+      "15": 4,
+      "16": 1
+    },
+    "examples": [
+      {
+        "input": "00083 00685 06838 05545",
+        "output": "㞢于羌甲",
+        "rubbing_name": "H1791",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "08534 00083 00685 10749 01487",
+        "output": "貞㞢于龔司",
+        "rubbing_name": "H14814",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "01099 05543 05771 03519 00802 10598",
+        "output": "其田目擒佑鹿",
+        "rubbing_name": "H33367",
+        "group_category": "InscriptionSentence2"
+      },
+      {
+        "input": "05545 02409 01382 00802 02476 00685 00602",
+        "output": "甲寅卜佑尞于丁",
+        "rubbing_name": "H32647",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "05709 09235 01382 01471 08534 03689 00698 06007",
+        "output": "癸酉卜古貞旬亡祸",
+        "rubbing_name": "H16788",
+        "group_category": "InscriptionSentence1"
+      }
+    ]
+  },
+  "test": {
+    "count": 200,
+    "length_distribution": {
+      "4": 20,
+      "5": 20,
+      "6": 19,
+      "7": 19,
+      "8": 19,
+      "9": 19,
+      "10": 19,
+      "11": 19,
+      "12": 19,
+      "13": 19,
+      "14": 8
+    },
+    "examples": [
+      {
+        "input": "08534 01080 00698 06007",
+        "output": "貞兔亡祸",
+        "rubbing_name": "H4617",
+        "group_category": "InscriptionSentence2"
+      },
+      {
+        "input": "08534 00083 00685 00618 00602",
+        "output": "貞㞢于且丁",
+        "rubbing_name": "H1836",
+        "group_category": "InscriptionSentence2"
+      },
+      {
+        "input": "02723 02324 08534 05186 00602 07286",
+        "output": "庚子貞父丁若",
+        "rubbing_name": "H32701",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "02723 02409 01382 08534 01099 02008 05208",
+        "output": "庚寅卜貞其大牢",
+        "rubbing_name": "H30519",
+        "group_category": "InscriptionSentence1"
+      },
+      {
+        "input": "05709 00701 01382 05180 08534 00083 00685 05965",
+        "output": "癸亥卜爭貞㞢于示",
+        "rubbing_name": "H3731",
+        "group_category": "InscriptionSentence1"
+      }
+    ]
+  },
+  "remaining_unique_candidates_after_split": 2481
+}

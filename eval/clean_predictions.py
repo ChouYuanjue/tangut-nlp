@@ -22,6 +22,14 @@ def clean_output(text):
     return text
 
 
+def extract_literal_output(text):
+    """Extract the multitask literal span when it is the target-aligned field."""
+    match = re.search(r"<literal>(.*?)</literal>", text, flags=re.DOTALL)
+    if not match:
+        return clean_output(text)
+    return match.group(1).strip()
+
+
 def clean_short_title_output(text):
     """Normalize short-title predictions without looking at the reference.
 
@@ -57,6 +65,11 @@ def main():
         action="store_true",
         help="Apply additional short-title cleanup for contamination-heavy outputs.",
     )
+    parser.add_argument(
+        "--literal-only",
+        action="store_true",
+        help="Extract only the <literal>...</literal> span when present.",
+    )
     args = parser.parse_args()
 
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
@@ -67,10 +80,13 @@ def main():
             data = json.loads(line)
             # We keep the original 'prediction' as 'prediction_raw' and update 'prediction'
             data['prediction_raw'] = data['prediction']
+            cleaned = data['prediction']
+            if args.literal_only:
+                cleaned = extract_literal_output(cleaned)
             if args.title_normalize:
-                data['prediction'] = clean_short_title_output(data['prediction'])
+                data['prediction'] = clean_short_title_output(cleaned)
             else:
-                data['prediction'] = clean_output(data['prediction'])
+                data['prediction'] = clean_output(cleaned) if not args.literal_only else cleaned.strip()
             f_out.write(json.dumps(data, ensure_ascii=False) + "\n")
 
 

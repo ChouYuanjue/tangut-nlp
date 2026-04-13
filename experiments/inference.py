@@ -6,7 +6,11 @@ import json
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.prompt_templates import SYSTEM_SFT, USER_TRANSLATE, build_chat_prompt
+from src.prompt_templates import (
+    SYSTEM_SFT,
+    build_chat_prompt,
+    build_user_translate,
+)
 
 
 def merge_lora_if_needed(model_path):
@@ -40,11 +44,14 @@ def merge_lora_if_needed(model_path):
     return model_path
 
 
-def build_prompts(test_data):
+def build_prompts(test_data, source_label, use_instruction_field, system_prompt):
     prompts = []
     for item in test_data:
-        user_msg = USER_TRANSLATE.format(tangut_text=item["input"])
-        prompts.append(build_chat_prompt(SYSTEM_SFT, user_msg))
+        if use_instruction_field and item.get("instruction"):
+            user_msg = f"{item['instruction']}\n{item['input']}"
+        else:
+            user_msg = build_user_translate(item["input"], source_label=source_label)
+        prompts.append(build_chat_prompt(system_prompt, user_msg))
     return prompts
 
 
@@ -127,13 +134,29 @@ def main():
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--method-name", default="custom")
+    parser.add_argument("--source-label", default="西夏文")
+    parser.add_argument(
+        "--use-instruction-field",
+        action="store_true",
+        help="Use each row's instruction field instead of building a fixed user prompt.",
+    )
+    parser.add_argument(
+        "--system-prompt",
+        default=SYSTEM_SFT,
+        help="System prompt used for inference chat formatting.",
+    )
     args = parser.parse_args()
 
     model_path = merge_lora_if_needed(args.model)
 
     with open(args.test_set, "r", encoding="utf-8") as f:
         test_data = [json.loads(line) for line in f]
-    prompts = build_prompts(test_data)
+    prompts = build_prompts(
+        test_data,
+        source_label=args.source_label,
+        use_instruction_field=args.use_instruction_field,
+        system_prompt=args.system_prompt,
+    )
 
     if args.backend == "vllm":
         predictions = run_vllm_inference(

@@ -1,0 +1,9 @@
+# Reviewer Response Snippets
+
+## Portability Validation
+
+We agree that portability should be demonstrated empirically rather than claimed rhetorically. We therefore added a supplementary second-script stress test built from real OBIMD oracle-bone reading sequences canonicalized into the EVOBC ID inventory. The goal of this supplement is deliberately narrow: it tests whether the symbolic interface and local-training recipe transfer beyond Tangut without retuning the Tangut-specific workflow modules. Under this conservative setup, dictionary-grounded prompting is the strongest single oracle model (`40/200` exact; `46.20` chrF++), but the local MT-SFT model remains complementary rather than redundant. A simple open 2-way selector over the prompt and MT-SFT outputs improves the result further to `44/200` exact and `47.81` chrF++ while reducing contamination from `3.5%` to `0.5%`. We therefore frame the portability result as evidence that the workflow-level complementarity story transfers across scripts, not as a claim that Tangut-specific rerankers or evaluation modules transfer unchanged.
+
+## Why We Do Not Add Expert Evaluation Yet
+
+We do not treat the current paper as a scholar-facing deployment study. Its immediate purpose is to answer a narrower benchmark question under matched references: once a strong frontier prompt baseline is already in place, what local supervision remains useful, and can complementary frontier/local failures be converted into a better workflow? A lightweight expert panel at this stage would answer a different question, namely downstream scholarly utility, while still being too small to support strong claims about expert consensus. We therefore reserve expert evaluation for the next stage, after the candidate workflow family has already been narrowed technically and after the cross-script stress test has been established.

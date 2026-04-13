@@ -1,5 +1,7 @@
 # Narrative Report: Structured Local Adaptation, Frontier Prompting, and Metric Pitfalls in Ultra-Low-Resource Tangut Short-Text Translation
 
+> Note: this report predates the current oracle portability stress test and the shorter hybrid-first manuscript framing. For reviewer-facing wording, use `docs/REVIEWER_RESPONSE_SNIPPETS.md` together with the current paper under `paper/`.
+
 ## Core Story
 
 This project studies Tangut-to-Chinese translation in an extremely low-resource setting. The repository contains only `491` real Tangut-Chinese pairs, split into `400` training, `41` development, and `50` test examples. The real examples are short and often title-like rather than full modern sentences, which makes evaluation unusually delicate: exact lexical overlap matters, but title style also breaks common fluency assumptions built into generic Chinese language models.

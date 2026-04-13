@@ -1,0 +1,18 @@
+{
+  "num_examples": 200,
+  "exact_match": 21,
+  "exact_match_rate": 0.105,
+  "contamination_count": 80,
+  "contamination_rate": 0.4,
+  "avg_prediction_length": 21.62,
+  "avg_reference_length": 8.68,
+  "chrf": {
+    "corpus_chrf": 18.3774,
+    "mean_sentence_chrf": 28.7902
+  },
+  "lexical_coverage": {
+    "mean": 0.6004,
+    "min": 0.0,
+    "max": 1.0
+  }
+}
