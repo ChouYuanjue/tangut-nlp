@@ -1,0 +1,302 @@
+method,display_name,index,input,reference,prediction,is_exact,primary_error,all_error_labels,ascii_alpha,angle_or_tag,unk_token,prompt_artifact,truncation,over_expansion,suffix_drop,number_mismatch
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三歸依經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,百千印陀羅尼經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,第十三懺罪頌,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,人佛作道長經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,5,𗦬𘍞𗵘𘐡,共丸道次,俱通次第論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大解女王求皆得經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,7,𗏁𗴮𗖰𗚩,五部經,五類經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此處僧至皈依儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶花踏佛陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,藏伏庫變鎖經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,禪定安住勝法要門,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三代照言集文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,先流多義無同觀法大鳳凰説清經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切説類目逃迦經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇猛大勇猛無量菩薩眾歸依敬禮,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,16,𗏇𘉅,雜字,雜字,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,深廣二入七支法事,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩藝行兩輩綱紀,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説遮減菩薩問經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,德宜點義句顯宣論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛亥母淨瓶親近行儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集輪供養儀次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,24,𗵒𗒛𘁨,金乘序,金乘序,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,25,𗩾𗨁𗉣𗖰𗚩,最上意經,最上意經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽量品觀藥師經疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,27,𗼑𗼑𗫉𗊱,月月樂詩,月月樂詩,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧彼岸至要門教習實如現解莊嚴論顯頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九曜供養根本典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,二十一賢面咒心經,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,31,𗙏𘙰,同音,同音,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛燈炬心要總持,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説賢咒經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集掌上碎金,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,敕纂要三品君子德法容入則,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,36,𗫡𗾈,到賢,五台山觀音普賢殿寺,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,世界出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六字增壽太陰王陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞劫超聖柔守護國吉祥執掌嘆譽經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,華嚴法界觀綱,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番,0,truncation,"[""truncation"", ""suffix_drop""]",0,0,0,0,1,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,42,𗴮𘊳,類林,類林,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略記文,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛禪定母俱輪轉記,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母恩重經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大白傘蓋佛母總持誦要門,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,德宜滴殊作,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,地藏菩薩本願經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道間禁斷法要門,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,彌勒菩薩知足天上生觀經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三觀經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,千數經律銅人取經,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+baseline3_2_multitask,MT-SFT,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,三種罪懺根,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,人佛使弥道长,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,5,𗦬𘍞𗵘𘐡,共丸道次,范宁、范玄平两人在路上。,0,over_expansion,"[""over_expansion"", ""suffix_drop""]",0,0,0,0,0,1,1,0
+baseline3_2_multitask,MT-SFT,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大般若波羅蜜多經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,7,𗏁𗴮𗖰𗚩,五部經,五部經典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,这是清净音的僧尼随顺法。,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶華頂佛頂大王經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,伏当变开锁，即伏当变开锁，是兵家语。,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+baseline3_2_multitask,MT-SFT,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,默有惡風引發在食順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三時輪迴文集,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,過去莊嚴諸説諸説聽經人□□,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切有説部現前解謗,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇識大勇識與混諦要論之隨略解頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,16,𗏇𘉅,雜字,有字，名杂。,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+baseline3_2_multitask,MT-SFT,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,廣二乘入七種法事,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+baseline3_2_multitask,MT-SFT,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩業之二種根,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説肛瘡病治生般若經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,正理滴之要義顯註,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛王亥母隨書函開中作順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集畢供養作順次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,24,𗵒𗒛𘁨,金乘序,金剛經,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,25,𗩾𗨁𗉣𗖰𗚩,最上意經,最上意經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽無量佛觀經膏藥疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,27,𗼑𗼑𗫉𗊱,月月樂詩,月月乐诗，即月乐诗，乐曲名。,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+baseline3_2_multitask,MT-SFT,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧到彼岸要論　教學現量解莊嚴顯疏,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九種供養根,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,十一面觀菩薩經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,31,𗙏𘙰,同音,音类：指音韵学。,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+baseline3_2_multitask,MT-SFT,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛王體中繞作順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説禪源經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集金剛王經,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,勅隨要集三諦於識並法於入順,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,36,𗫡𗾈,到賢,聰穎,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,寺出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六祖壽無量大陀羅尼經,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞有渡勝igesia̘ 慈悲加讚,0,contamination,"[""contamination""]",1,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,蓮華法界見在綱,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番言金剛王乘根,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,42,𗴮𘊳,類林,《类林》,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略記文,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛王默有母隨集輪轉生順次,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+baseline3_2_multitask,MT-SFT,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母恩重經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大蓋白母之總持門順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,正理滴第一造,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,師道滿隨本願經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道家之經律韻集要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+baseline3_2_multitask,MT-SFT,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,闻虎命解足知天上生观经道,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三生歸順經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,千千印文洛下渡經,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,三種罪懺根,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,文佛使護道長,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,5,𗦬𘍞𗵘𘐡,共丸道次,重念道次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大般若女王求隨集了經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,7,𗏁𗴮𗖰𗚩,五部經,五部經典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,nàyQuiet 至僧人隨自順則,0,contamination,"[""contamination"", ""over_expansion""]",1,0,0,0,0,1,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶華鬘佛頂大羅總經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,伏法變 '|' 解縛,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,默有惡隨作在使順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三代此語言集文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,過去多聞比丘多義不共觀順大孔雀經清□淨,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切有説部雜阿毘達磨異相註疏,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇識大勇識差曰諦意解生等之隨順禮拜,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,16,𗏇𘉅,雜字,記異,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,廣二入勝七部法事,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩業之二種綱,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説遮障現意解難問經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,正理滴之句義顯了,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛王亥母隨書卷折近便作順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集轉供養作順次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,24,𗵒𗒛𘁨,金乘序,金乘根,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,25,𗩾𗨁𗉣𗖰𗚩,最上意經,最上意經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽壽無量佛觀經藥師疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,27,𗼑𗼑𗫉𗊱,月月樂詩,月月圓詩,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧彼岸到要論教學現量解莊嚴顯頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九種供養根,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,十一面觀自在經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,31,𗙏𘙰,同音,鏡同,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛王燈心以面持西,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説智慧炬經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集金剛王字置文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,勅隨要集三乘篇男子正法 Keys to Entry and Exit,0,contamination,"[""contamination"", ""over_expansion"", ""suffix_drop""]",1,0,0,0,0,1,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,36,𗫡𗾈,到賢,達賢,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,世出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六祖壽無大悲大陀羅尼經,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞有渡聖柔吉祥之供養受讚頌經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,蓮華法界觀門,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番言金剛王乘根,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,42,𗴮𘊳,類林,寺廟,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略記文,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛王默有母隨集轉記為順次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母恩重經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大蓋白母之總持門順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,正理滴要甚作,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,土藏識決定本母經典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道之中禁斷順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,聞慧命圓滿知天位生經院事,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三歸依經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,百千印陀羅尼經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,第十三懺罪頌,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+open_hybrid_heuristic_guarded,Open selector,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,人佛作道長經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,5,𗦬𘍞𗵘𘐡,共丸道次,俱通次第論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大解女王求皆得經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,7,𗏁𗴮𗖰𗚩,五部經,五部經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此處僧至皈依儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶花踏佛陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,藏伏庫變鎖經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,默有悲隨勝住令順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三代照言集文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,先流多義無同觀法大鳳凰説清經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切説類目逃迦經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇猛大勇猛無量菩薩眾歸依敬禮,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,16,𗏇𘉅,雜字,雜字,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,深廣二入七支法事,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+open_hybrid_heuristic_guarded,Open selector,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩藝行兩輩綱紀,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+open_hybrid_heuristic_guarded,Open selector,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説遮減菩薩問經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,德宜點義句顯宣論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛亥母淨瓶親近行儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集輪供養儀次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,24,𗵒𗒛𘁨,金乘序,金乘序,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,25,𗩾𗨁𗉣𗖰𗚩,最上意經,最上意經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽量品觀藥師經疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,27,𗼑𗼑𗫉𗊱,月月樂詩,月月樂詩,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧彼岸至要門教習實如現解莊嚴論顯頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九曜供養根本典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,十一面觀自主意經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,31,𗙏𘙰,同音,同音,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛燈炬心要總持,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説賢咒經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集掌上碎金,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,勅隨廣大三乘煩決順法顯莊嚴,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,36,𗫡𗾈,到賢,五台山觀音普賢殿寺,0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+open_hybrid_heuristic_guarded,Open selector,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,世界出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六字增壽太陰王陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞有渡聖柔吉祥之供養受讚頌經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,蓮華法界觀門,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番言金剛王乘根,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,42,𗴮𘊳,類林,類林,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略計文,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛王默有母隨集了定作順次,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母孝經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大蓋白母之總持門順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,正理滴要甚作,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,地藏菩薩本願經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+open_hybrid_heuristic_guarded,Open selector,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道間禁斷法要門,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+open_hybrid_heuristic_guarded,Open selector,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,彌勒菩薩知足天上生觀經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三歸依經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,百千印陀羅尼經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,第十三懺罪頌,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,人佛作道長經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,5,𗦬𘍞𗵘𘐡,共丸道次,重念道次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大解女王求皆得經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,7,𗏁𗴮𗖰𗚩,五部經,五部經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此處僧至皈依儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶花踏佛陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,藏伏庫變鎖經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,默有惡隨作在使順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三代照言集文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,先流多義無同觀法大鳳凰説清經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切有説部覆母,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇猛大勇猛無量菩薩眾歸依敬禮,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,16,𗏇𘉅,雜字,雜字,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,深廣二入七支法事,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩藝行兩輩綱紀,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説遮減菩薩問經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,正理滴之句義顯了,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛亥母淨瓶親近行儀,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集轉供養順次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,24,𗵒𗒛𘁨,金乘序,金乘序,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,25,𗩾𗨁𗉣𗖰𗚩,最上意經,最上意經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽量佛觀孔雀經藥疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,27,𗼑𗼑𗫉𗊱,月月樂詩,月月樂詩,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧彼岸至要門教習實如現解莊嚴論顯頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九曜供養根本典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,二十一賢面咒心經,0,number_mismatch,"[""number_mismatch""]",0,0,0,0,0,0,0,1
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,31,𗙏𘙰,同音,同音,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛燈炬心要總持,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説賢咒經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集掌上碎金,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,敕纂要三品君子德法容入則,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,36,𗫡𗾈,到賢,達賢,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,世出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六字增壽太陰王陀羅尼經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞有渡聖柔吉祥之供養受讚頌經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,華嚴法界觀綱,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番言金剛王乘根,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,42,𗴮𘊳,類林,類林,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略記文,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛禪定母俱輪轉記,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母恩重經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大蓋白母之總持順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,正理滴要甚作,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,地藏菩薩本願經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道間禁斷法要門,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,彌勒菩薩知足天上生觀經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,1,𗢳𘎪𗼃𘜶𗒛𘕕𗖵𗨳𗖰𗚩,佛説聖大乘三歸依經,佛説聖大乘三隨義經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,2,𘊝𗡞𘟩𗁬𗓽𘆵𗖰𗚩,百千印陀羅尼經,百千頌大羅羅經誦持順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,三種惡趣之對頌,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,4,𘓐𗢳𗨻𗰲𗵘𘞵,人佛為自道長,人佛使華嚴經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,5,𗦬𘍞𗵘𘐡,共丸道次,重譯道次,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,6,𗼃𘜶𗥤𗶈𘟙𗴿𗖵𗄊𘜘𗖰𗚩,聖大悟蔭王求隨皆得經,聖大乘無垢王維隨集了經典,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,7,𗏁𗴮𗖰𗚩,五部經,五摩經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此長Shows於聖觀道為順,0,contamination,"[""contamination""]",1,0,0,1,0,0,0,0
+final_v2,Legacy DPO,9,𗒹𘏨𗤻𗭔𗢳𗁬𗓽𘆵𗖰𗚩,七寶華踏佛陀羅尼經,七寶華嚴大羅Networks經,0,contamination,"[""contamination"", ""over_expansion""]",1,0,0,1,0,1,0,0
+final_v2,Legacy DPO,10,𗬀𗔇𘂫𘅜𘏒𘖜,伏藏變化解鍵,护当法事開決順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,11,𘝳𗥔𗇋𗖵𗠁𗫻𗟻𗡶𘄴𗑾,默有者隨勝住令順要論,默有惡趣淨令順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,12,𘕕𗤀𘎆𗮔𗟲𗰖𘝞,三世屬明言集文,三世諸説禪源集記,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,13,𘈼𗪘𗦎𘍞𗮅𗧘𗅋𘙰𘟀𗡶𘜶𗿻𘜾𘙇𘎪□𘄎,如上流凡多義不同見順大鳳凰□□説□清,過去謗誹多聞之難所説大鳳凰涅槃經膏藥疏□□依不□□為順,0,over_expansion,"[""over_expansion"", ""suffix_drop""]",0,0,0,0,0,1,1,0
+final_v2,Legacy DPO,14,𗰜𗺉𗄑𗄑𘟣𘎪𗴮𘂯𗷌𗡝,根本一切有説部目得迦,根本一切有説部覆母Manuals of the Translated Scriptures,0,contamination,"[""contamination"", ""over_expansion""]",1,0,0,1,0,1,0,0
+final_v2,Legacy DPO,15,𘏞𘛛𗹡𗹬𘜶𗹡𗹬𘖑𗆄𘋢𗥤𗫔𗗙𗖵𗨳𗍺𘐔,菩提勇識大勇識不價菩薩衆之歸依禮拜,菩提勇識大菩提識見所當法爾隨尊順拜preciouS-rock,0,contamination,"[""contamination"", ""over_expansion""]",1,0,0,0,0,1,0,0
+final_v2,Legacy DPO,16,𗏇𘉅,雜字,譯順,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,17,𗓰𗾟𘂚𘃽𗒹𗛆𗹙𘅫,深廣雙入七枝法事,玄 GRAT入順七種法事,0,contamination,"[""contamination"", ""over_expansion""]",1,0,0,1,0,1,0,0
+final_v2,Legacy DPO,18,𘋢𗥤𘝦𗗙𗍫𗑝𗆔,菩薩業之二節綱,菩薩業空渡之思定二第,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,19,𗢳𘎪𘈟𗐜𗟥𘋢𗥤𗞞𗤄𗖰𗚩,佛説障蓋除菩薩問經,佛説因 (~(至)忍無義問答經),0,over_expansion,"[""over_expansion""]",0,0,0,0,0,1,0,0
+final_v2,Legacy DPO,20,𗣼𗟭𘞫𗗙𗣃𗧘𗏴𗭪,正理滴之句義顯具,正理滴著之曰為順顯釋,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,21,𗰖𗖍𘄒𘎑𘏞𗓽𗕥𗸰𗖰𗚩,集頌般若波羅蜜多經,集頌般若波羅蜜多經,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,22,𗍥𘟙𗘅𗴺𗖵𗑗𘛧𗳒𗹝𘆖𘃡𗡶,金剛王亥母隨淨瓶以親誦作順,金剛王亥母隨集了定作順亦爾來順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,23,𗄭𘚢𗴿𗒀𘃡𗡶𘐡,聚輪供養作次第,集轉求順變 Emblem,0,contamination,"[""contamination"", ""over_expansion"", ""suffix_drop""]",1,0,0,0,0,1,1,0
+final_v2,Legacy DPO,24,𗵒𗒛𘁨,金乘序,金剛乘根,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,25,𗩾𗨁𗉣𗖰𗚩,最上意經,上樂輪經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,26,𗢳𘎪𘗽𘍭𗆄𗢳𘝯𗖰𗚩𗼫𗿧𘋓,佛説智(?)□□佛觀經□註,佛説壽年無量佛觀經膏藥疏,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,27,𗼑𗼑𗫉𗊱,月月樂詩,月月乐詩,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,28,𗠁𘟛𗳌𘋟𗫡𘄴𗑾𘘝𗫦𗌮𗙼𗥤𗵽𘆡𘓆𗏴𗖍,勝慧彼岸到要論教學現量解莊嚴論顯頌,勝慧到彼岸要論　教學現量解莊嚴疏之廣釋明鏡疏,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,29,𗢭𗵫𗴿𗒀𗺉,九曜供養根,九地順求根,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,30,𗰗𘈩𘅞𗾈𗥺𗤶𗖰𗚩,十一面神咒心經,十一面譚光菩薩心經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,31,𗙏𘙰,同音,音譯為,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,32,𗍥𘟙𗉃𘔅𗤶𗅁𗧯𗦇,金剛王燈炬心中所持可,金剛王燃燈心持合加讚,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,33,𗒹𗢳𘎪𗾈𗥺𗖰𗚩,七佛説神咒經,七佛説賢劫經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,34,𗆧𗰖𗵒𗭭𘃎𘐏𘝞,新集碎金置掌文,新集金剛王置法文,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,35,𗿢𗖵𘄴𗰖𘕕𘄿𗾖𗪐𗣼𗹙𘂤𘃽𗡶,統依要集三品子□正法中入順,"勅隨業順三 SharedModule為順皆入順法事 Artículo
+ Mandates,  by  Tsenpo  for  the  Training  of  Monks  and  Nuns  on  the  Three  Pa  -  ro  System  (Kṛiṣna-pā)  (A  Manual  for  the  Training  of  Monks  and  Nuns  on  the  Three  Pa  -  ro  System  )",0,contamination,"[""contamination"", ""over_expansion"", ""suffix_drop""]",1,0,0,0,0,1,1,0
+final_v2,Legacy DPO,36,𗫡𗾈,到賢,至賢,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,37,𗯨𗣈𗒹𗵘𗹙𘅫,世離七道法事,國出七道法事,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,38,𗼃𗤁𗏇𘗽𘎲𘜶𗶈𘟙𗁬𗓽𘆵𗖰𗚩,聖六字壽增大蔭王陀羅尼經,聖六種壽無量大悲願大羅Network經,0,contamination,"[""contamination"", ""over_expansion"", ""suffix_drop""]",1,0,0,0,0,1,1,0
+final_v2,Legacy DPO,39,𗯵𘟣𗰛𗼃𗡡𘀄𘓄𗗙𗪲𗒐𗡙𗜓,壞有出聖柔吉祥之攝受讚顯,壞有渡聖柔吉祥之名誦受持為順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,40,𗤻𗵽𗹙𗐯𘝯𗆔,華嚴法界觀幹,護丹法界之網ện,0,contamination,"[""contamination"", ""suffix_drop""]",1,0,0,0,0,0,1,0
+final_v2,Legacy DPO,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番言金剛王乘根,1,exact,"[""exact""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,42,𗴮𘊳,類林,名林,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,43,𗵒𘗁𘄒𘎑𘓋𘐇𘝞,金剛般若略記文,金剛般若略計文,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,44,𗍥𘟙𘝳𗥔𗴺𗖵𗄭𘚢𘐇𘃡𗡶𘐡,金剛王默有母隨集輪求記作順次,金剛王默有母隨集了爾時聞順次第,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0
+final_v2,Legacy DPO,45,𗢳𘎪𗔀𗴺𘘖𗊢𗖰𗚩,佛説父母恩重經,佛説父母誦經大樞順,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,46,𘜶𗐋𗴂𗴺𗗙𗄊𗧯𘆖𗡶𘄴𗑾,大蓋白母之總持誦順要論,大蓋白母之總持功德誦順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,47,𗣼𗟭𘞫𘈃𘍳𘃨,正理滴特殊造,正理滴第一義釋,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,48,𗼻𗔇𘋢𗥤𗰜𘓞𗖰𗚩,地藏菩薩本願經,土地生信總持功德經,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,49,𗵘𗗙𘂳𗖈𗷰𗡶𘄴𗑾,道之間休止順要論,道之氣體中塞順要論,0,content_drift,"[""content_drift""]",0,0,0,0,0,0,0,0
+final_v2,Legacy DPO,50,𗓁𗱈𘋢𗥤𗣷𗄻𘓺𗨁𘎳𘝯𗖰𗚩,觀彌勒菩薩足知皇上生觀經,聞虎耳法界足尊無量壽經,0,suffix_drop,"[""suffix_drop""]",0,0,0,0,0,0,1,0

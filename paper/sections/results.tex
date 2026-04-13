@@ -6,7 +6,7 @@ Table~\ref{tab:main-results} reports only representative systems. The empirical 
 
 \subsection{RQ1: Is Strong Frontier Prompting Already Enough as a Single-Model Upper Bound?}
 
-Yes. The DeepSeek frontier baseline is far stronger than the local prompt baselines, reaching 28.54 chrF++, 12/50 exact matches, and 2.80 overall under the reference-aware judge. Prompt-only is therefore not a straw baseline here. A strong frontier system is already hard to beat, so every later claim has to explain what local training still contributes after that bar is in place.
+Yes. The DeepSeek frontier baseline is far stronger than the local prompt baselines, reaching 28.54 chrF++, 12/50 exact matches, and 2.80 overall under the reference-aware judge. Prompt-only is therefore not a straw baseline here. A strong frontier system is already hard to beat, so every later claim has to explain what local training still contributes after that bar is in place. The frontier configuration is also fully enumerated now: \texttt{deepseek/deepseek-v3.2} via OpenRouter, temperature 0.0, maximum 512 output tokens, and four fixed development-set exemplars. Because decoding is deterministic, sampling seeds are not relevant. We do not claim a full paid prompt-variance sweep, but the stored pilot variants in the repository support the chosen prompt direction: on the shared 5-item pilot slice, the final few-shot title-only prompt reaches 2/5 exact matches and 67.68 chrF++, versus 0/5 and 21.99 chrF++ for the strict title-only prompt.
 
 \subsection{RQ2: If Local Training Still Matters, What Signal Helps Most?}
 

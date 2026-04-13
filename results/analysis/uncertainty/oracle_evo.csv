@@ -1,0 +1,4 @@
+method,num_examples,exact_match,exact_match_rate,exact_wilson_low,exact_wilson_high,corpus_chrf,corpus_chrf_ci_low,corpus_chrf_ci_high
+baseline2_oracle_dict,200,40,0.2,0.1505,0.2609,46.2032,42.0951,50.3423
+hybrid_simple_2way,200,44,0.22,0.1682,0.2824,47.8092,43.3791,52.1762
+oracle_best_of_2,200,48,0.24,0.1861,0.3037,51.4652,47.4296,55.746

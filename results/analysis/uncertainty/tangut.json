@@ -1,0 +1,46 @@
+[
+  {
+    "method": "frontier_deepseek_v32_fewshot_cot",
+    "num_examples": 50,
+    "exact_match": 12,
+    "exact_match_rate": 0.24,
+    "exact_wilson_low": 0.143,
+    "exact_wilson_high": 0.3741,
+    "corpus_chrf": 28.5403,
+    "corpus_chrf_ci_low": 20.872,
+    "corpus_chrf_ci_high": 37.5968
+  },
+  {
+    "method": "open_hybrid_heuristic_guarded",
+    "num_examples": 50,
+    "exact_match": 12,
+    "exact_match_rate": 0.24,
+    "exact_wilson_low": 0.143,
+    "exact_wilson_high": 0.3741,
+    "corpus_chrf": 32.6175,
+    "corpus_chrf_ci_low": 25.0809,
+    "corpus_chrf_ci_high": 41.1892
+  },
+  {
+    "method": "hybrid_multi3_catalog_gpt54",
+    "num_examples": 50,
+    "exact_match": 14,
+    "exact_match_rate": 0.28,
+    "exact_wilson_low": 0.1747,
+    "exact_wilson_high": 0.4167,
+    "corpus_chrf": 34.8741,
+    "corpus_chrf_ci_low": 26.6854,
+    "corpus_chrf_ci_high": 44.4048
+  },
+  {
+    "method": "final_gap04_multitask_sigmoid",
+    "num_examples": 50,
+    "exact_match": 5,
+    "exact_match_rate": 0.1,
+    "exact_wilson_low": 0.0435,
+    "exact_wilson_high": 0.2136,
+    "corpus_chrf": 30.0055,
+    "corpus_chrf_ci_low": 22.0939,
+    "corpus_chrf_ci_high": 38.6839
+  }
+]

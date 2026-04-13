@@ -1,0 +1,72 @@
+[
+  {
+    "variant": "current_lex_ppl",
+    "description": "Stored repository reward: lexical coverage - 0.01 * log PPL",
+    "matched_pairs": 3867,
+    "chosen_better_rate_vs_final": 0.7127,
+    "rejected_better_rate_vs_final": 0.2751,
+    "equal_rate_vs_final": 0.0122,
+    "mean_reward_gap": 0.2396,
+    "pairs_kept_ge_0_2": 1996,
+    "pairs_kept_ge_0_4": 498,
+    "kept_ge_0_2_good_rate_vs_final": 0.77,
+    "kept_ge_0_4_good_rate_vs_final": 0.8153,
+    "sign_flips_vs_current": 0
+  },
+  {
+    "variant": "lex_only",
+    "description": "Lexical coverage only",
+    "matched_pairs": 3867,
+    "chosen_better_rate_vs_final": 0.7127,
+    "rejected_better_rate_vs_final": 0.2751,
+    "equal_rate_vs_final": 0.0122,
+    "mean_reward_gap": 0.2384,
+    "pairs_kept_ge_0_2": 1994,
+    "pairs_kept_ge_0_4": 504,
+    "kept_ge_0_2_good_rate_vs_final": 0.7728,
+    "kept_ge_0_4_good_rate_vs_final": 0.8175,
+    "sign_flips_vs_current": 0
+  },
+  {
+    "variant": "literal_chrf",
+    "description": "Sentence chrF++ against multitask <literal> target",
+    "matched_pairs": 3867,
+    "chosen_better_rate_vs_final": 0.7127,
+    "rejected_better_rate_vs_final": 0.2751,
+    "equal_rate_vs_final": 0.0122,
+    "mean_reward_gap": 0.0509,
+    "pairs_kept_ge_0_2": 166,
+    "pairs_kept_ge_0_4": 25,
+    "kept_ge_0_2_good_rate_vs_final": 0.9458,
+    "kept_ge_0_4_good_rate_vs_final": 0.88,
+    "sign_flips_vs_current": 499
+  },
+  {
+    "variant": "lex_plus_literal",
+    "description": "0.5 * lexical coverage + 0.5 * literal chrF++",
+    "matched_pairs": 3867,
+    "chosen_better_rate_vs_final": 0.7127,
+    "rejected_better_rate_vs_final": 0.2751,
+    "equal_rate_vs_final": 0.0122,
+    "mean_reward_gap": 0.1446,
+    "pairs_kept_ge_0_2": 832,
+    "pairs_kept_ge_0_4": 83,
+    "kept_ge_0_2_good_rate_vs_final": 0.851,
+    "kept_ge_0_4_good_rate_vs_final": 0.8675,
+    "sign_flips_vs_current": 21
+  },
+  {
+    "variant": "oracle_final_chrf",
+    "description": "Diagnostic oracle: sentence chrF++ against final synthetic target",
+    "matched_pairs": 3867,
+    "chosen_better_rate_vs_final": 0.7127,
+    "rejected_better_rate_vs_final": 0.2751,
+    "equal_rate_vs_final": 0.0122,
+    "mean_reward_gap": 0.0921,
+    "pairs_kept_ge_0_2": 869,
+    "pairs_kept_ge_0_4": 326,
+    "kept_ge_0_2_good_rate_vs_final": 0.9988,
+    "kept_ge_0_4_good_rate_vs_final": 1.0,
+    "sign_flips_vs_current": 1078
+  }
+]

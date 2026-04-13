@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llcc}
+\toprule
+Suite & Method & Exact Match (Wilson 95\%) & chrF++ (bootstrap 95\%) \\
+\midrule
+Tangut & \textit{Frontier DeepSeek} & 12/50 [14.3, 37.4]\% & 28.54 [20.87, 37.60] \\
+Tangut & \textit{Open selector (3-way, open)} & 12/50 [14.3, 37.4]\% & 32.62 [25.08, 41.19] \\
+Tangut & Catalog adjudicator (3-way, closed) & 14/50 [17.5, 41.7]\% & 34.87 [26.69, 44.40] \\
+Tangut & MT-DPO g0.4 sig & 5/50 [4.4, 21.4]\% & 30.01 [22.09, 38.68] \\
+\midrule
+EVOBC & Qwen2.5-7B + dict prompt & 40/200 [15.1, 26.1]\% & 46.20 [42.10, 50.34] \\
+EVOBC & \textit{Simple 2-way selector (open)} & 44/200 [16.8, 28.2]\% & 47.81 [43.38, 52.18] \\
+EVOBC & Best-of-2 oracle & 48/200 [18.6, 30.4]\% & 51.47 [47.43, 55.75] \\
+\bottomrule
+\end{tabular}
+\caption{Uncertainty estimates for the main Tangut and supplementary EVOBC headline systems. Tangut chrF++ intervals come from bootstrap resampling of the 50-item test set; exact-match intervals use Wilson 95\% confidence intervals. EVOBC intervals are computed analogously on the 200-item held-out probe. These intervals do not make the small-test-set issue disappear, but they do make the scale of uncertainty explicit and support the paper's revised framing: open workflow gains are real but modest on Tangut, while the EVOBC directionality is clearer because the probe is four times larger.}
+\label{tab:uncertainty-intervals}
+\end{table}

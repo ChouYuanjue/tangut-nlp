@@ -6,7 +6,7 @@ We design the comparison around the research questions rather than around every 
 
 The prompt-only family contains no weight updates. \texttt{baseline1} prompts the local model directly on the Tangut string, \texttt{baseline2} adds dictionary glosses, and \texttt{baseline2\_1\_cot} further decomposes generation into alignment, literal drafting, and rewriting. This family is closest to lexicon-augmented MT, except that the lexicon is injected through prompting rather than decoder constraints \cite{chen2017incorporating, hokamp2017lexically}.
 
-We then add a deliberately strong frontier baseline based on DeepSeek-V3.2 with dictionary grounding and four fixed development-set exemplars spanning canonical, bodhisattva-practice, dharani-style, and transliteration-heavy titles. The prompt enforces compact title form, forbids explanatory paraphrase, and emits only the final title string. This baseline is intentionally strong: if frontier prompting already solves the task, the local-training story should shrink accordingly.
+We then add a deliberately strong frontier baseline based on \texttt{deepseek/deepseek-v3.2} via OpenRouter with dictionary grounding and four fixed development-set exemplars spanning canonical, bodhisattva-practice, dharani-style, and transliteration-heavy titles. The prompt enforces compact title form, forbids explanatory paraphrase, and emits only the final title string. Decoding uses temperature 0.0 and a maximum of 512 output tokens, so the frontier baseline is deterministic and there is no sampling-seed variance to report. This baseline is intentionally strong: if frontier prompting already solves the task, the local-training story should shrink accordingly.
 
 \subsection{Local Training Recipes}
 
@@ -26,7 +26,7 @@ The DPO family asks a narrower question: once a strong local base exists, can re
 \[
 r(y) = \mathrm{lex}(y) - 0.01 \log \mathrm{ppl}(y),
 \]
-where $\mathrm{lex}(y)$ is the repository's lexical-coverage score. The reward therefore favors dictionary consistency with only a weak fluency tie-breaker, which is why we treat it cautiously later.
+where $\mathrm{lex}(y)$ is the repository's lexical-coverage score. The $\mathrm{ppl}(y)$ term is computed by a local Qwen2.5-0.5B causal LM, and we use only the raw $\log \mathrm{ppl}$ value with coefficient $0.01$, without additional normalization. The reward therefore favors dictionary consistency with only a weak fluency tie-breaker, which is why we treat it cautiously later.
 
 The legacy pipeline constructs preferences from the best pre-multitask SFT base, yielding the \texttt{final\_v2} checkpoint as a negative control. The follow-up DPO runs instead start from multitask SFT. After auditing the preference data, we keep only pairs whose reward gap exceeds either 0.2 or 0.4 and train both standard sigmoid DPO and a robust+weighted variant \cite{chen2024robustdpo,pang2024wpo}. This turns the DPO family into a controlled test of base-model choice, pair filtering, and loss robustness.
 
