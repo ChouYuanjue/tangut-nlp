@@ -13,6 +13,6 @@ Catalog adjudicator (3-way, closed) & 14 & 0 & 0 & 0 & 7 & 29 \\
 Legacy DPO & 2 & 9 & 0 & 2 & 8 & 29 \\
 \bottomrule
 \end{tabular}
-\caption{Deterministic failure taxonomy on the 50-item Tangut test set. ``Contam.'' is a binary artifact flag with no tuned threshold: any Latin alphabetic character, angle-bracket markup, explicit \texttt{[UNK]}, or one of the small prompt-artifact lexemes observed in legacy runs marks the output as contaminated. ``Suffix/Num.'' groups still-title-like cases that either miss at least one reference-side title suffix or mismatch the reference numeral string. ``Drift'' denotes the remaining non-exact cases after these categories are removed. The table makes the failure modes more specific than the scalar contamination rate alone: frontier prompting is already clean, legacy DPO is uniquely artifact-prone, and the open selector keeps the clean frontier regime while removing the frontier truncation case.}
+\caption{Deterministic failure taxonomy on the 50-item Tangut test set. ``Contam.'' is a binary artifact flag with no tuned threshold; ``Suffix/Num.'' groups title-like cases that miss a reference-side suffix or mismatch the numeral string.}
 \label{tab:failure-taxonomy}
 \end{table}

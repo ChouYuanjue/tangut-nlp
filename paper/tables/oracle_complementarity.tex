@@ -14,6 +14,6 @@ Workflow & Pool & Exact Match & chrF++ & Overall \\
 Best-of-3 oracle & F+UNK+DPO & 14/50 & 41.85 & 3.12 \\
 \bottomrule
 \end{tabular}
-\caption{Workflow comparison with standard open reranking controls. ``F'' = frontier DeepSeek, ``UNK'' = UNK-SFT, and ``DPO'' = MT-DPO g0.4 sig. Plurality vote is the simplest exact-consensus control; the local Qwen reranker is an open learned selector that can only copy one candidate; pairwise chrF-MBR is a standard agreement-maximizing control. The guarded selector remains the strongest clean overlap-oriented open workflow, while the closed catalog adjudicator and oracle are reported only as upper bounds on additional recoverable complementarity.}
+\caption{Workflow comparison with standard open reranking controls. ``F'' = frontier DeepSeek, ``UNK'' = UNK-SFT, and ``DPO'' = MT-DPO g0.4 sig. The guarded selector is the strongest clean open workflow; the closed adjudicator and oracle are upper bounds only.}
 \label{tab:oracle-complementarity}
 \end{table}

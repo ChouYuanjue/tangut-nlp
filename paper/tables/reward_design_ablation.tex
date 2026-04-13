@@ -12,6 +12,6 @@ Lex only & 0 & 1994 & 77.3\% & 81.8\% \\
 Oracle final-target chrF++ & 1078 & 869 & 99.9\% & 100.0\% \\
 \bottomrule
 \end{tabular}
-\caption{Diagnostic reward-design ablation on the existing 3,867 DPO pairs. ``Good'' denotes the fraction of retained pairs whose higher-reward candidate is closer to the synthetic final target under a simple sequence-overlap proxy. The key points are conservative: removing the small perplexity tie-breaker changes essentially nothing, so the current pipeline is functionally lexical-coverage-driven; adding multitask \texttt{<literal>} overlap yields much cleaner but much sparser labels; and direct final-target overlap is reported only as a non-training oracle upper bound.}
+\caption{Diagnostic reward-design ablation on the existing 3,867 DPO pairs. ``Good'' denotes the fraction of retained pairs whose higher-reward candidate is closer to the synthetic final target under a simple sequence-overlap proxy.}
 \label{tab:reward-design-ablation}
 \end{table}

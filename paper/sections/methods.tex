@@ -8,6 +8,8 @@ The prompt-only family contains no weight updates. \texttt{baseline1} prompts th
 
 We then add a deliberately strong frontier baseline based on \texttt{deepseek/deepseek-v3.2} via OpenRouter with dictionary grounding and four fixed development-set exemplars spanning canonical, bodhisattva-practice, dharani-style, and transliteration-heavy titles. The prompt enforces compact title form, forbids explanatory paraphrase, and emits only the final title string. Decoding uses temperature 0.0 and a maximum of 512 output tokens, so the frontier baseline is deterministic and there is no sampling-seed variance to report. This baseline is intentionally strong: if frontier prompting already solves the task, the local-training story should shrink accordingly.
 
+To separate prompt wording from model scale, we also rerun the same frontier few-shot title prompt on local Qwen2.5-7B. A constrained-decoding control keeps that prompt fixed and adds local constrained beam search with at most one short content constraint plus one title-suffix constraint, retaining content phrases only when the 1--2 character phrase also appears in the 441 real non-test Tangut titles.
+
 \subsection{Local Training Recipes}
 
 We build 50k pseudo-Tangut/Chinese pairs from monolingual historical Chinese by mapping Chinese characters to Tangut characters through dictionary explanations. The four SFT branches differ only in how dictionary misses are handled and whether the target includes alignment structure:

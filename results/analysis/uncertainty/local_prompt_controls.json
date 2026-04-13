@@ -1,0 +1,24 @@
+[
+  {
+    "method": "local_qwen_frontier_style_fewshot_beam",
+    "num_examples": 50,
+    "exact_match": 1,
+    "exact_match_rate": 0.02,
+    "exact_wilson_low": 0.0035,
+    "exact_wilson_high": 0.105,
+    "corpus_chrf": 12.1795,
+    "corpus_chrf_ci_low": 8.6256,
+    "corpus_chrf_ci_high": 16.4983
+  },
+  {
+    "method": "local_qwen_frontier_style_fewshot_lexical",
+    "num_examples": 50,
+    "exact_match": 1,
+    "exact_match_rate": 0.02,
+    "exact_wilson_low": 0.0035,
+    "exact_wilson_high": 0.105,
+    "corpus_chrf": 12.3515,
+    "corpus_chrf_ci_low": 8.6744,
+    "corpus_chrf_ci_high": 16.7759
+  }
+]

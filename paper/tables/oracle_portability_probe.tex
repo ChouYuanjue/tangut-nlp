@@ -12,6 +12,6 @@ MT-SFT (\texttt{<literal>}) & single local model & 29/200 & 40.56 & 5.0\% \\
 Best-of-2 oracle & dict + MT-SFT & 48/200 & 51.47 & 2.0\% \\
 \bottomrule
 \end{tabular}
-\caption{Supplementary oracle-bone portability stress test on a 200-item held-out canonicalized OBIMD$\rightarrow$EVOBC test set. Inputs are real OBIMD sentence-level reading sequences mapped into the EVOBC ID inventory through shared modern-character labels. The probe target is a compact normalized decipherment string, so the multitask model is read through its \texttt{<literal>} field. The open 2-way selector defaults to the dictionary-grounded prompt and switches to MT-SFT only under conservative contamination and short-repair conditions, lifting exact match from 40/200 to 44/200 while reducing contamination from 3.5\% to 0.5\%. The omitted raw MT-SFT assistant tail is a diagnostic mismatch control: 0/200 exact, 13.11 chrF++, and 100\% contamination.}
+\caption{Supplementary 200-item canonicalized OBIMD$\rightarrow$EVOBC portability probe. The multitask model is read through its \texttt{<literal>} field, and a simple open 2-way selector lifts the dictionary-grounded prompt from 40/200 to 44/200 exact matches while reducing contamination from 3.5\% to 0.5\%.}
 \label{tab:oracle-portability}
 \end{table}

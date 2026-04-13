@@ -1,0 +1,3 @@
+method,display_name,num_examples,exact,primary_contamination,primary_truncation,primary_over_expansion,primary_suffix_drop,primary_number_mismatch,primary_suffix_or_number,primary_content_drift,flag_contamination,flag_ascii_alpha,flag_angle_or_tag,flag_unk_token,flag_prompt_artifact,flag_truncation,flag_over_expansion,flag_suffix_drop,flag_number_mismatch,flag_suffix_or_number
+local_qwen_frontier_style_fewshot_beam,local_qwen_frontier_style_fewshot_beam,50,1,3,2,2,10,3,13,29,3,3,0,0,0,2,4,15,3,18
+local_qwen_frontier_style_fewshot_lexical,local_qwen_frontier_style_fewshot_lexical,50,1,4,2,0,12,3,15,28,4,4,3,0,0,2,3,16,3,19
