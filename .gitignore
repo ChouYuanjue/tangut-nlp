@@ -1,22 +1,72 @@
-logs/
-models/
-state/
-checkpoints/
-*/_pycache__/
+# Python caches and local environments
 __pycache__/
-*.pyc
+*/__pycache__/
+*.py[cod]
 *.pyo
 *.pyd
 .Python
 *.so
 *.egg
 *.egg-info/
-dist/
-build/
-*.log
-# Data and results - not tracked in git
-data/raw/
-
-
 .venv/
+venv/
 .env
+.env.*
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local build outputs
+build/
+dist/
+
+# Local notes, workflow scratchpads, and archived planning docs
+docs/
+refine-logs/
+
+# Runtime state, models, checkpoints, and logs
+models/
+checkpoints/
+state/
+logs/
+run_logs/
+*.log
+texput.log
+
+# Generated data products
+data/raw/
+data/sft/
+data/dpo/
+data/indices/
+data/oracle_evo/raw/
+data/oracle_evo/eval/
+data/oracle_evo/sft/
+*.ckpt.json
+
+# Evaluation outputs
+results/
+results_*/
+
+# Paper build products
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.synctex.gz
+paper/*.toc
+
+# Archived local paper branches
+paper_icml_ai4good_2026/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

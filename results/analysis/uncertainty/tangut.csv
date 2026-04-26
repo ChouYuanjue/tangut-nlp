@@ -1,5 +1,0 @@
-method,num_examples,exact_match,exact_match_rate,exact_wilson_low,exact_wilson_high,corpus_chrf,corpus_chrf_ci_low,corpus_chrf_ci_high
-frontier_deepseek_v32_fewshot_cot,50,12,0.24,0.143,0.3741,28.5403,20.872,37.5968
-open_hybrid_heuristic_guarded,50,12,0.24,0.143,0.3741,32.6175,25.0809,41.1892
-hybrid_multi3_catalog_gpt54,50,14,0.28,0.1747,0.4167,34.8741,26.6854,44.4048
-final_gap04_multitask_sigmoid,50,5,0.1,0.0435,0.2136,30.0055,22.0939,38.6839

@@ -1,3 +1,0 @@
-left_variant,right_variant,shared_examples,left_exact,right_exact,left_chrf,right_chrf
-strict_title_only_cot,fewshot_title_only_cot,5,0,2,21.987,67.6811
-strict_json_title_cot,fewshot_title_only_cot,2,0,2,10.1051,100.0

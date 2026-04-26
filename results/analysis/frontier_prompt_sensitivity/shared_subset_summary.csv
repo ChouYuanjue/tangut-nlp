@@ -1,4 +1,0 @@
-variant,num_examples,exact_match,exact_match_rate,corpus_chrf,subset
-strict_json_title_cot,2,0,0.0,10.1051,shared_all_variants
-strict_title_only_cot,2,0,0.0,31.4108,shared_all_variants
-fewshot_title_only_cot,2,2,1.0,100.0,shared_all_variants

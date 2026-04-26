@@ -1,3 +1,0 @@
-method,num_examples,exact_match,exact_match_rate,exact_wilson_low,exact_wilson_high,corpus_chrf,corpus_chrf_ci_low,corpus_chrf_ci_high
-local_qwen_frontier_style_fewshot_beam,50,1,0.02,0.0035,0.105,12.1795,8.6256,16.4983
-local_qwen_frontier_style_fewshot_lexical,50,1,0.02,0.0035,0.105,12.3515,8.6744,16.7759

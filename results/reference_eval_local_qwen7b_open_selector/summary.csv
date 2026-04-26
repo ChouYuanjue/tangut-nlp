@@ -1,5 +1,0 @@
-method,num_examples,mean_reference_agreement,mean_source_faithfulness,mean_title_style_fitness,mean_overall,output_json
-frontier_deepseek_v32_fewshot_cot,50,4.2,4.2,5.0,4.2,results/reference_eval_local_qwen7b_open_selector/frontier_deepseek_v32_fewshot_cot.json
-open_hybrid_heuristic,50,4.18,4.18,5.0,4.18,results/reference_eval_local_qwen7b_open_selector/open_hybrid_heuristic.json
-hybrid_multi3_catalog_gpt54,50,4.24,4.24,5.0,4.24,results/reference_eval_local_qwen7b_open_selector/hybrid_multi3_catalog_gpt54.json
-human_reference,50,4.88,4.88,5.0,4.88,results/reference_eval_local_qwen7b_open_selector/human_reference.json

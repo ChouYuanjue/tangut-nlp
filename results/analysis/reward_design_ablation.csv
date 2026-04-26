@@ -1,6 +1,0 @@
-variant,description,matched_pairs,chosen_better_rate_vs_final,rejected_better_rate_vs_final,equal_rate_vs_final,mean_reward_gap,pairs_kept_ge_0_2,pairs_kept_ge_0_4,kept_ge_0_2_good_rate_vs_final,kept_ge_0_4_good_rate_vs_final,sign_flips_vs_current
-current_lex_ppl,Stored repository reward: lexical coverage - 0.01 * log PPL,3867,0.7127,0.2751,0.0122,0.2396,1996,498,0.77,0.8153,0
-lex_only,Lexical coverage only,3867,0.7127,0.2751,0.0122,0.2384,1994,504,0.7728,0.8175,0
-literal_chrf,Sentence chrF++ against multitask <literal> target,3867,0.7127,0.2751,0.0122,0.0509,166,25,0.9458,0.88,499
-lex_plus_literal,0.5 * lexical coverage + 0.5 * literal chrF++,3867,0.7127,0.2751,0.0122,0.1446,832,83,0.851,0.8675,21
-oracle_final_chrf,Diagnostic oracle: sentence chrF++ against final synthetic target,3867,0.7127,0.2751,0.0122,0.0921,869,326,0.9988,1.0,1078

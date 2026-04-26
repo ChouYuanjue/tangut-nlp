@@ -1,7 +1,0 @@
-method,display_name,num_examples,exact,primary_contamination,primary_truncation,primary_over_expansion,primary_suffix_drop,primary_number_mismatch,primary_suffix_or_number,primary_content_drift,flag_contamination,flag_ascii_alpha,flag_angle_or_tag,flag_unk_token,flag_prompt_artifact,flag_truncation,flag_over_expansion,flag_suffix_drop,flag_number_mismatch,flag_suffix_or_number
-frontier_deepseek_v32_fewshot_cot,Frontier DeepSeek,50,12,0,1,1,5,4,9,27,0,0,0,0,0,1,1,6,4,10
-baseline3_2_multitask,MT-SFT,50,5,1,0,5,10,2,12,27,1,1,0,0,0,0,5,11,2,13
-final_gap04_multitask_sigmoid,MT-DPO g0.4 sig,50,5,2,0,2,5,2,7,34,2,2,0,0,0,0,4,6,2,8
-open_hybrid_heuristic_guarded,Open selector,50,12,0,0,1,5,3,8,29,0,0,0,0,0,0,1,5,3,8
-hybrid_multi3_catalog_gpt54,3-way catalog adjudicator,50,14,0,0,0,3,4,7,29,0,0,0,0,0,0,0,3,4,7
-final_v2,Legacy DPO,50,2,9,0,2,8,0,8,29,9,9,0,0,4,0,9,13,0,13
