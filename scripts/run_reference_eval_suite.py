@@ -12,6 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from eval.reference_aware_judge import ReferenceAwareJudge
+from src.azure_openai_config import DEFAULT_AZURE_OPENAI_API_VERSION
 
 
 DEFAULT_METHODS = [
@@ -86,12 +87,24 @@ def main() -> None:
     parser.add_argument("--mock", action="store_true")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--api-key", default=None, help="Optional explicit Azure API key override.")
+    parser.add_argument("--endpoint", default=None, help="Optional explicit Azure endpoint override.")
+    parser.add_argument("--deployment", default=None, help="Optional explicit Azure deployment override.")
+    parser.add_argument(
+        "--api-version",
+        default=DEFAULT_AZURE_OPENAI_API_VERSION,
+        help="Azure API version.",
+    )
     args = parser.parse_args()
 
     results_dir = Path(args.results_dir)
     test_set = load_jsonl(Path(args.test_set))
     judge = None if args.reuse_existing else ReferenceAwareJudge(
-        api_key=args.api_key, mock=args.mock, timeout=args.timeout
+        api_key=args.api_key,
+        endpoint=args.endpoint,
+        api_version=args.api_version,
+        deployment=args.deployment,
+        mock=args.mock,
+        timeout=args.timeout,
     )
 
     output_dir = Path(args.output_dir)

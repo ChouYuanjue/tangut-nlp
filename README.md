@@ -59,6 +59,15 @@ conda activate tangut-nlp
 pip install -r requirements.txt
 ```
 
+Azure-backed judge and adjudication scripts no longer ship embedded credentials.
+Set the Azure OpenAI connection explicitly before running them:
+
+```bash
+export AZURE_OPENAI_API_KEY=...
+export AZURE_OPENAI_ENDPOINT=https://<your-resource>.openai.azure.com/
+export AZURE_OPENAI_DEPLOYMENT=<your-deployment-name>
+```
+
 ## Representative Entry Points
 
 - `python experiments/frontier_openrouter_dict.py`

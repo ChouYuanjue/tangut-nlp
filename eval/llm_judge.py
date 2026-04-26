@@ -6,12 +6,18 @@ Currently provides a mock implementation with random scores.
 
 import json
 import random
-import os
 import sys
+from pathlib import Path
 from typing import List, Optional
 import time
 
 from openai import AzureOpenAI
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.azure_openai_config import (
+    DEFAULT_AZURE_OPENAI_API_VERSION,
+    resolve_azure_openai_config,
+)
 
 class LLMJudgeScorer:
     """LLM-based judge for translation quality assessment.
@@ -19,22 +25,45 @@ class LLMJudgeScorer:
     Uses an Azure OpenAI API endpoint to evaluate translations.
     """
 
-    def __init__(self, api_key: Optional[str] = None, mock: bool = False, timeout: int = 30):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        deployment: Optional[str] = None,
+        api_version: str = DEFAULT_AZURE_OPENAI_API_VERSION,
+        mock: bool = False,
+        timeout: int = 30,
+    ):
         """Initialize the LLM judge.
 
         Args:
             api_key: API key for the LLM service.
+            endpoint: Azure OpenAI endpoint override.
+            deployment: Azure OpenAI deployment override.
+            api_version: Azure OpenAI API version.
             mock: If True, return random scores instead of calling an LLM.
             timeout: Timeout in seconds for API calls.
         """
-        self.api_key = api_key or "AZURE_OPENAI_API_KEY_REMOVED"
         self.mock = mock
         self.timeout = timeout
-        
-        self.endpoint = "https://example.invalid/azure-openai/"
-        self.api_version = "2025-03-01-preview"
-        self.deployment = "gpt-54"
-        
+        self.api_version = api_version
+
+        if self.mock:
+            self.api_key = api_key
+            self.endpoint = endpoint
+            self.deployment = deployment or ""
+            self.client = None
+            return
+
+        config = resolve_azure_openai_config(
+            api_key=api_key,
+            endpoint=endpoint,
+            deployment=deployment,
+        )
+        self.api_key = config["api_key"]
+        self.endpoint = config["endpoint"]
+        self.deployment = config["deployment"]
+
         self.client = AzureOpenAI(
             azure_endpoint=self.endpoint,
             api_key=self.api_key,

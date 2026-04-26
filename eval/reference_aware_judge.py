@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import random
 import sys
 import time
@@ -19,13 +18,14 @@ from typing import List, Optional
 
 from openai import AzureOpenAI
 
-
-DEFAULT_ENDPOINT = "https://example.invalid/azure-openai/"
-DEFAULT_API_VERSION = "2025-03-01-preview"
-DEFAULT_DEPLOYMENT = "gpt-54"
-DEFAULT_API_KEY = (
-    "AZURE_OPENAI_API_KEY_REMOVED"
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.azure_openai_config import (
+    DEFAULT_AZURE_OPENAI_API_VERSION,
+    resolve_azure_openai_config,
 )
+
+
+DEFAULT_API_VERSION = DEFAULT_AZURE_OPENAI_API_VERSION
 
 
 def load_jsonl(path: str) -> List[dict]:
@@ -39,26 +39,29 @@ class ReferenceAwareJudge:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        endpoint: str = DEFAULT_ENDPOINT,
+        endpoint: Optional[str] = None,
         api_version: str = DEFAULT_API_VERSION,
-        deployment: str = DEFAULT_DEPLOYMENT,
+        deployment: Optional[str] = None,
         mock: bool = False,
         timeout: int = 30,
     ) -> None:
         self.mock = mock
         self.timeout = timeout
-        self.deployment = deployment
 
         if self.mock:
+            self.deployment = deployment or ""
             self.client = None
             return
 
-        # The repository ships with a working default key, while some
-        # environments export a stale AZURE_OPENAI_API_KEY that causes 401s.
-        resolved_api_key = api_key or DEFAULT_API_KEY
+        config = resolve_azure_openai_config(
+            api_key=api_key,
+            endpoint=endpoint,
+            deployment=deployment,
+        )
+        self.deployment = config["deployment"]
         self.client = AzureOpenAI(
-            azure_endpoint=endpoint,
-            api_key=resolved_api_key,
+            azure_endpoint=config["endpoint"],
+            api_key=config["api_key"],
             api_version=api_version,
             timeout=timeout,
         )
@@ -194,6 +197,9 @@ def main() -> None:
     parser.add_argument("--mock", action="store_true", help="Use random mock scores.")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--api-key", default=None, help="Optional explicit Azure API key override.")
+    parser.add_argument("--endpoint", default=None, help="Optional explicit Azure endpoint override.")
+    parser.add_argument("--deployment", default=None, help="Optional explicit Azure deployment override.")
+    parser.add_argument("--api-version", default=DEFAULT_API_VERSION, help="Azure API version.")
     args = parser.parse_args()
 
     predictions = load_jsonl(args.predictions)
@@ -214,7 +220,14 @@ def main() -> None:
             }
         )
 
-    judge = ReferenceAwareJudge(api_key=args.api_key, mock=args.mock, timeout=args.timeout)
+    judge = ReferenceAwareJudge(
+        api_key=args.api_key,
+        endpoint=args.endpoint,
+        api_version=args.api_version,
+        deployment=args.deployment,
+        mock=args.mock,
+        timeout=args.timeout,
+    )
     result = judge.score_batch(items)
 
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)

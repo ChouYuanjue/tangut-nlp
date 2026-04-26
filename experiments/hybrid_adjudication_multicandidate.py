@@ -14,19 +14,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import string
+import sys
 import time
 from pathlib import Path
 
 from openai import AzureOpenAI
 
-
-DEFAULT_ENDPOINT = "https://example.invalid/azure-openai/"
-DEFAULT_API_VERSION = "2025-03-01-preview"
-DEFAULT_DEPLOYMENT = "gpt-54"
-DEFAULT_API_KEY = (
-    "AZURE_OPENAI_API_KEY_REMOVED"
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.azure_openai_config import (
+    DEFAULT_AZURE_OPENAI_API_VERSION,
+    resolve_azure_openai_config,
 )
+
+DEFAULT_API_VERSION = DEFAULT_AZURE_OPENAI_API_VERSION
 
 SYSTEM_PROMPT_HISTORICAL_TITLE = """你是一位极其严格的西夏文历史短标题审校专家。
 
@@ -253,10 +255,10 @@ def main() -> None:
         choices=["historical_title", "anti_expansion", "catalog_literalist"],
         default="historical_title",
     )
-    parser.add_argument("--deployment", default=DEFAULT_DEPLOYMENT)
-    parser.add_argument("--endpoint", default=DEFAULT_ENDPOINT)
+    parser.add_argument("--deployment", default=os.environ.get("AZURE_OPENAI_DEPLOYMENT"))
+    parser.add_argument("--endpoint", default=os.environ.get("AZURE_OPENAI_ENDPOINT"))
     parser.add_argument("--api-version", default=DEFAULT_API_VERSION)
-    parser.add_argument("--api-key", default=DEFAULT_API_KEY)
+    parser.add_argument("--api-key", default=os.environ.get("AZURE_OPENAI_API_KEY"))
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--max-output-tokens", type=int, default=260)
     parser.add_argument("--timeout", type=int, default=60)
@@ -288,9 +290,16 @@ def main() -> None:
     if args.limit is not None:
         indices = indices[: args.limit]
 
-    client = AzureOpenAI(
-        azure_endpoint=args.endpoint,
+    azure_config = resolve_azure_openai_config(
         api_key=args.api_key,
+        endpoint=args.endpoint,
+        deployment=args.deployment,
+    )
+    resolved_deployment = azure_config["deployment"]
+
+    client = AzureOpenAI(
+        azure_endpoint=azure_config["endpoint"],
+        api_key=azure_config["api_key"],
         api_version=args.api_version,
         timeout=args.timeout,
     )
@@ -350,7 +359,7 @@ def main() -> None:
             for attempt in range(1, args.max_retries + 1):
                 try:
                     response = client.responses.create(
-                        model=args.deployment,
+                        model=resolved_deployment,
                         instructions=system_prompt,
                         input=user_prompt,
                         temperature=args.temperature,
