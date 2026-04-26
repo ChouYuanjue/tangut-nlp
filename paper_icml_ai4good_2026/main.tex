@@ -14,12 +14,12 @@
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 \newcommand{\zh}[1]{{\begin{CJK*}{UTF8}{bsmi}#1\end{CJK*}}}
 
-\icmltitlerunning{Trustworthy Hybrid Workflows for Historical Script Translation}
+\icmltitlerunning{Auditable Hybrid Decision Support for Historical Script Translation}
 
 \begin{document}
 
 \twocolumn[
-\icmltitle{Trustworthy AI for Cultural Heritage:\\ Conservative Hybrid Workflows for Endangered Historical Script Translation}
+\icmltitle{Auditable Hybrid Decision Support for Historical Script Translation}
 
 \begin{icmlauthorlist}
 \icmlauthor{Anonymous Author}{anon}
@@ -27,7 +27,7 @@
 
 \icmlaffiliation{anon}{Anonymous Institution, Anonymous City, Anonymous Region, Anonymous Country}
 \icmlcorrespondingauthor{Anonymous Author}{anon.email@domain.com}
-\icmlkeywords{trustworthy AI, AI for good, cultural heritage, low-resource translation, historical scripts}
+\icmlkeywords{AI for public institutions, information integrity, cultural heritage, low-resource translation, historical scripts}
 
 \vskip 0.3in
 ]
@@ -35,51 +35,51 @@
 \printAffiliationsAndNotice{}
 
 \begin{abstract}
-Digital libraries, museum catalogs, and heritage archives are public information infrastructure, so historical-script translation errors can propagate as information-integrity failures rather than harmless model mistakes. We study this risk in ultra-low-resource Tangut title translation and a cross-script oracle-bone probe. Our workflow combines a strong dictionary-grounded frontier prompt, conservative local models that generate compact title candidates, and deterministic open selectors designed to avoid contamination and over-switching. On Tangut, the frontier baseline is the strongest single model (28.54 chrF++, 12/50 exact), but a simple open hybrid improves exact match to 13/50 with zero contamination, while a larger guarded open selector reaches 32.62 chrF++ without introducing contamination; a closed adjudicator is reported only as headroom. On a 200-item oracle-bone portability probe, a simple open 2-way selector improves the strongest single prompt baseline from 40/200 to 44/200 exact matches and reduces contamination from 3.5\% to 0.5\%. The main lesson for AI-for-good deployment is to privilege auditable candidate workflows and explicit failure containment over single-model wins.
+Digital libraries, museum catalogs, and heritage archives are public information infrastructure, so historical-script translation errors can propagate as information-integrity failures rather than harmless model mistakes. We study this risk in ultra-low-resource Tangut title translation and a cross-script oracle-bone probe. Our workflow combines a strong dictionary-grounded frontier prompt, conservative local models that generate compact title candidates, and deterministic open selectors designed to avoid contamination and over-switching. On Tangut, the frontier baseline is the strongest single model (28.54 chrF++, 12/50 exact), but a simple open hybrid improves exact match to 13/50 with zero contamination, while a larger guarded open selector reaches 32.62 chrF++ without introducing contamination; a closed adjudicator is reported only as headroom. On a 200-item oracle-bone portability probe, a simple open 2-way selector improves the strongest single prompt baseline from 40/200 to 44/200 exact matches and reduces contamination from 3.5\% to 0.5\%. Taken together, these results suggest prioritizing auditable candidate workflows and explicit failure containment over single-model wins in this setting.
 \end{abstract}
 
 \section{Introduction}
 
-AI-for-good discussions often emphasize health, education, or civic applications, but cultural heritage is also a high-stakes public domain. Historical titles and catalog records flow into library systems, museum portals, teaching materials, and search interfaces that shape collective memory. In that setting, an apparently fluent but fabricated title is not just an NLP error: it is an information-integrity problem that can overwrite fragile evidence from endangered textual traditions.
+AI-for-good discussions often emphasize health, education, or civic applications, but cultural heritage is also a public-facing domain with real downstream consequences. Historical titles and catalog records flow into library systems, museum portals, teaching materials, and search interfaces that shape how materials are discovered and interpreted. In that setting, an apparently fluent but fabricated title is not just an NLP error: it is an information-integrity problem that can overwrite fragile evidence from endangered textual traditions.
 
-Tangut short-title translation is a sharp instance of that problem. In the repository we study, only 491 real Tangut--Chinese pairs are available, and many references are compact catalog strings rather than ordinary sentences. Under such scarcity, a model can sound plausible while still producing the wrong historical title in the wrong form. Generic fluency-seeking objectives are therefore poorly matched to the real social requirement, which is conservative, auditable assistance for scholars and public-facing heritage institutions.
+Tangut short-title translation is a clear instance of that problem. In the repository we study, only 491 real Tangut--Chinese pairs are available, and many references are compact catalog strings rather than ordinary sentences. Under such scarcity, a model can sound plausible while still producing the wrong historical title in the wrong form. Generic fluency-seeking objectives are therefore poorly matched to the practical requirement in this setting, which is conservative, auditable assistance for scholars and public-facing heritage institutions.
 
-This changes the question we ask. The goal is not ``which model gets the best score on a tiny benchmark?'' Instead, once a strong frontier model is already available with dictionary grounding, what workflow remains trustworthy enough to use as a decision aid? We focus on three properties that matter for such use: low contamination, low over-expansion, and transparent switching behavior when a selector departs from the strongest single model.
+This changes the question we ask. The goal is not ``which model gets the best score on a tiny benchmark?'' Instead, once a strong frontier model is already available with dictionary grounding, what workflow is conservative enough to merit use as a decision aid? We focus on three properties that matter for such use: low contamination, low over-expansion, and transparent switching behavior when a selector departs from the strongest single model.
 
 The result is a workshop-style case study rather than a new architecture paper. We start from the strongest repository baseline: a DeepSeek v3.2 prompt with dictionary grounding and the exact later prompt family that outperformed the older local baseline prompt. We then test whether structured local models can contribute conservative alternatives, and whether open selectors can exploit those alternatives without opening new failure channels. Closed adjudication is retained only as headroom, not as the centerpiece.
 
-The contribution to the workshop is therefore practical and deployment-oriented:
+The contribution to the workshop is therefore practical and decision-support-oriented:
 \begin{itemize}
-    \item we frame endangered-script translation as trustworthy AI for public knowledge infrastructure, where contamination and fabricated normalization are the primary risks;
-    \item we show that local learning is most useful when it produces conservative candidates that can be audited, rather than when it tries to replace the strongest frontier model end to end;
-    \item we distill a small set of operational lessons for AI-for-good deployment under extreme scarcity: switch rarely, expose candidate provenance, and treat proprietary adjudication only as an upper bound.
+    \item we frame endangered-script translation as a case of AI-assisted decision support in public knowledge infrastructure, where contamination and fabricated normalization are especially salient risks;
+    \item we find that local learning is most useful here when it primarily produces conservative candidates that can be audited, rather than when it tries to replace the strongest frontier model end to end;
+    \item we distill a small set of practical lessons for AI-for-good deployment under extreme scarcity: switch rarely, expose candidate provenance, and treat proprietary adjudication only as an upper bound.
 \end{itemize}
 
-\section{Setting, Stakes, and Trust Objectives}
+\section{Setting, Stakes, and Risk Objectives}
 
-\subsection{Why This Fits AI for Good}
+\subsection{Why This Fits the Workshop Framing}
 
-The immediate application is preservation and access for endangered textual heritage. Better title reconstruction can help scholars, archivists, and the public search and compare materials that would otherwise remain opaque. But the same setting creates unusual downside risk: a wrong modernized title can become easier to reuse than the fragile original evidence it was meant to support. The system is therefore useful only if its failure modes are explicit and containable.
+The immediate application is preservation and access for endangered textual heritage. Better title reconstruction can help scholars, archivists, and the public search and compare materials that would otherwise remain opaque. But the same setting creates unusual downside risk: a wrong modernized title can become easier to reuse than the fragile original evidence it was meant to support. The system is therefore most useful when its failure modes are explicit and containable.
 
-This places the task at the intersection of two workshop themes. First, it is an AI-for-social-good problem because it supports preservation of cultural memory under severe data scarcity. Second, it is an information-integrity problem because catalog errors can propagate through public institutions such as libraries and museums. Our design goal is not to maximize stylistic fluency, but to keep the model from smuggling unsupported content into records that may later be treated as authoritative.
+This places the task at the intersection of two workshop themes. First, it is an AI-for-social-good problem because it supports preservation and access under severe data scarcity. Second, it is an information-integrity problem because catalog errors can propagate through public institutions such as libraries and museums. Our design goal is not to maximize stylistic fluency, but to keep the model from smuggling unsupported content into records that may later be treated as authoritative.
 
 \subsection{Task and Data}
 
 The main benchmark is Tangut short-title translation into Chinese. The repository contains 491 real pairs, with 400 used for training and the remainder reserved for development and test. Because 400 examples are too few for ordinary fine-tuning, the local models are trained on 50k pseudo-parallel examples synthesized from historical Chinese and then mixed with 10x-upsampled real Tangut pairs, yielding 54k training rows per branch. The synthesis pipeline is dictionary-driven rather than opaque: a 24,133-entry Tangut lexicon induces a Chinese-to-Tangut map covering 3,353 Chinese characters, with 4.2 Tangut candidates per covered character on average. The targets are short historical titles, so exact form matters disproportionately.
 
-All local branches share the same data budget and differ mainly in how they expose uncertainty. The simplest branches either leave misses explicit as \texttt{[UNK]} or expose them inside multitask alignment targets, while the more ambitious semantic-projection branch fills misses by vector-space nearest-neighbor lookup. In the stored 50k corpora, semantic projection removes explicit \texttt{[UNK]} tokens from the source side, but that apparent completeness does not yield a more trustworthy downstream model. This is why the workshop workflow privileges auditable MT-SFT candidates over silently projected inputs.
+All local branches share the same data budget and differ mainly in how they expose uncertainty. The simplest branches either leave misses explicit as \texttt{[UNK]} or expose them inside multitask alignment targets, while the more ambitious semantic-projection branch fills misses by vector-space nearest-neighbor lookup. In the stored 50k corpora, semantic projection removes explicit \texttt{[UNK]} tokens from the source side, but that apparent completeness does not yield a cleaner or more accurate downstream model in our stored runs. This is why the workshop workflow favors auditable MT-SFT candidates over silently projected inputs.
 
 We also use a portability probe built from canonicalized oracle-bone readings mapped into the EVOBC inventory. This second benchmark is intentionally narrower than the Tangut task: it is a 200-item decipherment-style stress test rather than a matched short-title dataset. Its role is to test whether the conservative hybrid behavior transfers across scripts.
 
 \subsection{Risk Model}
 
-We operationalize trustworthiness through observable output risks rather than through a broad claim about ``safe AI.''
+We operationalize this framing through observable output risks rather than through a broad claim about ``safe AI.''
 
 \paragraph{Contamination.} An output is flagged as contaminated iff it contains any Latin alphabetic character, angle-bracket markup, an explicit \texttt{[UNK]} token, or one of the prompt artifacts actually observed in stored runs, such as \texttt{assistant}, \texttt{manuals}, \texttt{networks}, or \texttt{shows}. The rule is deterministic and uses no tuned threshold.
 
 \paragraph{Title-form errors.} We separately track truncation, over-expansion, and catalog-style slips such as suffix loss or numeral mismatch. These matter because a compact title can become unusable even when semantically related to the reference.
 
-\paragraph{Over-switching.} A reranker that abandons the strongest single model too often is difficult to trust, even when its corpus overlap rises. On tiny datasets, switching frequency is itself a governance signal because it determines how many decisions a human would need to audit.
+\paragraph{Over-switching.} A reranker that abandons the strongest single model too often is difficult to audit and justify, even when its corpus overlap rises. On tiny datasets, switching frequency is itself a governance signal because it determines how many decisions a human would need to audit.
 
 \paragraph{Evidence standard.} We report exact match, chrF++, contamination, and switching behavior directly in the main workshop version. A closed reference-aware judge remains useful background evidence, but the workshop claim is designed not to depend on it.
 
@@ -96,7 +96,7 @@ Over-switching & A selector that edits too often is hard for scholars to audit a
 Closed-model dependence & Opaque gains are hard to reproduce or institutionalize. & Use closed adjudication only as headroom; keep the main workflow claim on open selectors. \\
 \bottomrule
 \end{tabularx}
-\caption{Risk framing for a scholar-facing decision aid. The workshop contribution is a workflow that makes these risks measurable and auditable.}
+\caption{Risk framing for a scholar-facing decision aid. The workshop contribution is a workflow framing that makes these risks measurable and auditable.}
 \label{tab:riskmap}
 \end{table}
 
@@ -121,19 +121,19 @@ Closed-model dependence & Opaque gains are hard to reproduce or institutionalize
 \draw[arr, dashed] (cands.south east) to[out=-20,in=160] (closed.west);
 \end{tikzpicture}
 }
-\caption{The proposed deployment posture. The main trustworthy-AI claim is not ``replace the frontier model,'' but ``preserve it, add conservative alternatives, and make switching auditable.''}
+\caption{The proposed workflow stance. The main workflow claim is not ``replace the frontier model,'' but ``preserve it, add conservative alternatives, and make switching auditable.''}
 \label{fig:workflow}
 \end{figure}
 
 \paragraph{Strong frontier prompt.} The strongest single-model baseline uses \texttt{deepseek/deepseek-v3.2} through OpenRouter with dictionary grounding, four fixed development-set exemplars, temperature 0.0, a 512-token cap, and a title-only output constraint. This is the later prompt family that produced the strongest repository baseline, rather than the older local baseline prompt.
 
-\paragraph{Structured local models.} Among the local learned systems, the most useful behavior comes from alignment-scaffolded multitask supervision. The local model is trained to emit dictionary matches, a literal draft, and the final compact title in one target string, which discourages premature free paraphrase. Notably, the more elaborate semantic-projection branch can hide uncertainty by removing explicit \texttt{[UNK]} from the synthetic source, but it still does not beat the simpler alignment-scaffolded design. For trustworthy deployment, hiding uncertainty was less useful than making it explicit and learnable.
+\paragraph{Structured local models.} Among the local learned systems, the most useful behavior in our experiments comes from alignment-scaffolded multitask supervision. The local model is trained to emit dictionary matches, a literal draft, and the final compact title in one target string, which discourages premature free paraphrase. Notably, the more elaborate semantic-projection branch can hide uncertainty by removing explicit \texttt{[UNK]} from the synthetic source, but it still does not beat the simpler alignment-scaffolded design. In our setting, hiding uncertainty was less useful than making it explicit and learnable.
 
 \paragraph{Open selectors.} We evaluate deterministic open selectors over candidate pools containing the frontier output and one or more local outputs. The smallest selector is a guarded 2-way switcher over frontier plus MT-SFT. The larger open controls are plurality vote and a 3-way guarded selector over frontier, UNK-SFT, and gap-filtered MT-DPO. A proprietary 3-way adjudicator is reported only as headroom.
 
 \paragraph{Prompt-matched local controls.} To avoid attributing the frontier advantage to prompt wording alone, we also rerun the exact DeepSeek-style few-shot prompt on local Qwen2.5-7B, with and without conservative lexical beam constraints. The chosen frontier prompt family is not arbitrary: on the shared 5-item pilot slice, the final few-shot title-only variant reached 2/5 exact matches and 67.68 chrF++, versus 0/5 and 21.99 for a stricter title-only prompt.
 
-\Cref{fig:workflow} summarizes the intended use pattern. The selector is deliberately narrow: it does not rewrite candidates freely, and it should always leave behind an audit trail that records whether the frontier proposal was kept or replaced. This is the core workshop distinction between a benchmark-only reranker and a workflow that a public institution could plausibly inspect.
+\Cref{fig:workflow} summarizes the intended use pattern. The selector is deliberately narrow: it does not rewrite candidates freely, and it should always leave behind an audit trail that records whether the frontier proposal was kept or replaced. This is the practical distinction between a benchmark-only reranker and a workflow that could plausibly support institutional review.
 
 \section{Evidence}
 
@@ -160,19 +160,19 @@ Closed 3-way adjudicator & 14/50 & 34.87 & 0.0\% & -- \\
 \end{table}
 
 \paragraph{The strongest single model is still frontier prompting.}
-\Cref{tab:tangut} starts from a deliberately strong baseline, because a trustworthy workflow should be judged against the best available single system rather than against a weak local prompt. That baseline reaches 12/50 exact matches with zero contamination. Matching the frontier prompt on local Qwen2.5-7B helps relative to the older local prompt, but remains weak at 1/50 exact. Adding lexical beam constraints changes little. This rules out a cheap explanation: the frontier advantage is not just prompt wording wrapped around the same local model.
+\Cref{tab:tangut} starts from a deliberately strong baseline, because a workflow aimed at auditable decision support should be judged against the best available single system rather than against a weak local prompt. That baseline reaches 12/50 exact matches with zero contamination. Matching the frontier prompt on local Qwen2.5-7B helps relative to the older local prompt, but remains weak at 1/50 exact. Adding lexical beam constraints changes little. This makes a simpler explanation less plausible: the frontier advantage is not just prompt wording wrapped around the same local model.
 
 \paragraph{Local learning matters mainly by generating conservative alternatives.}
-MT-SFT does not beat the frontier system head to head, but it contributes a different error profile. In the stored diagnostics, frontier prompting is already clean but still exhibits one truncation and one over-expansion case; MT-SFT is weaker overall yet often more conservative on compact catalog strings. This is exactly the behavior a trustworthy hybrid needs: not a second system that always wins, but one that occasionally repairs frontier mistakes without adding visible artifacts.
+MT-SFT does not beat the frontier system head to head, but it contributes a different error profile. In the stored diagnostics, frontier prompting is already clean but still exhibits one truncation and one over-expansion case; MT-SFT is weaker overall yet often more conservative on compact catalog strings. This is the kind of complementary behavior the hybrid is meant to exploit: not a second system that always wins, but one that can occasionally repair frontier mistakes without adding visible artifacts.
 
 \paragraph{Gap-filtered DPO is auxiliary, not foundational.}
-The broader benchmark includes MT-DPO as a third candidate source, but the trustworthy reading of that result is narrow. Across the stored 3,867 preference pairs, the current reward is functionally lexical-coverage-driven: removing the weak $0.01 \log \mathrm{PPL}$ tie-breaker causes zero pair-order flips, while the high-confidence gap filter at $\ge 0.4$ retains only 498 pairs and raises a simple gold-proxy label-quality check from 71.3\% overall to 81.5\%. We therefore use MT-DPO only as an auxiliary candidate source in the larger pool, not as the foundation of the workshop claim.
+The broader benchmark includes MT-DPO as a third candidate source, but the conservative reading of that result is narrow. Across the stored 3,867 preference pairs, the current reward is functionally lexical-coverage-driven: removing the weak $0.01 \log \mathrm{PPL}$ tie-breaker causes zero pair-order flips, while the high-confidence gap filter at $\ge 0.4$ retains only 498 pairs and raises a simple gold-proxy label-quality check from 71.3\% overall to 81.5\%. We therefore use MT-DPO only as an auxiliary candidate source in the larger pool, not as the foundation of the workshop claim.
 
 \paragraph{Helpful open hybrids switch rarely.}
-The guarded 2-way hybrid over frontier and MT-SFT improves exact match from 12/50 to 13/50 while staying at zero contamination, and it does so by switching only once. Plurality vote over a larger 3-way pool reaches the same exact-match gain with only two switches. This is the strongest trust signal in the Tangut benchmark: the useful open hybrids are conservative enough that a human reviewer could realistically inspect every switch.
+The guarded 2-way hybrid over frontier and MT-SFT improves exact match from 12/50 to 13/50 while staying at zero contamination, and it does so by switching only once. Plurality vote over a larger 3-way pool reaches the same exact-match gain with only two switches. For this paper's audit-oriented framing, this is a useful signal in the Tangut benchmark: the better-performing open hybrids switch rarely enough that a human reviewer could realistically inspect every switch.
 
-\paragraph{More overlap is not the same as more trust.}
-Pairwise chrF-MBR is the crucial negative control. It raises corpus chrF++ to 34.76, but it switches away from the frontier output on 35 of 50 items, introduces 6\% contamination, and drops exact match to 11/50. In this regime, agreement-seeking selection overshoots. The workshop lesson is that switching behavior itself must be treated as a trustworthiness variable, not just an implementation detail.
+\paragraph{More overlap is not the same as a better workflow.}
+Pairwise chrF-MBR is an important negative control. It raises corpus chrF++ to 34.76, but it switches away from the frontier output on 35 of 50 items, introduces 6\% contamination, and drops exact match to 11/50. In this regime, agreement-seeking selection overshoots. The workshop lesson is that switching behavior itself should be tracked as an audit and governance variable, not just an implementation detail.
 
 \begin{table}[t]
 \centering
@@ -188,8 +188,8 @@ Guarded 3-way & 12/50 & 0.0\% & 23/27 & 0.98 \\
 Pairwise chrF-MBR & 11/50 & 6.0\% & 24/27 & 1.17 \\
 \bottomrule
 \end{tabularx}
-\caption{Trust-aligned diagnostics for open selectors. Low-switch methods preserve title length and stay clean; MBR overshoots toward longer outputs.}
-\label{tab:trustdiag}
+\caption{Risk-aligned diagnostics for open selectors. Low-switch methods preserve title length and stay clean; MBR overshoots toward longer outputs.}
+\label{tab:riskdiag}
 \end{table}
 
 \paragraph{Tangut evidence is directional rather than definitive.}
@@ -206,11 +206,11 @@ Truncation repair & \zh{番言金剛王乘根} & F: \zh{番};\newline Open: \zh{
 Contamination refusal & \zh{七寶華踏佛陀羅尼經} & F/Open: \zh{七寶花踏佛陀羅尼經};\newline MBR: \zh{七寶華嚴大羅}\texttt{Networked\hspace{0pt}Bronze}\zh{經} & Reject a contaminated candidate even when agreement is higher. \\
 \bottomrule
 \end{tabularx}
-\caption{Two stored Tangut cases that anchor the trustworthiness claim.}
+\caption{Two stored Tangut cases that illustrate the workflow argument.}
 \label{tab:cases}
 \end{table}
 
-\Cref{tab:cases} makes the item-level behavior concrete. The useful intervention is narrow and auditable: one switch repairs an obvious truncation, while one refused switch blocks a visibly contaminated candidate from entering the final workflow.
+\Cref{tab:cases} makes the item-level behavior concrete. The intervention is narrow and auditable: one switch repairs an obvious truncation, while one refused switch blocks a visibly contaminated candidate from entering the final workflow.
 
 \begin{table}[t]
 \centering
@@ -229,32 +229,32 @@ Best-of-2 oracle & 48/200 & 51.47 & 2.0\% \\
 \label{tab:evobc}
 \end{table}
 
-\paragraph{The portability probe repeats the same safety pattern.}
-\Cref{tab:evobc} reports the 200-item oracle-bone probe. The strongest single system is again the dictionary-grounded prompt baseline, not the local model. But the same hybrid lesson survives transfer: a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. The probe is still format-mismatched relative to Tangut title translation, but it makes the workflow story harder to dismiss as a one-script accident.
+\paragraph{The portability probe shows a similar pattern.}
+\Cref{tab:evobc} reports the 200-item oracle-bone probe. The strongest single system is again the dictionary-grounded prompt baseline, not the local model. But the same hybrid lesson survives transfer: a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. The probe is still format-mismatched relative to Tangut title translation, but it suggests that the workflow pattern is not entirely specific to one script.
 
-\section{Workshop Lessons: From Benchmarks to Deployment Posture}
+\section{Workshop Lessons: From Benchmarks to Decision Support}
 
-The main workshop takeaway is not a new state of the art; it is a deployment stance for high-risk, low-data historical NLP. When outputs may flow into public catalogs or archival interfaces, the safest design is not to trust one model's fluent answer. It is to preserve a strong frontier proposal, add a conservative local counterproposal, and expose the selector's decision in a form that humans can audit.
+The main workshop takeaway is not a new state of the art; it is a case for treating the workflow as auditable decision support rather than automatic translation. When outputs may flow into public catalogs or archival interfaces, a cautious design is not to rely on one model's fluent answer alone. It is to preserve a strong frontier proposal, add a conservative local counterproposal, and expose the selector's decision in a form that humans can audit.
 
-This suggests four operational rules for AI-for-good use in cultural heritage settings:
+This suggests four practical rules for AI-for-good use in cultural heritage settings:
 \begin{enumerate}
     \item \textbf{Keep the strongest baseline visible.} A selector should not erase the frontier proposal from the audit trail.
     \item \textbf{Switch only under narrow conditions.} Low switch counts are a feature, not a weakness, when each switch can be examined by a scholar or curator.
-    \item \textbf{Treat contamination as a hard failure.} Artifact leakage is more damaging here than small lexical disagreement because it directly pollutes public records.
-    \item \textbf{Use proprietary adjudication only as headroom.} Closed models may show how much complementarity remains, but an institutionally usable workflow should rest on components that can be rerun and inspected.
+    \item \textbf{Treat contamination as a default exclusion criterion.} Artifact leakage is more damaging here than small lexical disagreement because it can directly pollute public records.
+    \item \textbf{Use proprietary adjudication only as headroom.} Closed models may show how much complementarity remains, but a workflow intended for institutional use is better grounded in components that can be rerun and inspected.
 \end{enumerate}
 
-This positioning is deliberately closer to trustworthy decision support than to automatic translation deployment. The system is useful because it narrows a human's review space and suppresses dangerous failure modes, not because it has reached scholar-replacing accuracy.
+Accordingly, the workflow is closer to auditable decision support than to automatic translation deployment. The system is useful insofar as it narrows a human's review space and reduces visible failure modes in our tests, not because it is accurate enough to replace scholarly review.
 
-For public-institution use, this also implies a documentation norm. A library, archive, or museum should not ingest only the final string. It should preserve the source item, the frontier proposal, the local alternative when present, the selector's basis for switching, and any contamination flags. This is a lightweight but concrete governance requirement: if the workflow cannot explain why a title changed, it is not ready to support cataloging.
+For public-institution use, this also implies a documentation norm. A library, archive, or museum should not ingest only the final string. It should preserve the source item, the frontier proposal, the local alternative when present, the selector's basis for switching, and any contamination flags. This is a lightweight but concrete governance requirement: if the workflow cannot explain why a title changed, it is difficult to justify for catalog-support use.
 
 \section{Limitations}
 
-The paper remains a constrained case study. The main Tangut test set is still only 50 items, so even honest gains are fragile. The oracle-bone probe is larger but format-mismatched; it tests cross-script portability of the workflow, not matched title translation. Some upstream ingredients are also still stronger in closed form, especially the frontier model itself and the closed 3-way adjudicator that we use only as headroom. Finally, this workshop version is intentionally not a scholar-in-the-loop deployment study. It narrows a trustworthy workflow family, but expert review is still required before any catalog curation or public-facing heritage tool should rely on the outputs.
+The paper remains a constrained case study. The main Tangut test set is still only 50 items, so even honest gains are fragile. The oracle-bone probe is larger but format-mismatched; it tests cross-script portability of the workflow, not matched title translation. Some upstream ingredients are also still stronger in closed form, especially the frontier model itself and the closed 3-way adjudicator that we use only as headroom. Finally, this workshop version is intentionally not a scholar-in-the-loop deployment study. It narrows a workflow family aimed at more auditable use, but expert review is still required before any catalog curation or public-facing heritage tool should rely on the outputs.
 
 \section*{Impact Statement}
 
-The intended positive impact is improved access to endangered textual heritage with fewer hallucinated or contaminated translations entering digital catalogs. The main misuse risk is false scholarly authority: even a fluent system can produce persuasive but incorrect historical titles. For that reason, the paper emphasizes deterministic contamination checks, conservative open selectors, visible candidate provenance, and human verification rather than autonomous deployment.
+The intended positive impact is improved access to endangered textual heritage by reducing the chance that hallucinated or contaminated translations enter digital catalogs. The main misuse risk is false scholarly authority: even a fluent system can produce persuasive but incorrect historical titles. For that reason, the paper emphasizes deterministic contamination checks, conservative open selectors, visible candidate provenance, and human verification rather than autonomous deployment.
 
 \begin{thebibliography}{10}
 \small
@@ -315,7 +315,7 @@ Wang et al.
 
 \section{Reproducibility Details}
 
-This appendix collects the operational details that were compressed in the workshop body. The main claim still rests on the open-selector results; the closed rows are kept only to document the frontier baseline and remaining headroom. Relative to the body, the appendix mainly adds three things: data provenance and hygiene, reward/judge robustness notes, and the concrete fields needed for institutional auditability.
+This appendix collects the operational details that were compressed in the workshop body. The main empirical claim still rests on the open-selector results; the closed rows are kept only to document the frontier baseline and remaining headroom. Relative to the body, the appendix mainly adds three things: data provenance and hygiene, reward/judge robustness notes, and the concrete fields needed for institutional auditability.
 
 \subsection{Open and Closed Components}
 
@@ -358,7 +358,7 @@ Exact test overlap with train/dev/synth/few-shot & 0 \\
 \label{tab:synthdata}
 \end{table}
 
-All local branches share the same sample budget and differ only in how missing Chinese characters are handled. \texttt{mixed} replaces roughly 30--70\% of dictionary hits with Tangut while leaving residual Chinese visible; \texttt{unk} makes every miss explicit as \texttt{[UNK]}; \texttt{semantic} uses top-3 FAISS retrieval with vote-based replacement and \texttt{[UNK]} fallback; \texttt{multitask} emits \texttt{<dict\_match>...</dict\_match> <literal>...</literal> final-title} targets. In the stored 50k corpora, the semantic branch contains zero explicit \texttt{[UNK]} source tokens, whereas the UNK and multitask branches expose 66,879 placeholder positions. The workflow therefore does not equate fewer visible unknowns with more trustworthy training data.
+All local branches share the same sample budget and differ only in how missing Chinese characters are handled. \texttt{mixed} replaces roughly 30--70\% of dictionary hits with Tangut while leaving residual Chinese visible; \texttt{unk} makes every miss explicit as \texttt{[UNK]}; \texttt{semantic} uses top-3 FAISS retrieval with vote-based replacement and \texttt{[UNK]} fallback; \texttt{multitask} emits \texttt{<dict\_match>...</dict\_match> <literal>...</literal> final-title} targets. In the stored 50k corpora, the semantic branch contains zero explicit \texttt{[UNK]} source tokens, whereas the UNK and multitask branches expose 66,879 placeholder positions. The workflow therefore does not treat fewer visible unknowns as evidence of a better training signal.
 
 \subsection{Inference Settings and Selection Pools}
 
@@ -437,7 +437,7 @@ The \texttt{score\_max} ablation removes the guarded switch logic and simply ret
 
 \section{Additional Diagnostics}
 
-The workshop body reports point estimates and a small set of trust-oriented metrics. The tables below keep the small-sample results interpretable by adding stored intervals and coarse error counts.
+The workshop body reports point estimates and a small set of risk-oriented metrics. The tables below keep the small-sample results interpretable by adding stored intervals and coarse error counts.
 
 \subsection{Uncertainty Estimates}
 
@@ -485,7 +485,7 @@ Pairs kept with gap $\geq 0.40$ & 498 \\
 \label{tab:dpoaudit}
 \end{table}
 
-A small reward-design ablation clarifies the role of the perplexity term. Removing the weak $0.01 \log \mathrm{PPL}$ tie-breaker causes zero pair-order flips and leaves retained-pair quality essentially unchanged (81.5\% $\rightarrow$ 81.8\% good at gap $\ge 0.4$). By contrast, adding a structure-aware diagnostic term based on multitask \texttt{<literal>} overlap yields cleaner but much smaller retained pools (832 pairs at gap $\ge 0.2$ instead of 1,996). The trustworthy interpretation is therefore narrow: gap filtering is the real stabilizer, while the current reward is only a noisy proposal mechanism.
+A small reward-design ablation clarifies the role of the perplexity term. Removing the weak $0.01 \log \mathrm{PPL}$ tie-breaker causes zero pair-order flips and leaves retained-pair quality essentially unchanged (81.5\% $\rightarrow$ 81.8\% good at gap $\ge 0.4$). By contrast, adding a structure-aware diagnostic term based on multitask \texttt{<literal>} overlap yields cleaner but much smaller retained pools (832 pairs at gap $\ge 0.2$ instead of 1,996). The conservative interpretation is therefore narrow: gap filtering is the real stabilizer, while the current reward is only a noisy proposal mechanism.
 
 \subsection{Open-Surrogate Judge Check}
 
@@ -531,7 +531,7 @@ Legacy DPO & 9 & 0 & 2 & 13 \\
 
 \section{Example Deployment Record}
 
-If this workflow is used as scholar-facing decision support, the system should retain the source item, the candidate set, the selector's action, and a human override field so title changes remain inspectable and reversible. \Cref{tab:auditrecord} shows the minimal record we think is compatible with a trustworthy deployment posture.
+If this workflow is used as scholar-facing decision support, the system should retain the source item, the candidate set, the selector's action, and a human override field so title changes remain inspectable and reversible. \Cref{tab:auditrecord} shows the minimal record we think is compatible with this cautious deployment stance.
 
 \begin{table}[H]
 \centering
