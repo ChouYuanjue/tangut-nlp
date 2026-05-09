@@ -331,6 +331,9 @@ This appendix contains the material needed to audit and reproduce the Culture $\
 \paragraph{No separate supplementary submission.}
 The Culture $\times$ AI workshop submission process does not provide a separate supplementary-material upload. We therefore include the necessary audit information in this appendix rather than relying on a detached supplement. The intended anonymous repository should mirror the artifact manifest below: deterministic diagnostic code, per-item diagnostic CSVs, generated metric tables, qualitative-case traces, and the oracle-bone portability probe scripts. The appendix is written so that the main PDF remains understandable even if reviewers inspect only the paper.
 
+\paragraph{Anonymous repository.}
+The anonymous artifact repository is available at \pathcode{https://anonymous.4open.science/r/historical-script-interpretation/}. All repository paths in this appendix are relative to that repository root unless otherwise noted. Because reviewers may not inspect the repository, the appendix spells out the candidate sources, deterministic rules, selector thresholds, aggregation formulas, and qualitative traces needed to understand the reported claims from the PDF alone.
+
 \section{Data and Candidate Sources}
 
 \subsection{Tangut Short-Title Evaluation}
@@ -346,9 +349,26 @@ Candidate sources used by \pathcode{scripts/culture_ai_diagnostics.py}:
     \item \code{closed}: \pathcode{results/hybrid_multi3_catalog_gpt54/predictions.jsonl}. Closed adjudicator, reported only as headroom.
 \end{itemize}
 
+The diagnostic script aligns candidates by row order and checks that each candidate row has the same historical-script input as the frontier row. Empty predictions are excluded from a candidate pool; non-empty predictions are stripped of leading and trailing whitespace but otherwise left unchanged. The script does not call any model and does not repair generated strings.
+
+\begin{longtable}{@{}p{0.16\textwidth}p{0.24\textwidth}p{0.50\textwidth}@{}}
+\toprule
+Candidate & Workflow role & Interpretation in this paper \\
+\midrule
+\endhead
+\code{frontier} & Default dictionary-grounded candidate & The strong single-model baseline and default retained output. Value-aware selectors switch away from it only under guarded conditions. \\
+\code{mt\_sft} & Local compact-title candidate & Used for the 2-way selector and as evidence that local models can sometimes preserve title form, but also as a source of over-modernized or over-narrativized failures. \\
+\code{unk\_sft} & Alternative local witness & Used in 3-way selectors to expose candidate diversity and alternative uncertainty profiles. \\
+\code{dpo} & Auxiliary local witness & Included only as candidate diversity. The paper does not center DPO or claim that preference optimization is the cultural contribution. \\
+\code{closed} & Opaque adjudicator & Reported as headroom for recoverable complementarity. It is not culturally sufficient because opaque adjudication weakens accountability. \\
+\bottomrule
+\end{longtable}
+
 \subsection{Oracle-Bone Portability Probe}
 
 The oracle-bone result uses \pathcode{data/oracle_evo/eval/obimd_canonicalized_test_encoded.jsonl}. It is a 200-item canonicalized OBIMD$\rightarrow$EVOBC probe, not a matched short-title benchmark. The purpose is to stress-test whether a value-aware workflow transfers across historical scripts under format mismatch. The strongest single model is the dictionary-grounded prompt; the open 2-way selector improves exact match and sharply reduces contamination by choosing between the prompt candidate and the local \code{<literal>} SFT field.
+
+The oracle-bone selector is deliberately simpler than the Tangut selectors. It chooses only between an existing dictionary-prompt output and an existing SFT literal output. It prefers the clean exact candidate when available, rejects contaminated strings when a clean alternative exists, and otherwise keeps the stronger available candidate under the same no-generation constraint. The result is therefore a portability stress test for auditable selection, not a claim that the oracle-bone model is robust across formats.
 
 \section{Diagnostic Definitions}
 
@@ -357,6 +377,8 @@ All Tangut diagnostic labels in the appendix are deterministic. They are not int
 \subsection{Standard Metrics}
 
 Exact match is string equality between prediction and reference. chrF++ is computed using SacreBLEU sentence/corpus chrF with character order 6, word order 2, and $\beta=2$. Switch count is the number of selected outputs that differ from the frontier candidate.
+
+For corpus summaries, exact count is \(\sum_i \mathbf{1}[\hat{y}_i=y_i]\). Corpus chrF++ is computed on all predictions and references together, while per-item chrF in \pathcode{per_item_diagnostics.csv} is sentence chrF++ rounded to four decimals. We report both because exact match preserves the catalog-title identity criterion, while chrF++ captures graded surface overlap.
 
 \subsection{Cultural and Interpretive Metrics}
 
@@ -380,6 +402,16 @@ trace rows & Count of rows that preserve selector provenance, candidate-pool pro
 \bottomrule
 \end{longtable}
 
+\subsection{Aggregation and Audit Logic}
+
+For each method, \code{audit\_flags} is the sum of five deterministic flags over all rows:
+\[
+\mathrm{Contamination}+\mathrm{Truncation}+\mathrm{OverExpansion}+\mathrm{TitleSuffixError}+\mathrm{NumeralError}.
+\]
+\code{flagged\_rows} counts rows where at least one of those five flags is present. The per-item \code{audit\_needed} flag is slightly broader: it is set when the selected method is not the frontier candidate, or when the selected output has contamination, truncation, over-expansion, title-suffix error, numeral error, or unsupported narrativization. This is why \code{audit\_needed} should be read as a review-routing proxy rather than as workload measurement.
+
+The cultural-normalization diagnostics \code{over\_modernization}, \code{unsupported\_narrativization}, \code{false\_cultural\_specificity}, and \code{interpretive\_substitution} are reported separately because they are more heuristic. They are still deterministic and inspectable, but they are not folded into the main \code{audit\_flags} count except for unsupported narrativization in the per-item audit-needed flag.
+
 \section{Selector Definitions}
 
 All open selectors choose from existing candidates and do not generate new text. This is important for interpretive reversibility: every selected title can be traced back to a candidate source.
@@ -402,6 +434,28 @@ The guarded selectors score candidates using pairwise prefix/suffix consensus, t
 
 The main guarded 3-way selector uses frontier, UNK-SFT, and DPO. The guarded 2-way selector uses frontier and MT-SFT. The audit-record variant preserves the frontier output and frontier diagnostics even when the selected string is unchanged relative to the sparse guarded selector.
 
+\subsection{Guarded Scoring Details}
+
+The guarded selectors use the same deterministic candidate score as \pathcode{experiments/open_hybrid_heuristic.py}. For a candidate \(c\), the score is:
+\[
+\begin{split}
+s(c) = &1.4\,P(c) + 1.2\,S(c) + 2.5\,T(c) - 1.0\,L(c)\\
+&-6.0\,B(c)-4.0\,Q(c)-2.0\,G(c)+0.75\,F(c),
+\end{split}
+\]
+where \(P(c)\) is prefix-consensus length with other candidates when the shared prefix has length at least two, \(S(c)\) is the analogous suffix-consensus length, \(T(c)\) indicates whether the candidate ends in a title suffix, \(L(c)\) is absolute distance from the median candidate length, \(B(c)\) is contamination, \(Q(c)\) is an extreme-shortness penalty, \(G(c)\) is an extreme-longness penalty, and \(F(c)\) is the frontier prior. The title-guard ablation uses the same score but sets \(F(c)=0\); the sparse-prior selector uses \(F(c)=0.75\).
+
+The sparse guarded selector then applies hard switch rules rather than taking the maximum score directly:
+\begin{enumerate}
+    \item if the frontier candidate is contaminated and the best local candidate is clean, switch;
+    \item if the frontier candidate has length at most one and the best local candidate has length at least three, switch;
+    \item otherwise switch only if the best local score exceeds the frontier score by at least 3.0, the local prefix/suffix consensus exceeds frontier consensus by at least 2, the local candidate is not too short, is clean, and either has a title suffix or the frontier lacks one;
+    \item also switch when the frontier is clearly over-long, the best local candidate is not over-long, has at least two characters of consensus, and is at least two characters shorter than the frontier;
+    \item otherwise keep the frontier.
+\end{enumerate}
+
+These thresholds are not tuned to maximize exact match. They encode a conservative workflow preference: retain the strong dictionary-grounded candidate unless the candidate pool provides a narrow, auditable reason to switch.
+
 \section{Selector Value Ablation}
 
 The ablation in the main paper compares five selector value settings:
@@ -413,7 +467,7 @@ The ablation in the main paper compares five selector value settings:
     \item the same sparse selector with an explicit audit record.
 \end{enumerate}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \small
 \begin{tabularx}{\textwidth}{@{}Xrrrrrrrrr@{}}
@@ -452,6 +506,18 @@ The full per-item diagnostic file is included as \pathcode{artifacts/per_item_di
     \item \code{audit\_needed}: deterministic flag indicating that the row should be inspected by a human reviewer.
 \end{itemize}
 
+\paragraph{How to read a row.}
+Each row should be read as an audit record rather than as a single prediction. The \code{frontier}, \code{mt\_sft}, \code{unk\_sft}, and \code{dpo\_candidate} fields show the candidate pool available to the selector. \code{selector\_output} and \code{chosen\_method} show the selected string and its provenance. \code{selector\_action} records whether the selector kept the frontier or switched, and \code{switch\_reason} is filled only when the chosen method is not the frontier. This makes the final output reversible: a reviewer can inspect both the chosen title and the alternatives that were rejected.
+
+\paragraph{Representative rows.}
+The appendix does not print all 50 rows, but the following rows illustrate how the CSV supports audit without a separate supplement:
+\begin{itemize}
+    \item Row 41: source item 41, reference \zh{番言金剛王乘根}. Frontier output \zh{番} is a truncation; local candidates preserve the compact catalog chain; the selector switches to \code{unk\_sft}. The Tangut source string is preserved in the CSV, but omitted here to avoid PDF font failure.
+    \item Row 8: reference \zh{此於已到僧於隨歸順}. One candidate contains \texttt{n\`ayQuiet}; the guarded selector keeps the clean frontier-form output rather than the contaminated agreement candidate.
+    \item Row 5: reference \zh{共丸道次}. MT-SFT emits \zh{范宁、范玄平两人在路上。}; the case is tracked for qualitative inspection as partially grounded but over-narrativized, while the selector does not adopt that local sentence.
+    \item Row 3: reference \zh{三個懺罪頌}. The selected output preserves the visible title suffix \zh{頌}; this is treated as catalog-form evidence even when the item is not exact.
+\end{itemize}
+
 \section{Qualitative Case Selection}
 
 The qualitative cases in the main paper were selected from deterministic flags and then manually inspected. The selection targets were:
@@ -466,6 +532,20 @@ The qualitative cases in the main paper were selected from deterministic flags a
 
 Manual inspection was limited to confirming that the cases actually illustrate the stated interpretive behavior. No manual edits were used to change the metric tables.
 
+\begin{longtable}{@{}p{0.18\textwidth}p{0.76\textwidth}@{}}
+\toprule
+Case & Full audit trace used in the paper \\
+\midrule
+\endhead
+Truncation repair & Item 41; reference \zh{番言金剛王乘根}; frontier \zh{番}; MT-SFT \zh{番言金剛王乘根}; UNK-SFT \zh{番言金剛王乘根}; DPO \zh{番言金剛王乘根}; guarded selector \zh{番言金剛王乘根}. The cultural issue is collapse of a catalog chain into a fragment. \\
+Artifact rejection & Item 8; reference \zh{此於已到僧於隨歸順}; frontier \zh{此處僧至皈依儀}; MT-SFT \zh{这是清净音的僧尼随顺法。}; UNK-SFT \zh{長阿含經中受持功德説}; DPO \texttt{n\`ayQuiet }\zh{至僧人隨自順則}; guarded selector \zh{此處僧至皈依儀}. The cultural issue is preserving the provenance boundary between source evidence and model artifact. \\
+MBR misalignment & Same source and reference as the artifact-rejection case. Pairwise chrF-MBR selects \texttt{n\`ayQuiet }\zh{至僧人隨自順則}. The point is not that MBR is always bad, but that agreement maximization can launder artifact text when cultural accountability is not part of the objective. \\
+Over-narrativization & Item 5; reference \zh{共丸道次}; frontier \zh{俱通次第論}; MT-SFT \zh{范宁、范玄平两人在路上。}; UNK-SFT \zh{重譯道果}; DPO \zh{重念道次}; guarded selector \zh{俱通次第論}; MBR output \zh{重念道次}. The inspected trace suggests partial lexical pressure from \zh{共} and \zh{道次}, but the MT-SFT string shifts a compact title into a modern sentence with unsupported names. \\
+Catalog form preserved & Item 3; reference \zh{三個懺罪頌}; frontier \zh{第十三懺罪頌}; MT-SFT \zh{三種罪懺根}; UNK-SFT \zh{三種惡趣淨拔}; DPO \zh{三種罪懺根}; guarded selector \zh{第十三懺罪頌}. The selected string is not exact, but it preserves the catalog-title suffix \zh{頌}. \\
+Oracle-bone portability & Reference \zh{癸卯卜旬其尞土牢} with sixth character U+5C1E; dictionary prompt \zh{癸卯卜旬其}\texttt{ponsors}\zh{土牢}; SFT literal \zh{癸卯卜旬其厓土牢} with sixth character U+5393. The selector rejects the artifact-bearing prompt string and keeps a clean historical-script-form candidate. \\
+\bottomrule
+\end{longtable}
+
 \section{Oracle-Bone Probe Details and Limitations}
 
 The oracle-bone probe should not be read as a second full benchmark. It differs from the Tangut task in script inventory, source format, and target conventions. Its role is a portability stress test for the value-aware workflow:
@@ -478,9 +558,15 @@ The oracle-bone probe should not be read as a second full benchmark. It differs 
 
 The main paper uses this probe only to support a limited claim: evidential-humility diagnostics and conservative candidate selection can transfer across historical-script settings, even when the benchmark format changes.
 
+\section{What Is Not in the Artifact}
+
+The anonymous repository is designed for audit rather than for full model retraining. It includes deterministic scripts and generated diagnostic artifacts, but the claims in the paper do not require reviewers to reproduce frontier-model calls, closed adjudicator calls, or local training runs. This is intentional: the workshop contribution is the evaluation and workflow framing, not a new deployable model. The repository therefore prioritizes inspectable prediction files, candidate provenance, selector logic, and per-item diagnostics.
+
+The closed adjudicator outputs are retained only to show headroom. They should not be treated as an auditable cultural authority, because reviewers cannot inspect the closed model's internal rationale. Similarly, the DPO candidate is retained only as one additional local witness in a candidate pool; DPO training details are not part of the Culture $\times$ AI contribution.
+
 \section{Artifact Manifest}
 
-Because there is no separate supplementary-material upload, this manifest records the repository artifacts needed to audit the reported claims. In the anonymous repository, these files should be present as data/code artifacts rather than as a separate appendix PDF:
+Because there is no separate supplementary-material upload, this manifest records the repository artifacts needed to audit the reported claims. In the anonymous repository at \pathcode{https://anonymous.4open.science/r/historical-script-interpretation/}, these files should be present as data/code artifacts rather than as a separate appendix PDF:
 \begin{itemize}
     \item \pathcode{README.md}: plain-text package overview and reproduction commands.
     \item \pathcode{artifacts/table_a_standard_metrics.csv}: standard Tangut metrics table.
@@ -489,6 +575,10 @@ Because there is no separate supplementary-material upload, this manifest record
     \item \pathcode{artifacts/per_item_diagnostics.csv}: required per-item diagnostic CSV.
     \item \pathcode{artifacts/qualitative_cases.csv}: qualitative case shortlist.
     \item \pathcode{scripts/culture_ai_diagnostics.py}: offline deterministic artifact-generation script.
+    \item \pathcode{scripts/oracle_two_way_selector.py}: deterministic oracle-bone two-way selector.
+    \item \pathcode{scripts/eval_oracle_portability.py}: oracle-bone portability metric script.
+    \item \pathcode{data/eval/test_set.jsonl}: 50-item Tangut held-out title set.
+    \item \pathcode{data/oracle_evo/eval/obimd_canonicalized_test_encoded.jsonl}: 200-item oracle-bone portability probe.
 \end{itemize}
 
 \section{Reproduction Commands}
