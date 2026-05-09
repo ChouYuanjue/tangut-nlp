@@ -50,6 +50,8 @@ results/
 results_*/
 
 # Paper build products
+paper/
+paper_icml_ai4good_2026/
 paper/*.aux
 paper/*.bbl
 paper/*.blg

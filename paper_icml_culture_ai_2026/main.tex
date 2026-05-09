@@ -10,7 +10,7 @@
 \usepackage{float}
 \usepackage{url}
 \usepackage{CJKutf8}
-\usepackage{../paper_icml_ai4good_2026/icml2026}
+\usepackage{icml2026}
 \usepackage[capitalize,noabbrev]{cleveref}
 \setcitestyle{numbers,square}
 
@@ -328,6 +328,9 @@ Laurajane Smith.
 
 This appendix contains the material needed to audit and reproduce the Culture $\times$ AI revision. The main paper argues that historical-script translation should be evaluated as an interpretive cultural technology. The appendix therefore focuses on operational details: data sources, candidate provenance, deterministic diagnostic rules, selector definitions, ablation variants, oracle-bone probe caveats, qualitative-case selection, and artifact manifests.
 
+\paragraph{No separate supplementary submission.}
+The Culture $\times$ AI workshop submission process does not provide a separate supplementary-material upload. We therefore include the necessary audit information in this appendix rather than relying on a detached supplement. The intended anonymous repository should mirror the artifact manifest below: deterministic diagnostic code, per-item diagnostic CSVs, generated metric tables, qualitative-case traces, and the oracle-bone portability probe scripts. The appendix is written so that the main PDF remains understandable even if reviewers inspect only the paper.
+
 \section{Data and Candidate Sources}
 
 \subsection{Tangut Short-Title Evaluation}
@@ -477,7 +480,7 @@ The main paper uses this probe only to support a limited claim: evidential-humil
 
 \section{Artifact Manifest}
 
-The accompanying supplementary material package contains data and code artifacts only:
+Because there is no separate supplementary-material upload, this manifest records the repository artifacts needed to audit the reported claims. In the anonymous repository, these files should be present as data/code artifacts rather than as a separate appendix PDF:
 \begin{itemize}
     \item \pathcode{README.md}: plain-text package overview and reproduction commands.
     \item \pathcode{artifacts/table_a_standard_metrics.csv}: standard Tangut metrics table.
@@ -499,5 +502,17 @@ pdflatex -interaction=nonstopmode main.tex
 \end{verbatim}
 
 The first command regenerates the CSV artifacts from existing prediction files. No external model calls are made by the diagnostic script.
+
+\section{What Reviewers Can Audit Without Supplementary Upload}
+
+The appendix and anonymous repository are intended to support four concrete audit paths:
+\begin{itemize}
+    \item \textbf{Metric reproduction}: rerun \pathcode{scripts/culture_ai_diagnostics.py} and compare the generated CSVs with Tables 2--4.
+    \item \textbf{Per-item trace inspection}: open \pathcode{artifacts/per_item_diagnostics.csv} to inspect each source, reference, candidate pool, selected output, selector action, switch reason, and audit-needed flag.
+    \item \textbf{Qualitative-case verification}: open \pathcode{artifacts/qualitative_cases.csv} to inspect the exact candidate strings behind the truncation repair, artifact rejection, MBR failure, over-narrativization, catalog-form, and oracle-bone portability cases.
+    \item \textbf{Oracle-bone portability check}: inspect \pathcode{scripts/oracle_two_way_selector.py}, \pathcode{scripts/eval_oracle_portability.py}, and the oracle probe rows to verify that the reported 2-way selector chooses only between existing dictionary-prompt and SFT-literal candidates.
+\end{itemize}
+
+These audit paths are intentionally limited. They verify that the workflow preserves evidence, provenance, and diagnostic traces; they do not replace later expert humanities evaluation of the interpretations themselves.
 
 \end{document}

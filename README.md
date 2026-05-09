@@ -1,98 +1,123 @@
-# Tangut-NLP
+# Auditable Historical-Script Interpretation
 
-Tangut-NLP is a research codebase for ultra-low-resource Tangut short-text translation. The repository studies a focused regime: only 491 real Tangut-Chinese pairs are available, many targets are compact title-like strings, and evaluation has to distinguish between fluent modern Chinese and faithful historical title reconstruction.
+This repository supports the Culture x AI workshop paper:
 
-The project centers on a workflow question rather than a single-model question: once a strong frontier Chinese LLM already has dictionary grounding and a title-oriented prompt, what remains worth learning locally, and how can frontier and local candidates be combined into a stronger translation pipeline?
+**Evidential Humility as a Cultural Value for AI: Auditable Workflows for Historical-Script Interpretation**
 
-## Repository Contributions
+The project studies generative AI for historical-script translation as an interpretive cultural technology, not only as a low-resource machine-translation benchmark. The central question is: what should count as success when AI is used to support interpretation of fragile cultural evidence?
 
-- A strong frontier prompt-only baseline for Tangut title translation
-- Local synthetic multitask SFT and gap-filtered DPO pipelines for trainable Tangut models
-- Open and closed candidate-selection workflows that exploit frontier/local complementarity
-- Reference-aware evaluation, contamination analysis, uncertainty analysis, and bootstrap significance tools
-- A supplementary oracle-bone portability probe built around the same workflow logic
+Our answer is organized around two positive cultural values:
 
-## Headline Results
+- **Evidential humility**: preserve uncertainty, avoid unsupported expansion, and prevent model or prompt artifacts from entering a catalog-like answer.
+- **Interpretive reversibility**: keep candidate provenance, selector rationale, and audit records so a scholar can inspect and contest the workflow.
 
-- Best single frontier model: `frontier_deepseek_v32_fewshot_cot`
-  `28.54` chrF++, `12/50` exact match, `2.80/5` reference-aware overall
-- Best local trained model: `final_gap04_multitask_sigmoid`
-  `30.01` chrF++, `5/50` exact match, `2.22/5` reference-aware overall
-- Best open workflow: `open_hybrid_heuristic_guarded`
-  `32.62` chrF++, `12/50` exact match, `2.90/5` reference-aware overall, `0/50` contamination
-- Best overall workflow: `hybrid_multi3_catalog_gpt54`
-  `34.87` chrF++, `14/50` exact match, `3.02/5` reference-aware overall
-- Oracle portability probe:
-  dictionary-grounded prompt reaches `40/200` exact and `46.20` chrF++, while a simple open 2-way hybrid improves this to `44/200` exact and `47.81` chrF++
+The repository is intended to make the paper's workflow auditable. It contains scripts for generating deterministic diagnostics, candidate-selection comparisons, and small portability probes from existing prediction artifacts.
+
+## What This Repository Is Not
+
+This is not a claim of state-of-the-art historical-script translation.
+
+This is not a deployment-ready cataloging system.
+
+This is not a paper about replacing expert readers with a single fluent model output.
+
+The paper treats models as producers of candidate interpretations. The accountable unit is the workflow: historical-script item plus dictionary evidence, candidate interpretations, value-aware selection, audit record, and human review.
+
+## Core Evaluation Ideas
+
+Standard metrics remain useful but are not sufficient. The Culture x AI framing adds diagnostics that ask whether a workflow preserves the conditions for later human interpretation.
+
+The main diagnostics are:
+
+- **contamination**: Latin fragments, prompt debris, `[UNK]`, or other artifacts in outputs;
+- **truncation**: collapse of a compact title into an underspecified fragment;
+- **over-expansion**: unsupported length growth relative to the catalog-style reference;
+- **title-form and suffix errors**: loss of compact catalog-title conventions;
+- **numeral errors**: mismatch in canonical numeral information;
+- **unsupported narrativization**: conversion of a compact title/gloss into a modern sentence with unsupported subjects, predicates, punctuation, or narrative relations;
+- **switch count**: how often a selector departs from the frontier candidate;
+- **trace rows / audit records**: whether candidate provenance and selector rationale are preserved.
+
+These are transparent proxy measures. They do not replace expert humanities judgment; they make culturally relevant failure modes inspectable.
+
+## Main Workflow
+
+The Tangut workflow uses a 50-item held-out short-title set and compares:
+
+- a dictionary-grounded frontier prompt;
+- local SFT candidates;
+- an UNK-preserving local branch;
+- an auxiliary DPO candidate used only for diversity;
+- deterministic selectors over existing candidate strings;
+- a closed adjudicator reported only as headroom.
+
+The workflow emphasizes conservative selection. Local models are not treated as replacements for frontier models. They are alternative witnesses that sometimes repair truncation, expose uncertainty, or preserve compact form.
+
+## Key Scripts
+
+- `scripts/culture_ai_diagnostics.py`
+  Generates the Culture x AI diagnostic tables, selector ablation, per-item diagnostic CSV, and qualitative-case shortlist.
+- `scripts/eval_oracle_portability.py`
+  Evaluates the 200-item oracle-bone portability probe.
+- `scripts/oracle_two_way_selector.py`
+  Builds the conservative two-way oracle-bone selector over dictionary-prompt and SFT-literal outputs.
+- `scripts/build_obimd_oracle_probe.py`
+  Constructs the oracle-bone portability probe from OBIMD/EVOBC-derived assets.
+
+## Reproducing the Culture x AI Diagnostics
+
+From the repository root:
+
+```bash
+python3 scripts/culture_ai_diagnostics.py
+```
+
+This command uses existing prediction files and does not call external models. It writes:
+
+- `results/culture_ai_diagnostics/table_a_standard_metrics.csv`
+- `results/culture_ai_diagnostics/table_b_cultural_metrics.csv`
+- `results/culture_ai_diagnostics/selector_value_ablation.csv`
+- `results/culture_ai_diagnostics/per_item_diagnostics.csv`
+- `results/culture_ai_diagnostics/qualitative_cases.csv`
+
+The per-item diagnostic file is the primary audit artifact. It records the source, reference, frontier/local/DPO candidates, selector output, chosen method, standard metrics, cultural diagnostic flags, selector action, switch reason, and audit-needed flag.
+
+## Oracle-Bone Portability Probe
+
+The oracle-bone experiment is a portability stress test for the value-aware workflow. It is not a second matched short-title benchmark.
+
+The probe uses a 200-item canonicalized OBIMD-to-EVOBC dataset. Dictionary-grounded prompting is the strongest single model in the reported setup, while a simple open two-way selector can reduce contamination by choosing a clean SFT-literal alternative when the dictionary prompt produces artifacts.
 
 ## Repository Layout
 
-- `experiments/`: model-facing generation, training, and workflow experiments
-- `eval/`: metric computation, cleaning, judge interfaces, and result aggregation
-- `scripts/`: active analysis, evaluation, portability, and workflow utilities
-- `scripts/legacy_sft_pipeline/`: archived orchestration scripts from earlier local-training pipelines
-- `src/`: data preparation, dictionary handling, prompt construction, and synthesis helpers
-- `paper/`: main manuscript source
-- `configs/`: DeepSpeed configurations
-- `data/dictionary/`: tracked dictionary assets used by evaluation and prompting
-- `data/eval/`: tracked evaluation splits
+- `data/dictionary/`: Tangut dictionary assets used by prompting and diagnostics.
+- `data/eval/`: Tangut evaluation splits.
+- `experiments/`: generation, training, and selector experiments.
+- `eval/`: metric computation and lexical-coverage utilities.
+- `scripts/`: artifact generation, diagnostic, oracle-bone, and evaluation scripts.
+- `src/`: data preparation, dictionary handling, prompt construction, and synthesis helpers.
+- `configs/`: training configuration files.
+- `paper_icml_culture_ai_2026/`: Culture x AI paper source and build artifacts in the working tree.
 
-Local notes, generated corpora, checkpoints, semantic indices, evaluation outputs, logs, and paper build products are intentionally excluded from version control.
-
-## Research Framing
-
-The codebase supports a controlled comparison across four layers:
-
-1. strong frontier prompting with dictionary grounding
-2. local supervised models built from synthetic multitask training data
-3. local preference optimization after aggressive pair filtering
-4. workflow-level candidate selection over complementary frontier and local outputs
-
-This organization matches the paper's main question: what remains useful after strong frontier prompting is already in place?
+Generated predictions, checkpoints, large training corpora, paper build outputs, and legacy paper directories are excluded from the anonymous repository view.
 
 ## Environment
 
-The working environment on this machine is:
+The original working environment used:
 
 ```bash
 conda activate tangut-nlp
 pip install -r requirements.txt
 ```
 
-Azure-backed judge and adjudication scripts no longer ship embedded credentials.
-Set the Azure OpenAI connection explicitly before running them:
+Some historical evaluation scripts can use external judge APIs, but the Culture x AI diagnostic script is offline and deterministic.
 
-```bash
-export AZURE_OPENAI_API_KEY=...
-export AZURE_OPENAI_ENDPOINT=https://<your-resource>.openai.azure.com/
-export AZURE_OPENAI_DEPLOYMENT=<your-deployment-name>
-```
+If running API-backed scripts, configure credentials explicitly through environment variables; no credentials are stored in this repository.
 
-## Representative Entry Points
+## Paper Framing
 
-- `python experiments/frontier_openrouter_dict.py`
-  strong frontier prompt-only baseline
-- `python experiments/baseline3_synthetic_sft.py`
-  local SFT training entrypoint
-- `python experiments/final_dpo.py`
-  local DPO training entrypoint
-- `python experiments/open_hybrid_heuristic.py`
-  open hybrid selector
-- `python scripts/run_reference_eval_suite.py`
-  Azure-backed reference-aware evaluation bundle
-- `python scripts/run_local_reference_eval_suite.py`
-  local surrogate reference-aware evaluation bundle
-- `python scripts/open_selector_study.py`
-  selector sensitivity and pool-ablation study
-- `python scripts/build_obimd_oracle_probe.py`
-  oracle portability probe construction
-- `python scripts/bootstrap_significance.py`
-  paired bootstrap significance analysis
+The paper's message is not "we built a better hybrid translator." It is:
 
-## Paper
+**Generative AI for historical scripts should be evaluated as an accountable interpretive cultural technology.**
 
-The main manuscript in `paper/` corresponds to the current workflow-focused framing:
-
-*What Remains Useful After Strong Frontier Prompting? Complementary Local Models for Ultra-Low-Resource Tangut Title Translation*
-
-The repository is therefore organized around reproducible workflow comparisons, reference-aware evaluation, and portability diagnostics rather than around a single training recipe.
+Success is not only exact match or chrF++. It is also the ability to preserve catalog form, expose uncertainty, avoid unsupported cultural normalization, maintain provenance, and support scholar-facing review.
