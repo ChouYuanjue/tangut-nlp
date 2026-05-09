@@ -64,6 +64,8 @@ paper/*.toc
 *.aux
 *.out
 *.pdf
+*.zip
+*.tar.gz
 
 # OS/editor noise
 .DS_Store

@@ -1,0 +1,8 @@
+method,exact,num_examples,exact_rate,chrf,contamination,contamination_rate,switch_count
+Frontier DeepSeek,12,50,0.24,28.5403,0,0.0,
+MT-SFT,5,50,0.1,25.9875,1,0.02,
+Guarded 2-way,13,50,0.26,30.0469,0,0.0,1
+Plurality 3-way,13,50,0.26,30.0648,0,0.0,2
+Guarded 3-way,12,50,0.24,32.6175,0,0.0,12
+Pairwise chrF-MBR,11,50,0.22,34.7631,3,0.06,35
+Closed adjudicator (headroom),14,50,0.28,34.8741,0,0.0,13

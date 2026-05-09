@@ -1,0 +1,503 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{url}
+\usepackage{CJKutf8}
+\usepackage{../paper_icml_ai4good_2026/icml2026}
+\usepackage[capitalize,noabbrev]{cleveref}
+\setcitestyle{numbers,square}
+
+\newcommand{\zh}[1]{{\begin{CJK*}{UTF8}{bsmi}#1\end{CJK*}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pathcode}[1]{{\begingroup\Urlmuskip=0mu plus 1mu\url{#1}\endgroup}}
+
+\icmltitlerunning{Evidential Humility for Cultural AI}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Evidential Humility as a Cultural Value for AI:\\
+Auditable Workflows for Historical-Script Interpretation}
+
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Author}{anon}
+\end{icmlauthorlist}
+
+\icmlaffiliation{anon}{Anonymous Institution, Anonymous City, Anonymous Region, Anonymous Country}
+\icmlcorrespondingauthor{Anonymous Author}{anon.email@domain.com}
+\icmlkeywords{Culture and AI, historical scripts, interpretive technology, evaluation, human agency}
+
+\vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\begin{abstract}
+Historical-script translation is not only low-resource machine translation. It is a culturally situated interpretive task in which compact catalog form, uncertain evidence, and scholarly provenance matter. We revisit a Tangut title-translation workflow and a small oracle-bone probe through the lens of AI as cultural technology. The positive cultural value we design for is \emph{evidential humility}: systems should avoid unsupported expansion, preserve uncertainty and provenance, and support reversible human interpretation rather than replacing it with one fluent answer. We operationalize this value through diagnostics for contamination, truncation, over-expansion, title-form errors, numeral errors, switching burden, trace preservation, audit flags, and flagged rows. On 50 Tangut items, value-aware open selectors maintain the frontier model's exact-match regime while occasionally recovering additional exact titles, and keep contamination at zero; a metric-only chrF-MBR selector attains higher chrF++ but switches on 35/50 items, introduces 6\% contamination, and over-expands more often. On a 200-item oracle-bone portability probe, a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. The contribution is not a claim of state of the art or deployment readiness. It is an evaluation framework showing how humanities-inspired success criteria can be embedded upstream in AI workflow design.
+\end{abstract}
+
+\section{Introduction}
+
+AI systems increasingly participate in cultural meaning-making: they sort, summarize, translate, and normalize records that later become searchable knowledge. For historical scripts, this makes AI an \emph{interpretive cultural technology}, not merely an accuracy engine. A generated title may enter a catalog, a classroom search result, or a scholar's working notes. If the system silently replaces an uncertain inscription with a fluent modern title, the harm is not just a wrong prediction; it is a change in the evidential status of a cultural object.
+
+We study this issue through Tangut short-title translation, with a smaller oracle-bone portability probe. Tangut is an extinct historical script; the working dataset has only 491 real Tangut--Chinese pairs, and the held-out items are often compact catalog strings rather than ordinary sentences. These titles are culturally specific forms. They compress genre, catalog convention, doctrinal vocabulary, transliteration, and fragmentary evidence. In an archive or library interface, a wrong suffix, added person name, or prose paraphrase can alter how records are discovered, grouped, and distinguished from related titles. The central question is therefore not ``which model translates Tangut best?'' It is: \emph{what counts as success when generative AI is used to support interpretation of fragile cultural evidence?}
+
+Our answer is organized around a positive cultural value: \textbf{evidential humility}, coupled with \textbf{interpretive reversibility}. A culturally accountable system should preserve compact catalog form, expose uncertainty and candidate provenance, avoid unsupported cultural normalization, and leave scholars in control of final interpretation. This differs from a standard benchmark frame. Exact match and chrF++ remain useful, but they are insufficient when a method can increase overlap by over-switching, expanding titles, or admitting artifact-laden strings.
+
+We therefore reframe the repository's models and results as an interpretive workflow: historical-script item plus dictionary evidence $\rightarrow$ candidate interpretations $\rightarrow$ value-aware selector $\rightarrow$ audit record $\rightarrow$ human review. Local models are not presented as replacements for stronger frontier models. They are alternative interpretive witnesses that occasionally repair truncation or preserve a compact form. A closed adjudicator is reported only as headroom, because the workshop contribution should not depend on opaque cultural adjudication.
+
+Our contributions are:
+\begin{itemize}
+    \item We propose evidential humility and interpretive reversibility as positive cultural values for evaluating AI in historical-script interpretation.
+    \item We operationalize these values through measurable diagnostics: catalog-form fidelity, contamination, unsupported expansion, switch burden, and provenance.
+    \item We show that conservative candidate workflows can shift the evaluative target from single-output accuracy to accountable interpretation, while preserving competitive standard metrics.
+    \item We identify metric-only reranking as a failure mode for cultural AI evaluation: higher overlap can correspond to worse interpretive behavior.
+\end{itemize}
+
+\section{Cultural Success Criteria}
+
+Culture-centered evaluation should define success beyond harm avoidance. In our setting, success means sustaining the evidential conditions under which human interpretation remains possible. In this task, the relevant success criteria are interpretive virtues that can be made measurable.
+
+These measurements are transparent proxy diagnostics, not substitutes for expert humanities judgment. Archival description and cultural metadata are themselves interpretive acts, shaped by provenance, context, and institutional choices \citep{bowker1999sorting,gilliland2016setting}. Hermeneutic interpretation depends on context, contestability, and the possibility of revisiting meaning rather than on a single settled score \citep{ricoeur1976interpretation}. The point of the diagnostics is therefore narrower: to make culturally relevant failure modes visible early enough that a workflow can preserve evidence for expert review.
+
+\paragraph{Form-sensitive interpretation.}
+Historical titles are not ordinary paraphrases. They often follow compact catalog conventions: short strings, inherited suffixes such as \zh{經}, \zh{論}, \zh{記}, or \zh{頌}, and numerals that anchor canonical identity. We measure title-form fidelity through truncation, over-expansion, suffix/title-form errors, numeral errors, and output/reference length ratio.
+
+\paragraph{Evidential humility.}
+A fluent expansion can be culturally misleading when the source evidence supports only a compact or uncertain title. We therefore treat contamination, unsupported expansion, over-modernization, and false cultural specificity as failures of evidential integrity. Contamination is not only a safety risk; it is a positive cultural criterion because prompt debris, Latin fragments, or \texttt{[UNK]} artifacts break the evidential chain of a catalog record.
+
+\paragraph{Interpretive reversibility.}
+A scholar should be able to reconstruct why the workflow chose a title and what alternatives were available. We measure switch count, chosen-method provenance, candidate-pool preservation, and audit-record completeness. A high-switch selector may improve a corpus metric but become difficult to review item by item.
+
+\paragraph{Agency-preserving assistance.}
+The workflow should reduce and structure scholar review, not replace it. We therefore report audit flags and flagged rows, together with switch count. These counts identify places where review is warranted; they should not be read as a linear estimate of actual scholar workload, which depends on evidence quality, expertise, and institutional context.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\begin{tabularx}{\columnwidth}{@{}p{0.26\columnwidth}p{0.32\columnwidth}X@{}}
+\toprule
+Criterion & Cultural question & Diagnostic signal \\
+\midrule
+Form sensitivity & Does the output remain a catalog title? & truncation, over-expansion, suffix error, numeral error, length ratio \\
+Evidential humility & Does it avoid unsupported certainty? & contamination, over-modernization, unsupported narrativization, false specificity \\
+Reversibility & Can the choice be audited? & switch count, provenance, audit record \\
+Scholarly agency & Does it structure review? & audit flags, flagged rows, inspectable switches \\
+\bottomrule
+\end{tabularx}
+\caption{Cultural success criteria are embedded as measurable workflow diagnostics rather than added after a generic MT evaluation.}
+\label{tab:criteria}
+\end{table}
+
+\section{Interpretive Workflow}
+
+The workflow begins with a historical-script item and dictionary evidence. A dictionary-grounded frontier prompt produces a strong initial candidate. Local models trained on dictionary-derived synthetic data and upsampled real pairs produce alternative compact titles. A selector then chooses among candidates without generating new text. The output is not just a string: it should preserve candidate provenance, the selected source, switch reason, and flags for human review.
+
+The main Tangut candidate pool contains: (i) a dictionary-grounded DeepSeek frontier prompt, (ii) an MT-SFT model trained to produce compact title strings, (iii) an UNK-SFT branch that exposes missing evidence differently, and (iv) a gap-filtered DPO candidate used only as additional diversity. DPO is not the center of the paper; its role is to provide another local witness. The strongest single model remains the frontier prompt.
+
+We evaluate deterministic open selectors:
+\begin{itemize}
+    \item a guarded 2-way selector over frontier and MT-SFT;
+    \item plurality vote over frontier, UNK-SFT, and DPO;
+    \item a guarded 3-way selector with contamination, title-form, and sparse-switch guards;
+    \item pairwise chrF-MBR as a metric-only negative control.
+\end{itemize}
+The closed catalog adjudicator is included only as headroom. It shows recoverable complementarity among candidates, but opaque adjudication is not culturally sufficient because it weakens accountability and makes the interpretive basis harder to contest.
+
+\section{Experiments}
+
+\subsection{Tangut Standard Metrics}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\begin{tabularx}{\columnwidth}{@{}Xrrrr@{}}
+\toprule
+Method & Exact & chrF++ & Contam. & Switch \\
+\midrule
+Frontier DeepSeek & 12/50 & 28.54 & 0 & -- \\
+MT-SFT & 5/50 & 25.99 & 1 & -- \\
+Guarded 2-way & 13/50 & 30.05 & 0 & 1 \\
+Plurality 3-way & 13/50 & 30.06 & 0 & 2 \\
+Guarded 3-way & 12/50 & 32.62 & 0 & 12 \\
+Pairwise chrF-MBR & 11/50 & 34.76 & 3 & 35 \\
+Closed adjudicator & 14/50 & 34.87 & 0 & 13 \\
+\bottomrule
+\end{tabularx}
+\caption{Standard Tangut metrics. The closed row is headroom only. Switch counts are departures from the frontier output.}
+\label{tab:standard}
+\end{table}
+
+\Cref{tab:standard} deliberately starts from a strong frontier baseline. The low-resource story alone would make the local models look central, but the cultural workflow story is different: the frontier prompt is the strongest single model, and local models matter when they provide conservative alternatives. The guarded 2-way selector improves exact match by one item with one switch and no contamination. Plurality voting yields the same exact-match gain with two switches. These 13/50 versus 12/50 differences are not statistical separation on a 50-item set. The main result is the tradeoff pattern between metric-only and value-aware selection. The guarded 3-way selector improves chrF++ while keeping outputs clean, but switches more often and does not improve exact match. \Cref{tab:standard} is therefore a necessary baseline, not the paper's main evaluative claim.
+
+The important negative control is pairwise chrF-MBR. It reaches the highest open chrF++ score, but exact match drops to 11/50, contamination appears in 3/50 items, and the selector switches on 35/50 items. This is the central contrast: metric-only selection can increase surface overlap while weakening cultural accountability.
+
+\subsection{Cultural Success Metrics}
+
+\begin{table*}[t]
+\centering
+\tiny
+\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\textwidth}{@{}Xrrrrrrrrrrr@{}}
+\toprule
+Method & Cont. & Trunc. & Over-exp. & Suffix err. & Num. err. & Narr. & Switch & Audit flags & Flag rows & Trace rows & Len. \\
+\midrule
+Frontier DeepSeek & 0 & 1 & 1 & 6 & 4 & 0 & -- & 12 & 11 & 0 & 0.95 \\
+MT-SFT & 1 & 0 & 5 & 11 & 2 & 5 & -- & 19 & 18 & 0 & 1.10 \\
+Guarded 2-way & 0 & 0 & 1 & 5 & 4 & 0 & 1 & 10 & 10 & 50 & 0.97 \\
+Plurality 3-way & 0 & 0 & 1 & 5 & 4 & 0 & 2 & 10 & 10 & 50 & 0.97 \\
+Guarded 3-way & 0 & 0 & 1 & 5 & 3 & 0 & 12 & 9 & 9 & 50 & 0.98 \\
+Pairwise chrF-MBR & 3 & 0 & 6 & 4 & 1 & 0 & 35 & 14 & 10 & 50 & 1.17 \\
+Closed adjudicator & 0 & 0 & 0 & 3 & 4 & 0 & 13 & 7 & 7 & 50 & 0.95 \\
+\bottomrule
+\end{tabularx}
+\caption{Culture/interpretive diagnostics. Narr. counts unsupported narrativization. Audit flags sum the listed deterministic flags; flagged rows count items with at least one such flag. Trace rows count rows with preserved candidate or selector provenance, a workflow-level accountability property rather than a model accuracy metric.}
+\label{tab:cultural}
+\end{table*}
+
+\Cref{tab:cultural} is the main result table for the Culture $\times$ AI framing. The strongest open story is not that one hybrid ``wins'' on every metric. It is that value-aware selection changes what is visible. The guarded selectors remove frontier truncation, keep contamination at zero, and preserve trace records for every row. Trace rows are not an accuracy metric: they indicate whether a workflow retains enough candidate and selector provenance for later audit. For cultural use, logging the interpretive path is part of the system behavior, not an external reporting convenience. The metric-only MBR control has a better chrF++ score but a worse cultural profile: longer outputs, more over-expansion, contamination, and far more switches.
+
+The closed adjudicator scores well on these diagnostics, but it is not the hero. It shows that candidate pools contain recoverable complementarity, but opaque adjudication weakens accountability and is therefore culturally insufficient as the main contribution. On a 50-item test set, we also avoid statistical overclaiming: exact-match differences among frontier, guarded 2-way, plurality, and guarded 3-way selectors are small.
+
+\subsection{Selector Value Ablation}
+
+\begin{table}[t]
+\centering
+\tiny
+\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\columnwidth}{@{}Xrrrrrrrr@{}}
+\toprule
+Selector & Exact & chrF++ & Cont. & Over-exp. & Switch & Flags & Rows & Audit rec. \\
+\midrule
+Metric MBR & 11 & 34.76 & 3 & 6 & 35 & 14 & 10 & 0 \\
+Contam. guard & 12 & 28.54 & 0 & 1 & 0 & 12 & 11 & 0 \\
++ title guard & 11 & 33.21 & 0 & 0 & 32 & 5 & 5 & 0 \\
++ sparse prior & 12 & 32.62 & 0 & 1 & 12 & 9 & 9 & 0 \\
++ audit record & 12 & 32.62 & 0 & 1 & 12 & 9 & 9 & 50 \\
+\bottomrule
+\end{tabularx}
+\caption{Cultural value ablation over selectors. Flags sum deterministic diagnostic flags; rows count items with at least one flag. The audit-record row has the same selected strings as the sparse selector but preserves an explicit frontier audit record for all 50 items.}
+\label{tab:ablation}
+\end{table}
+
+\Cref{tab:ablation} separates value choices. A contamination guard alone is conservative but does not improve generic metrics because the frontier output is already clean. Adding title-form scoring reduces audit flags but over-switches. Adding a sparse frontier prior recovers a better balance: fewer cultural failures than metric-only MBR and far fewer switches, though not the highest chrF++. The \emph{+ audit record} row does not change selected strings. It demonstrates that identical predictions can differ in cultural accountability depending on whether provenance, frontier alternatives, and selector rationale are preserved. This supports the central claim that cultural values should be designed upstream into the selector rather than audited only after metric optimization.
+
+\subsection{Qualitative Interpretive Cases}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabularx}{\columnwidth}{@{}p{0.26\columnwidth}X@{}}
+\toprule
+Case & Evidence and cultural lesson \\
+\midrule
+Truncation repair & Ref. \zh{番言金剛王乘根}; frontier gives only \zh{番}, while local candidates preserve the compact catalog chain. The switch is conservative and reversible. \\
+Artifact rejection & Ref. \zh{此於已到僧於隨歸順}; DPO includes \texttt{n\`ayQuiet}. Rejecting it protects evidential integrity rather than merely cleaning formatting. \\
+MBR misalignment & On the same item, pairwise MBR selects the contaminated candidate because it agrees with other strings. This is metric optimization without interpretive restraint. \\
+Partially grounded but over-narrativized & Ref. \zh{共丸道次}; MT-SFT emits \zh{范宁、范玄平两人在路上。}. \zh{共} may invite a plural reading and \zh{人在路上} may reflect \zh{道次}, but the sentence adds unsupported names and shifts genre. \\
+Catalog form preserved & Ref. \zh{三個懺罪頌}; local candidates lose \zh{頌}, while the selected frontier-form title keeps a visible title suffix. \\
+Oracle-bone portability & Ref. \zh{癸卯卜旬其尞土牢} (sixth char U+5C1E); dict prompt outputs \zh{癸卯卜旬其}\texttt{ponsors}\zh{土牢}, while SFT gives clean \zh{癸卯卜旬其厓土牢} (sixth char U+5393). The selector rejects the artifact. \\
+\bottomrule
+\end{tabularx}
+\caption{Qualitative cases. Each case is an interpretive issue because it changes evidence, form, or reviewability, not merely string overlap.}
+\label{tab:cases}
+\end{table}
+
+\Cref{tab:cases} illustrates why this is a cultural interpretation task. The selector is valuable when it makes a narrow, auditable intervention: repair a one-character truncation, reject contaminated evidence, or preserve catalog form. It is not valuable when it freely rewrites historical titles into familiar modern phrases.
+
+The truncation repair case is not merely a string-length error. A one-character output such as \zh{番} collapses a compact catalog title into a fragment and removes the evidential relation among language marker, doctrinal title, and catalog form. A conservative local candidate is useful here because it restores a plausible title-shaped chain while remaining auditable: the workflow can show the frontier fragment, the local alternative, and the reason for switching. The cultural value is not that the local model becomes authoritative; it is that the system preserves a recoverable disagreement for scholarly judgment.
+
+The MBR case shows the opposite failure mode. Pairwise chrF-MBR can favor an artifact-laden candidate because it resembles other generated strings, even when the artifact is visibly outside the historical-script evidence. That is an interpretive-cultural failure because the selected string no longer respects the provenance boundary between source evidence, dictionary support, and model debris. The problem is therefore not only contamination as surface noise. It is that metric-only agreement can launder unsupported material into a catalog-like answer while hiding the uncertainty that a scholar would need to inspect.
+
+The \zh{共丸道次} case is more subtle than total semantic failure. In the inspected trace, the dictionary evidence suggests a possible plural cue in \zh{共} and a partial relation between \zh{道次} and ``road/way'' plus ``order/sequence,'' so \zh{人在路上} may preserve a weak lexical thread. The failure is that the local candidate converts a compact title into a modern sentence and appears to import unsupported names, \zh{范宁} and \zh{范玄平}, from narrative material outside this item's source evidence. It therefore illustrates why local candidates require value-aware filtering: partial grounding is not the same as evidential humility or catalog-form fidelity.
+
+\subsection{Oracle-Bone Portability Probe}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabularx}{\columnwidth}{@{}Xrrr@{}}
+\toprule
+Method & Exact & chrF++ & Contam. \\
+\midrule
+Qwen2.5-7B zero-shot & 0/200 & 0.44 & 27.5\% \\
+Qwen2.5-7B + dict prompt & 40/200 & 46.20 & 3.5\% \\
+MT-SFT \texttt{<literal>} & 29/200 & 40.56 & 5.0\% \\
+Simple 2-way selector & 44/200 & 47.81 & 0.5\% \\
+Best-of-2 oracle & 48/200 & 51.47 & 2.0\% \\
+\bottomrule
+\end{tabularx}
+\caption{The 200-item oracle-bone probe is a portability stress test, not a second matched benchmark.}
+\label{tab:oracle}
+\end{table}
+
+\Cref{tab:oracle} keeps the oracle-bone result modest. The dataset is format-mismatched: it is a canonicalized OBIMD$\rightarrow$EVOBC decipherment-style probe rather than a matched short-title benchmark. Still, the same workflow value transfers. Dictionary-grounded prompting is the strongest single model, but a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. This supports the portability of the value-aware workflow, not a broad claim about oracle-bone translation.
+
+\section{Discussion and Limitations}
+
+The results suggest a design principle for cultural AI: generic overlap metrics should be paired with diagnostics that preserve cultural form, evidence, and human agency. Pairwise chrF-MBR is useful precisely because it fails in an interpretable way. It shows that higher overlap can come with more switches, longer outputs, and artifact leakage. A Culture $\times$ AI evaluation should make that tradeoff visible in the main paper, not hide it in an appendix.
+
+\paragraph{What is positive here?}
+The positive outcome is a different human--AI division of interpretive labor. The AI system is not framed as the final cultural interpreter. It preserves alternatives, provenance, narrow disagreement points, and deterministic flags so scholars retain authority over meaning-making. This matters because cultural heritage work is not only information transfer; it is a situated practice of assigning, contesting, and sustaining meaning \citep{smith2006uses}. In this sense, the workflow supports cultural agency by making disagreement inspectable rather than replacing interpretation with a single fluent answer.
+
+This paper is intentionally modest. The Tangut test set has only 50 items, so we do not claim state of the art, deployment readiness, or decisive superiority over the frontier model. The oracle-bone probe is larger but format-mismatched. Several strong components are closed or frontier systems; we therefore treat the closed adjudicator only as headroom and keep the contribution on open, inspectable selection and diagnostics. Finally, deterministic heuristics are only a first layer of annotation. They are useful because they are transparent, but they do not replace expert humanities review. We deliberately treat expert evaluation as follow-up rather than as a small ad hoc validation here, because the current contribution is to define auditable workflow criteria and generate inspectable traces that experts could later judge.
+
+The broader lesson is that evaluation can shape AI systems before deployment. If the desired cultural value is evidential humility, then the workflow should be designed to preserve candidate provenance, compact form, uncertainty flags, and switch rationales from the beginning. Success for cultural AI is not a single fluent answer. It is an accountable interpretive process that scholars can inspect, reverse, and contest.
+
+\section*{Reproducibility Note}
+
+All new diagnostic artifacts for this revision are generated offline by \pathcode{scripts/culture_ai_diagnostics.py} under \pathcode{results/culture_ai_diagnostics/}, with CSV copies stored in this paper directory's \pathcode{artifacts/} folder. The outputs include the standard metrics, cultural metrics, selector ablation, per-item diagnostics, and qualitative-case CSV files. The per-item CSV includes the required fields for source, reference, frontier/local/DPO candidates, selector output, chosen method, exact, chrF, contamination, truncation, over-expansion, title-suffix error, numeral error, over-modernization, unsupported narrativization, false cultural specificity, interpretive substitution, selector action, switch reason, and audit-needed flags.
+
+\begin{thebibliography}{10}
+\small
+
+\bibitem{sommerschield2023ancient}
+Thea Sommerschield et al.
+\newblock 2023.
+\newblock Machine Learning for Ancient Languages: A Survey.
+\newblock \emph{Computational Linguistics}, 49(3).
+
+\bibitem{wang2023evahanoverview}
+Wang et al.
+\newblock 2023.
+\newblock EvaHan2023: Overview of the First International Ancient Chinese Translation Bakeoff.
+\newblock In \emph{Proceedings of ALT2023: Ancient Language Translation Workshop}.
+
+\bibitem{lu2024cod}
+Hongyuan Lu et al.
+\newblock 2024.
+\newblock Chain-of-Dictionary Prompting Elicits Translation in Large Language Models.
+\newblock In \emph{Proceedings of EMNLP}.
+
+\bibitem{popovic2017chrfpp}
+Maja Popovic.
+\newblock 2017.
+\newblock chrF++: Words Helping Character n-grams.
+\newblock In \emph{Proceedings of the Second Conference on Machine Translation}.
+
+\bibitem{rafailov2023dpo}
+Rafael Rafailov et al.
+\newblock 2023.
+\newblock Direct Preference Optimization: Your Language Model is Secretly a Reward Model.
+\newblock In \emph{Proceedings of NeurIPS}.
+
+\bibitem{yang2024dpombr}
+Yang et al.
+\newblock 2024.
+\newblock Direct Preference Optimization for Neural Machine Translation with Minimum Bayes Risk Decoding.
+\newblock In \emph{Proceedings of NAACL}.
+
+\bibitem{bowker1999sorting}
+Geoffrey C. Bowker and Susan Leigh Star.
+\newblock 1999.
+\newblock \emph{Sorting Things Out: Classification and Its Consequences}.
+\newblock MIT Press.
+
+\bibitem{gilliland2016setting}
+Anne J. Gilliland.
+\newblock 2016.
+\newblock Setting the Stage.
+\newblock In Murtha Baca (ed.), \emph{Introduction to Metadata}.
+\newblock Getty Publications.
+
+\bibitem{ricoeur1976interpretation}
+Paul Ricoeur.
+\newblock 1976.
+\newblock \emph{Interpretation Theory: Discourse and the Surplus of Meaning}.
+\newblock Texas Christian University Press.
+
+\bibitem{smith2006uses}
+Laurajane Smith.
+\newblock 2006.
+\newblock \emph{Uses of Heritage}.
+\newblock Routledge.
+
+\end{thebibliography}
+
+\onecolumn
+\appendix
+
+\section{Appendix Scope}
+
+This appendix contains the material needed to audit and reproduce the Culture $\times$ AI revision. The main paper argues that historical-script translation should be evaluated as an interpretive cultural technology. The appendix therefore focuses on operational details: data sources, candidate provenance, deterministic diagnostic rules, selector definitions, ablation variants, oracle-bone probe caveats, qualitative-case selection, and artifact manifests.
+
+\section{Data and Candidate Sources}
+
+\subsection{Tangut Short-Title Evaluation}
+
+The Tangut evaluation uses the repository's 50-item held-out title set in \pathcode{data/eval/test_set.jsonl}. Each item contains a Tangut source string and a compact Chinese catalog-title reference. The main paper reports exact match and chrF++ because they remain useful signals, but the diagnostic emphasis is on whether a workflow preserves compact title form, avoids unsupported expansion, and leaves an audit trail.
+
+Candidate sources used by \pathcode{scripts/culture_ai_diagnostics.py}:
+\begin{itemize}
+    \item \code{frontier}: \pathcode{results/frontier_deepseek_v32_fewshot_cot/predictions.jsonl}. Strong dictionary-grounded frontier prompt.
+    \item \code{mt\_sft}: \pathcode{results/baseline3_2_multitask/predictions_cleaned.jsonl}. Local compact-title candidate.
+    \item \code{unk\_sft}: \pathcode{results/baseline3_1_unk/predictions.jsonl}. Local candidate preserving a different uncertainty profile.
+    \item \code{dpo}: \pathcode{results/final_gap04_multitask_sigmoid/predictions.jsonl}. Auxiliary local witness for candidate diversity.
+    \item \code{closed}: \pathcode{results/hybrid_multi3_catalog_gpt54/predictions.jsonl}. Closed adjudicator, reported only as headroom.
+\end{itemize}
+
+\subsection{Oracle-Bone Portability Probe}
+
+The oracle-bone result uses \pathcode{data/oracle_evo/eval/obimd_canonicalized_test_encoded.jsonl}. It is a 200-item canonicalized OBIMD$\rightarrow$EVOBC probe, not a matched short-title benchmark. The purpose is to stress-test whether a value-aware workflow transfers across historical scripts under format mismatch. The strongest single model is the dictionary-grounded prompt; the open 2-way selector improves exact match and sharply reduces contamination by choosing between the prompt candidate and the local \code{<literal>} SFT field.
+
+\section{Diagnostic Definitions}
+
+All Tangut diagnostic labels in the appendix are deterministic. They are not intended to replace expert review; they are intended to make the paper's cultural success criteria auditable.
+
+\subsection{Standard Metrics}
+
+Exact match is string equality between prediction and reference. chrF++ is computed using SacreBLEU sentence/corpus chrF with character order 6, word order 2, and $\beta=2$. Switch count is the number of selected outputs that differ from the frontier candidate.
+
+\subsection{Cultural and Interpretive Metrics}
+
+\begin{longtable}{@{}p{0.22\textwidth}p{0.72\textwidth}@{}}
+\toprule
+Metric & Deterministic rule \\
+\midrule
+\endhead
+contamination & Prediction contains ASCII alphabetic characters, angle brackets, \code{[UNK]}, or observed prompt-artifact lexemes such as \code{assistant}, \code{manuals}, \code{networks}, \code{shows}, \code{grat}, or \code{dresses}. \\
+truncation & Prediction length is at most half the reference length, with a minimum threshold of one character. \\
+over-expansion & Prediction is at least four characters longer than the reference and at least 1.5 times as long as the reference. \\
+title-suffix error & The reference contains one or more title-form suffix characters and the prediction fails to preserve all of them. The suffix set is \zh{經論記疏頌儀義傳錄贊序字品文觀根次門}. \\
+numeral error & Both prediction and reference contain Chinese numeral characters, but their numeral signatures differ. The numeral set is \zh{零〇一二三四五六七八九十百千萬兩}. \\
+over-modernization & Non-exact prediction contains modern explanatory punctuation or discourse markers such as \zh{。} \zh{，} \zh{：} \zh{；} \zh{、} \zh{即} \zh{是} \zh{这是} \zh{指} or \zh{名}; alternatively, it is much longer than the reference and lacks a title suffix. \\
+unsupported narrativization & Prediction turns a compact title or gloss into a modern propositional sentence by adding subjects, predicates, discourse punctuation, or narrative relations not supported by source evidence. This differs from generic over-expansion because the output may retain partial lexical grounding while changing the cultural genre of the item. \\
+false cultural specificity & Prediction introduces culturally loaded terms not present in the reference, such as \zh{佛}, \zh{菩薩}, \zh{般若}, \zh{陀羅尼}, \zh{華嚴}, \zh{金剛}, \zh{地藏}, \zh{彌勒}, \zh{孔雀}, or \zh{禪定}. \\
+interpretive substitution & Non-exact prediction shares a prefix of at least two characters with the reference but substitutes a different title suffix. \\
+audit flags & Sum of contamination, truncation, over-expansion, title-suffix error, and numeral-error flags. \\
+flagged rows & Count of rows with at least one audit flag. This is a proxy for review targeting, not a linear estimate of scholar workload. \\
+trace rows & Count of rows that preserve selector provenance, candidate-pool provenance, or candidate source metadata. This is a workflow-level accountability property, not model accuracy. \\
+\bottomrule
+\end{longtable}
+
+\section{Selector Definitions}
+
+All open selectors choose from existing candidates and do not generate new text. This is important for interpretive reversibility: every selected title can be traced back to a candidate source.
+
+\subsection{Plurality 3-Way}
+
+Plurality chooses the most frequent candidate string among frontier, UNK-SFT, and DPO. If there is a tie and the frontier candidate is among the tied strings, it keeps the frontier candidate. This is an open agreement baseline.
+
+\subsection{Pairwise chrF-MBR}
+
+For each candidate $c_i$, pairwise MBR computes
+\[
+  s(c_i)=\frac{1}{|C|-1}\sum_{j \ne i}\mathrm{chrF}(c_i,c_j).
+\]
+The selected candidate maximizes $s(c_i)$, with frontier retained only on exact score ties. This is the metric-only negative control in the main paper. It is useful because it shows that generic overlap maximization can improve chrF++ while worsening cultural accountability.
+
+\subsection{Guarded Selectors}
+
+The guarded selectors score candidates using pairwise prefix/suffix consensus, title-suffix presence, length penalties, contamination penalties, and a frontier prior. They then switch away from the frontier only under guarded conditions: frontier contamination, obvious frontier truncation, materially stronger local conservative evidence, or clear frontier over-expansion with a shorter supported local candidate.
+
+The main guarded 3-way selector uses frontier, UNK-SFT, and DPO. The guarded 2-way selector uses frontier and MT-SFT. The audit-record variant preserves the frontier output and frontier diagnostics even when the selected string is unchanged relative to the sparse guarded selector.
+
+\section{Selector Value Ablation}
+
+The ablation in the main paper compares five selector value settings:
+\begin{enumerate}
+    \item metric-only chrF-MBR;
+    \item contamination-guarded selection;
+    \item contamination plus title-form scoring;
+    \item title-form scoring plus sparse-switch frontier prior;
+    \item the same sparse selector with an explicit audit record.
+\end{enumerate}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}Xrrrrrrrrr@{}}
+\toprule
+Selector & Exact & chrF++ & Cont. & Suffix err. & Over-exp. & Switch & Flags & Rows & Audit rec. \\
+\midrule
+Metric-only chrF-MBR & 11 & 34.76 & 3 & 4 & 6 & 35 & 14 & 10 & 0 \\
+Contamination guard & 12 & 28.54 & 0 & 6 & 1 & 0 & 12 & 11 & 0 \\
++ title-form guard & 11 & 33.21 & 0 & 4 & 0 & 32 & 5 & 5 & 0 \\
++ sparse frontier prior & 12 & 32.62 & 0 & 5 & 1 & 12 & 9 & 9 & 0 \\
++ audit record & 12 & 32.62 & 0 & 5 & 1 & 12 & 9 & 9 & 50 \\
+\bottomrule
+\end{tabularx}
+\caption{Selector value ablation. Flags sum deterministic diagnostic flags; rows count items with at least one flag. The final row has the same selected strings as the sparse selector but stores a per-item frontier audit record.}
+\end{table}
+
+The ablation supports the paper's central contrast. Metric-only selection maximizes surface agreement but introduces contamination, over-expansion, and a high switch burden. Title-form scoring reduces audit flags but can over-switch. A sparse frontier prior sacrifices some generic metric gain to preserve a more auditable workflow.
+
+\section{Per-Item Diagnostic CSV Schema}
+
+The full per-item diagnostic file is included as \pathcode{artifacts/per_item_diagnostics.csv}. Its fields are listed below. This is intentionally not a table, because long field names are easier to audit when they can wrap naturally.
+
+\begin{itemize}
+    \item \code{id}: 1-based item index.
+    \item \code{source}: historical-script source string.
+    \item \code{reference}: Chinese reference title.
+    \item \code{frontier}: dictionary-grounded frontier candidate.
+    \item \code{mt\_sft}, \code{unk\_sft}, \code{dpo\_candidate}: local candidate strings.
+    \item \code{selector\_output}: output chosen by the guarded 3-way selector.
+    \item \code{chosen\_method}: candidate source selected by the selector.
+    \item \code{exact}, \code{chrf}: standard per-item metrics.
+    \item \code{contamination}, \code{truncation}, \code{over\_expansion}: evidential-humility and form flags.
+    \item \code{title\_suffix\_error}, \code{numeral\_error}: catalog-form and numeral diagnostics.
+    \item \code{over\_modernization}, \code{unsupported\_narrativization}, \code{false\_cultural\_specificity}, \code{interpretive\_substitution}: heuristic cultural-normalization diagnostics.
+    \item \code{selector\_action}, \code{switch\_reason}: selector provenance and switch rationale.
+    \item \code{audit\_needed}: deterministic flag indicating that the row should be inspected by a human reviewer.
+\end{itemize}
+
+\section{Qualitative Case Selection}
+
+The qualitative cases in the main paper were selected from deterministic flags and then manually inspected. The selection targets were:
+\begin{enumerate}
+    \item a frontier truncation repaired by a conservative local candidate;
+    \item a contaminated or artifact-laden candidate rejected by a value-aware selector;
+    \item a case where pairwise chrF-MBR improves agreement but violates interpretive restraint;
+    \item a case where a fluent local output hides uncertainty or violates catalog form;
+    \item a case where catalog form is preserved even when semantic content remains imperfect;
+    \item an oracle-bone portability case where the same contamination rule applies under format mismatch.
+\end{enumerate}
+
+Manual inspection was limited to confirming that the cases actually illustrate the stated interpretive behavior. No manual edits were used to change the metric tables.
+
+\section{Oracle-Bone Probe Details and Limitations}
+
+The oracle-bone probe should not be read as a second full benchmark. It differs from the Tangut task in script inventory, source format, and target conventions. Its role is a portability stress test for the value-aware workflow:
+\begin{itemize}
+    \item dictionary-grounded prompting is the strongest single model;
+    \item the local model contributes alternative readings but is not a replacement;
+    \item the open 2-way selector reduces contamination and modestly improves exact match;
+    \item best-of-2 oracle results are upper-bound diagnostics, not deployable systems.
+\end{itemize}
+
+The main paper uses this probe only to support a limited claim: evidential-humility diagnostics and conservative candidate selection can transfer across historical-script settings, even when the benchmark format changes.
+
+\section{Artifact Manifest}
+
+The accompanying supplementary material package contains data and code artifacts only:
+\begin{itemize}
+    \item \pathcode{README.md}: plain-text package overview and reproduction commands.
+    \item \pathcode{artifacts/table_a_standard_metrics.csv}: standard Tangut metrics table.
+    \item \pathcode{artifacts/table_b_cultural_metrics.csv}: cultural/interpretive diagnostics table.
+    \item \pathcode{artifacts/selector_value_ablation.csv}: selector ablation table.
+    \item \pathcode{artifacts/per_item_diagnostics.csv}: required per-item diagnostic CSV.
+    \item \pathcode{artifacts/qualitative_cases.csv}: qualitative case shortlist.
+    \item \pathcode{scripts/culture_ai_diagnostics.py}: offline deterministic artifact-generation script.
+\end{itemize}
+
+\section{Reproduction Commands}
+
+From the repository root:
+\begin{verbatim}
+python3 scripts/culture_ai_diagnostics.py
+cd paper_icml_culture_ai_2026
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+\end{verbatim}
+
+The first command regenerates the CSV artifacts from existing prediction files. No external model calls are made by the diagnostic script.
+
+\end{document}

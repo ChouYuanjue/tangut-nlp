@@ -1,0 +1,6 @@
+selector,exact,chrf,contamination,title_suffix_error,over_expansion,switch_count,audit_flags,flagged_rows,trace_rows,audit_record_complete,length_ratio
+metric_only_chrf_mbr,11,34.7631,3,4,6,35,14,10,50,0,1.1712
+contamination_guarded,12,28.5403,0,6,1,0,12,11,50,0,0.9529
+plus_title_form_guard,11,33.2079,0,4,0,32,5,5,50,0,0.9901
+plus_sparse_frontier_prior,12,32.6175,0,5,1,12,9,9,50,0,0.9826
+plus_audit_record,12,32.6175,0,5,1,12,9,9,50,50,0.9826

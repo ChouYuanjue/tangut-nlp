@@ -1,0 +1,8 @@
+method,contamination,truncation,over_expansion,title_suffix_error,numeral_error,over_modernization,unsupported_narrativization,false_cultural_specificity,interpretive_substitution,switch_count,audit_flags,flagged_rows,trace_rows,length_ratio
+Frontier DeepSeek,0,1,1,6,4,1,0,3,1,,12,11,0,0.9529
+MT-SFT,1,0,5,11,2,6,5,5,2,,19,18,0,1.0993
+Guarded 2-way,0,0,1,5,4,1,0,3,1,1,10,10,50,0.9677
+Plurality 3-way,0,0,1,5,4,1,0,3,1,2,10,10,50,0.9653
+Guarded 3-way,0,0,1,5,3,1,0,0,0,12,9,9,50,0.9826
+Pairwise chrF-MBR,3,0,6,4,1,3,0,4,0,35,14,10,50,1.1712
+Closed adjudicator (headroom),0,0,0,3,4,0,0,2,1,13,7,7,50,0.9479

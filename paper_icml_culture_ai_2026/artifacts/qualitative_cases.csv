@@ -1,0 +1,6 @@
+case_type,id,source,reference,frontier,mt_sft,unk_sft,dpo_candidate,selector_output,mbr_output,note
+frontier_truncation_repaired,41,𗼇𗟲𗍥𘟙𗒛𗺉,番言金剛王乘根,番,番言金剛王乘根,番言金剛王乘根,番言金剛王乘根,番言金剛王乘根,番言金剛王乘根,A conservative local candidate restores a compact catalog chain.
+contaminated_candidate_rejected,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此處僧至皈依儀,这是清净音的僧尼随顺法。,長阿含經中受持功德説,nàyQuiet 至僧人隨自順則,此處僧至皈依儀,nàyQuiet 至僧人隨自順則,The selector protects evidential integrity by refusing artifact-laden strings.
+mbr_overlap_misaligned,8,𘌽𘕿𘙌𗫡𗗆𘋩𗖵𗨳𗡶,此於已到僧於隨歸順,此處僧至皈依儀,这是清净音的僧尼随顺法。,長阿含經中受持功德説,nàyQuiet 至僧人隨自順則,此處僧至皈依儀,nàyQuiet 至僧人隨自順則,Agreement maximization chooses a culturally weaker interpretation.
+partial_grounding_over_narrativized,5,𗦬𘍞𗵘𘐡,共丸道次,俱通次第論,范宁、范玄平两人在路上。,重譯道果,重念道次,俱通次第論,重念道次,A local candidate may preserve partial lexical grounding while adding unsupported subjects and modern sentence form.
+catalog_form_preserved,3,𘕕𗡪𘕋𗍓𗖍,三個懺罪頌,第十三懺罪頌,三種罪懺根,三種惡趣淨拔,三種罪懺根,第十三懺罪頌,三種罪懺根,The selected title preserves suffix/title form that a local candidate loses.
