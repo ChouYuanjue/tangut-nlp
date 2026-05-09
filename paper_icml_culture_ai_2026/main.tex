@@ -40,7 +40,7 @@ Auditable Workflows for Historical-Script Interpretation}
 \printAffiliationsAndNotice{}
 
 \begin{abstract}
-Historical-script translation is not only low-resource machine translation. It is a culturally situated interpretive task in which compact catalog form, uncertain evidence, and scholarly provenance matter. We revisit a Tangut title-translation workflow and a small oracle-bone probe through the lens of AI as cultural technology. The positive cultural value we design for is \emph{evidential humility}: systems should avoid unsupported expansion, preserve uncertainty and provenance, and support reversible human interpretation rather than replacing it with one fluent answer. We operationalize this value through diagnostics for contamination, truncation, over-expansion, title-form errors, numeral errors, switching burden, trace preservation, audit flags, and flagged rows. On 50 Tangut items, value-aware open selectors maintain the frontier model's exact-match regime while occasionally recovering additional exact titles, and keep contamination at zero; a metric-only chrF-MBR selector attains higher chrF++ but switches on 35/50 items, introduces 6\% contamination, and over-expands more often. On a 200-item oracle-bone portability probe, a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. The contribution is not a claim of state of the art or deployment readiness. It is an evaluation framework showing how humanities-inspired success criteria can be embedded upstream in AI workflow design.
+Historical-script translation is not only low-resource machine translation. It is a culturally situated interpretive task in which compact catalog form, uncertain evidence, and scholarly provenance matter. We revisit a Tangut title-translation workflow and a small oracle-bone probe through the lens of AI as cultural technology. The positive cultural value we design for is \emph{evidential humility}: systems should avoid unsupported expansion, preserve uncertainty and provenance, and support reversible human interpretation rather than replacing it with one fluent answer. We operationalize this value through diagnostics for contamination, truncation, over-expansion, title-form errors, numeral errors, switching burden, trace preservation, audit flags, and flagged rows. On 50 Tangut items, value-aware open selectors maintain the frontier model's exact-match regime while occasionally recovering additional exact titles, and keep contamination at zero; a metric-only chrF-MBR selector attains higher chrF++ but switches on 35/50 items, introduces 6\% contamination, and over-expands more often. On a 200-item oracle-bone portability probe, a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. The result is an evaluation framework showing how humanities-inspired success criteria can be embedded upstream in AI workflow design.
 \end{abstract}
 
 \section{Introduction}
@@ -51,7 +51,7 @@ We study this issue through Tangut short-title translation, with a smaller oracl
 
 Our answer is organized around a positive cultural value: \textbf{evidential humility}, coupled with \textbf{interpretive reversibility}. A culturally accountable system should preserve compact catalog form, expose uncertainty and candidate provenance, avoid unsupported cultural normalization, and leave scholars in control of final interpretation. This differs from a standard benchmark frame. Exact match and chrF++ remain useful, but they are insufficient when a method can increase overlap by over-switching, expanding titles, or admitting artifact-laden strings.
 
-We therefore reframe the repository's models and results as an interpretive workflow: historical-script item plus dictionary evidence $\rightarrow$ candidate interpretations $\rightarrow$ value-aware selector $\rightarrow$ audit record $\rightarrow$ human review. Local models are not presented as replacements for stronger frontier models. They are alternative interpretive witnesses that occasionally repair truncation or preserve a compact form. A closed adjudicator is reported only as headroom, because the workshop contribution should not depend on opaque cultural adjudication.
+We therefore reframe the repository's models and results as an interpretive workflow: historical-script item plus dictionary evidence $\rightarrow$ candidate interpretations $\rightarrow$ value-aware selector $\rightarrow$ audit record $\rightarrow$ human review. Local models provide alternative interpretive witnesses that occasionally repair truncation or preserve a compact form. A closed adjudicator is reported as headroom for recoverable complementarity, while the main workflow emphasizes inspectable selection and trace preservation.
 
 Our contributions are:
 \begin{itemize}
@@ -65,7 +65,7 @@ Our contributions are:
 
 Culture-centered evaluation should define success beyond harm avoidance. In our setting, success means sustaining the evidential conditions under which human interpretation remains possible. In this task, the relevant success criteria are interpretive virtues that can be made measurable.
 
-These measurements are transparent proxy diagnostics, not substitutes for expert humanities judgment. Archival description and cultural metadata are themselves interpretive acts, shaped by provenance, context, and institutional choices \citep{bowker1999sorting,gilliland2016setting}. Hermeneutic interpretation depends on context, contestability, and the possibility of revisiting meaning rather than on a single settled score \citep{ricoeur1976interpretation}. The point of the diagnostics is therefore narrower: to make culturally relevant failure modes visible early enough that a workflow can preserve evidence for expert review.
+These measurements are transparent proxy diagnostics designed to support expert humanities judgment. Archival description and cultural metadata are themselves interpretive acts, shaped by provenance, context, and institutional choices \citep{bowker1999sorting,gilliland2016setting}. Hermeneutic interpretation depends on context, contestability, and the possibility of revisiting meaning rather than on a single settled score \citep{ricoeur1976interpretation}. The point of the diagnostics is to make culturally relevant failure modes visible early enough that a workflow can preserve evidence for expert review.
 
 \paragraph{Form-sensitive interpretation.}
 Historical titles are not ordinary paraphrases. They often follow compact catalog conventions: short strings, inherited suffixes such as \zh{經}, \zh{論}, \zh{記}, or \zh{頌}, and numerals that anchor canonical identity. We measure title-form fidelity through truncation, over-expansion, suffix/title-form errors, numeral errors, and output/reference length ratio.
@@ -77,7 +77,7 @@ A fluent expansion can be culturally misleading when the source evidence support
 A scholar should be able to reconstruct why the workflow chose a title and what alternatives were available. We measure switch count, chosen-method provenance, candidate-pool preservation, and audit-record completeness. A high-switch selector may improve a corpus metric but become difficult to review item by item.
 
 \paragraph{Agency-preserving assistance.}
-The workflow should reduce and structure scholar review, not replace it. We therefore report audit flags and flagged rows, together with switch count. These counts identify places where review is warranted; they should not be read as a linear estimate of actual scholar workload, which depends on evidence quality, expertise, and institutional context.
+The workflow should reduce and structure scholar review while preserving human interpretive authority. We therefore report audit flags and flagged rows, together with switch count. These counts identify places where review is warranted; actual scholar workload still depends on evidence quality, expertise, and institutional context.
 
 \begin{table}[t]
 \centering
@@ -109,7 +109,7 @@ We evaluate deterministic open selectors:
     \item a guarded 3-way selector with contamination, title-form, and sparse-switch guards;
     \item pairwise chrF-MBR as a metric-only negative control.
 \end{itemize}
-The closed catalog adjudicator is included only as headroom. It shows recoverable complementarity among candidates, but opaque adjudication is not culturally sufficient because it weakens accountability and makes the interpretive basis harder to contest.
+The closed catalog adjudicator is included as a headroom comparison. It shows recoverable complementarity among candidates, while also illustrating why inspectable selector traces matter for cultural accountability.
 
 \section{Experiments}
 
@@ -131,7 +131,7 @@ Pairwise chrF-MBR & 11/50 & 34.76 & 3 & 35 \\
 Closed adjudicator & 14/50 & 34.87 & 0 & 13 \\
 \bottomrule
 \end{tabularx}
-\caption{Standard Tangut metrics. The closed row is headroom only. Switch counts are departures from the frontier output.}
+\caption{Standard Tangut metrics. The closed row is a headroom comparison. Switch counts are departures from the frontier output.}
 \label{tab:standard}
 \end{table}
 
@@ -164,7 +164,7 @@ Closed adjudicator & 0 & 0 & 0 & 3 & 4 & 0 & 13 & 7 & 7 & 50 & 0.95 \\
 
 \Cref{tab:cultural} is the main result table for the Culture $\times$ AI framing. The strongest open story is not that one hybrid ``wins'' on every metric. It is that value-aware selection changes what is visible. The guarded selectors remove frontier truncation, keep contamination at zero, and preserve trace records for every row. Trace rows are not an accuracy metric: they indicate whether a workflow retains enough candidate and selector provenance for later audit. For cultural use, logging the interpretive path is part of the system behavior, not an external reporting convenience. The metric-only MBR control has a better chrF++ score but a worse cultural profile: longer outputs, more over-expansion, contamination, and far more switches.
 
-The closed adjudicator scores well on these diagnostics, but it is not the hero. It shows that candidate pools contain recoverable complementarity, but opaque adjudication weakens accountability and is therefore culturally insufficient as the main contribution. On a 50-item test set, we also avoid statistical overclaiming: exact-match differences among frontier, guarded 2-way, plurality, and guarded 3-way selectors are small.
+The closed adjudicator scores well on these diagnostics and indicates that the candidate pools contain recoverable complementarity. Its opacity also motivates the paper's emphasis on open, trace-preserving selectors. On a 50-item test set, exact-match differences among frontier, guarded 2-way, plurality, and guarded 3-way selectors are small.
 
 \subsection{Selector Value Ablation}
 
@@ -234,22 +234,22 @@ Simple 2-way selector & 44/200 & 47.81 & 0.5\% \\
 Best-of-2 oracle & 48/200 & 51.47 & 2.0\% \\
 \bottomrule
 \end{tabularx}
-\caption{The 200-item oracle-bone probe is a portability stress test, not a second matched benchmark.}
+\caption{The 200-item oracle-bone probe is a portability stress test under a different benchmark format.}
 \label{tab:oracle}
 \end{table}
 
-\Cref{tab:oracle} keeps the oracle-bone result modest. The dataset is format-mismatched: it is a canonicalized OBIMD$\rightarrow$EVOBC decipherment-style probe rather than a matched short-title benchmark. Still, the same workflow value transfers. Dictionary-grounded prompting is the strongest single model, but a simple open 2-way selector improves exact match from 40/200 to 44/200 and reduces contamination from 3.5\% to 0.5\%. This supports the portability of the value-aware workflow, not a broad claim about oracle-bone translation.
+\Cref{tab:oracle} keeps the oracle-bone result contextualized. The dataset is format-mismatched: it is a canonicalized OBIMD$\rightarrow$EVOBC decipherment-style probe rather than a matched short-title benchmark. Still, the same workflow value transfers. Dictionary-grounded prompting is the strongest single model, and a simple open 2-way selector improves exact match from 40/200 to 44/200 while reducing contamination from 3.5\% to 0.5\%. This supports the portability of the value-aware workflow across a different historical-script setting.
 
 \section{Discussion and Limitations}
 
 The results suggest a design principle for cultural AI: generic overlap metrics should be paired with diagnostics that preserve cultural form, evidence, and human agency. Pairwise chrF-MBR is useful precisely because it fails in an interpretable way. It shows that higher overlap can come with more switches, longer outputs, and artifact leakage. A Culture $\times$ AI evaluation should make that tradeoff visible in the main paper, not hide it in an appendix.
 
 \paragraph{What is positive here?}
-The positive outcome is a different human--AI division of interpretive labor. The AI system is not framed as the final cultural interpreter. It preserves alternatives, provenance, narrow disagreement points, and deterministic flags so scholars retain authority over meaning-making. This matters because cultural heritage work is not only information transfer; it is a situated practice of assigning, contesting, and sustaining meaning \citep{smith2006uses}. In this sense, the workflow supports cultural agency by making disagreement inspectable rather than replacing interpretation with a single fluent answer.
+The positive outcome is a different human--AI division of interpretive labor. The AI system preserves alternatives, provenance, narrow disagreement points, and deterministic flags so scholars retain authority over meaning-making. This matters because cultural heritage work is not only information transfer; it is a situated practice of assigning, contesting, and sustaining meaning \citep{smith2006uses}. In this sense, the workflow supports cultural agency by making disagreement inspectable instead of collapsing interpretation into a single fluent answer.
 
-This paper is intentionally modest. The Tangut test set has only 50 items, so we do not claim state of the art, deployment readiness, or decisive superiority over the frontier model. The oracle-bone probe is larger but format-mismatched. Several strong components are closed or frontier systems; we therefore treat the closed adjudicator only as headroom and keep the contribution on open, inspectable selection and diagnostics. Finally, deterministic heuristics are only a first layer of annotation. They are useful because they are transparent, but they do not replace expert humanities review. We deliberately treat expert evaluation as follow-up rather than as a small ad hoc validation here, because the current contribution is to define auditable workflow criteria and generate inspectable traces that experts could later judge.
+The Tangut test set has only 50 items, and the oracle-bone probe is larger but format-mismatched. Several strong components are closed or frontier systems, so the core contribution is the open, inspectable selection and diagnostic workflow. Deterministic heuristics are a first layer of annotation: their value is transparency and trace generation for later expert humanities review. We treat expert evaluation as follow-up because the current contribution is to define auditable workflow criteria and generate inspectable traces that experts could later judge.
 
-The broader lesson is that evaluation can shape AI systems before deployment. If the desired cultural value is evidential humility, then the workflow should be designed to preserve candidate provenance, compact form, uncertainty flags, and switch rationales from the beginning. Success for cultural AI is not a single fluent answer. It is an accountable interpretive process that scholars can inspect, reverse, and contest.
+The broader lesson is that evaluation can shape AI systems before deployment. If the desired cultural value is evidential humility, then the workflow should be designed to preserve candidate provenance, compact form, uncertainty flags, and switch rationales from the beginning. Success for cultural AI is an accountable interpretive process that scholars can inspect, reverse, and contest.
 
 \section*{Reproducibility Note}
 
@@ -346,7 +346,7 @@ Candidate sources used by \pathcode{scripts/culture_ai_diagnostics.py}:
     \item \code{mt\_sft}: \pathcode{results/baseline3_2_multitask/predictions_cleaned.jsonl}. Local compact-title candidate.
     \item \code{unk\_sft}: \pathcode{results/baseline3_1_unk/predictions.jsonl}. Local candidate preserving a different uncertainty profile.
     \item \code{dpo}: \pathcode{results/final_gap04_multitask_sigmoid/predictions.jsonl}. Auxiliary local witness for candidate diversity.
-    \item \code{closed}: \pathcode{results/hybrid_multi3_catalog_gpt54/predictions.jsonl}. Closed adjudicator, reported only as headroom.
+    \item \code{closed}: \pathcode{results/hybrid_multi3_catalog_gpt54/predictions.jsonl}. Closed adjudicator, used as a headroom comparison.
 \end{itemize}
 
 The diagnostic script aligns candidates by row order and checks that each candidate row has the same historical-script input as the frontier row. Empty predictions are excluded from a candidate pool; non-empty predictions are stripped of leading and trailing whitespace but otherwise left unchanged. The script does not call any model and does not repair generated strings.
@@ -359,8 +359,8 @@ Candidate & Workflow role & Interpretation in this paper \\
 \code{frontier} & Default dictionary-grounded candidate & The strong single-model baseline and default retained output. Value-aware selectors switch away from it only under guarded conditions. \\
 \code{mt\_sft} & Local compact-title candidate & Used for the 2-way selector and as evidence that local models can sometimes preserve title form, but also as a source of over-modernized or over-narrativized failures. \\
 \code{unk\_sft} & Alternative local witness & Used in 3-way selectors to expose candidate diversity and alternative uncertainty profiles. \\
-\code{dpo} & Auxiliary local witness & Included only as candidate diversity. The paper does not center DPO or claim that preference optimization is the cultural contribution. \\
-\code{closed} & Opaque adjudicator & Reported as headroom for recoverable complementarity. It is not culturally sufficient because opaque adjudication weakens accountability. \\
+\code{dpo} & Auxiliary local witness & Included as candidate diversity rather than as the focus of the cultural evaluation. \\
+\code{closed} & Opaque adjudicator & Reported as headroom for recoverable complementarity; its opacity motivates the emphasis on trace-preserving open selectors. \\
 \bottomrule
 \end{longtable}
 
@@ -368,11 +368,11 @@ Candidate & Workflow role & Interpretation in this paper \\
 
 The oracle-bone result uses \pathcode{data/oracle_evo/eval/obimd_canonicalized_test_encoded.jsonl}. It is a 200-item canonicalized OBIMD$\rightarrow$EVOBC probe, not a matched short-title benchmark. The purpose is to stress-test whether a value-aware workflow transfers across historical scripts under format mismatch. The strongest single model is the dictionary-grounded prompt; the open 2-way selector improves exact match and sharply reduces contamination by choosing between the prompt candidate and the local \code{<literal>} SFT field.
 
-The oracle-bone selector is deliberately simpler than the Tangut selectors. It chooses only between an existing dictionary-prompt output and an existing SFT literal output. It prefers the clean exact candidate when available, rejects contaminated strings when a clean alternative exists, and otherwise keeps the stronger available candidate under the same no-generation constraint. The result is therefore a portability stress test for auditable selection, not a claim that the oracle-bone model is robust across formats.
+The oracle-bone selector is deliberately simpler than the Tangut selectors. It chooses between an existing dictionary-prompt output and an existing SFT literal output. It prefers the clean exact candidate when available, rejects contaminated strings when a clean alternative exists, and otherwise keeps the stronger available candidate under the same no-generation constraint. The result functions as a portability stress test for auditable selection across a different historical-script format.
 
 \section{Diagnostic Definitions}
 
-All Tangut diagnostic labels in the appendix are deterministic. They are not intended to replace expert review; they are intended to make the paper's cultural success criteria auditable.
+All Tangut diagnostic labels in the appendix are deterministic. They make the paper's cultural success criteria auditable and provide structured material for expert review.
 
 \subsection{Standard Metrics}
 
@@ -548,21 +548,21 @@ Oracle-bone portability & Reference \zh{癸卯卜旬其尞土牢} with sixth cha
 
 \section{Oracle-Bone Probe Details and Limitations}
 
-The oracle-bone probe should not be read as a second full benchmark. It differs from the Tangut task in script inventory, source format, and target conventions. Its role is a portability stress test for the value-aware workflow:
+The oracle-bone probe differs from the Tangut task in script inventory, source format, and target conventions. Its role is a portability stress test for the value-aware workflow:
 \begin{itemize}
     \item dictionary-grounded prompting is the strongest single model;
-    \item the local model contributes alternative readings but is not a replacement;
+    \item the local model contributes alternative readings for selector comparison;
     \item the open 2-way selector reduces contamination and modestly improves exact match;
-    \item best-of-2 oracle results are upper-bound diagnostics, not deployable systems.
+    \item best-of-2 oracle results provide an upper-bound diagnostic for candidate complementarity.
 \end{itemize}
 
 The main paper uses this probe only to support a limited claim: evidential-humility diagnostics and conservative candidate selection can transfer across historical-script settings, even when the benchmark format changes.
 
-\section{What Is Not in the Artifact}
+\section{Artifact Scope}
 
-The anonymous repository is designed for audit rather than for full model retraining. It includes deterministic scripts and generated diagnostic artifacts, but the claims in the paper do not require reviewers to reproduce frontier-model calls, closed adjudicator calls, or local training runs. This is intentional: the workshop contribution is the evaluation and workflow framing, not a new deployable model. The repository therefore prioritizes inspectable prediction files, candidate provenance, selector logic, and per-item diagnostics.
+The anonymous repository is designed around auditability. It includes deterministic scripts and generated diagnostic artifacts, and the claims in the paper can be inspected from prediction files, candidate provenance, selector logic, and per-item diagnostics without rerunning frontier-model calls, closed adjudicator calls, or local training runs.
 
-The closed adjudicator outputs are retained only to show headroom. They should not be treated as an auditable cultural authority, because reviewers cannot inspect the closed model's internal rationale. Similarly, the DPO candidate is retained only as one additional local witness in a candidate pool; DPO training details are not part of the Culture $\times$ AI contribution.
+The closed adjudicator outputs are retained as a headroom comparison. The DPO candidate is retained as one additional local witness in a candidate pool. These artifacts help document candidate diversity while keeping the Culture $\times$ AI contribution centered on auditable evaluation and selector traces.
 
 \section{Artifact Manifest}
 
@@ -603,6 +603,6 @@ The appendix and anonymous repository are intended to support four concrete audi
     \item \textbf{Oracle-bone portability check}: inspect \pathcode{scripts/oracle_two_way_selector.py}, \pathcode{scripts/eval_oracle_portability.py}, and the oracle probe rows to verify that the reported 2-way selector chooses only between existing dictionary-prompt and SFT-literal candidates.
 \end{itemize}
 
-These audit paths are intentionally limited. They verify that the workflow preserves evidence, provenance, and diagnostic traces; they do not replace later expert humanities evaluation of the interpretations themselves.
+These audit paths verify that the workflow preserves evidence, provenance, and diagnostic traces, providing structured material for later expert humanities evaluation of the interpretations themselves.
 
 \end{document}

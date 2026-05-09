@@ -13,15 +13,9 @@ Our answer is organized around two positive cultural values:
 
 The repository is intended to make the paper's workflow auditable. It contains scripts for generating deterministic diagnostics, candidate-selection comparisons, and small portability probes from existing prediction artifacts.
 
-## What This Repository Is Not
+## Scope
 
-This is not a claim of state-of-the-art historical-script translation.
-
-This is not a deployment-ready cataloging system.
-
-This is not a paper about replacing expert readers with a single fluent model output.
-
-The paper treats models as producers of candidate interpretations. The accountable unit is the workflow: historical-script item plus dictionary evidence, candidate interpretations, value-aware selection, audit record, and human review.
+The paper treats models as producers of candidate interpretations within a scholar-facing workflow. The accountable unit is the full path from historical-script item and dictionary evidence to candidate interpretations, value-aware selection, audit record, and human review.
 
 ## Core Evaluation Ideas
 
@@ -38,7 +32,7 @@ The main diagnostics are:
 - **switch count**: how often a selector departs from the frontier candidate;
 - **trace rows / audit records**: whether candidate provenance and selector rationale are preserved.
 
-These are transparent proxy measures. They do not replace expert humanities judgment; they make culturally relevant failure modes inspectable.
+These transparent proxy measures make culturally relevant failure modes inspectable for later expert humanities judgment.
 
 ## Main Workflow
 
@@ -49,9 +43,9 @@ The Tangut workflow uses a 50-item held-out short-title set and compares:
 - an UNK-preserving local branch;
 - an auxiliary DPO candidate used only for diversity;
 - deterministic selectors over existing candidate strings;
-- a closed adjudicator reported only as headroom.
+- a closed adjudicator used as a headroom comparison.
 
-The workflow emphasizes conservative selection. Local models are not treated as replacements for frontier models. They are alternative witnesses that sometimes repair truncation, expose uncertainty, or preserve compact form.
+The workflow emphasizes conservative selection. Local models provide alternative witnesses that sometimes repair truncation, expose uncertainty, or preserve compact form alongside the frontier candidate.
 
 ## Key Scripts
 
@@ -84,7 +78,7 @@ The per-item diagnostic file is the primary audit artifact. It records the sourc
 
 ## Oracle-Bone Portability Probe
 
-The oracle-bone experiment is a portability stress test for the value-aware workflow. It is not a second matched short-title benchmark.
+The oracle-bone experiment is a portability stress test for the value-aware workflow under a different historical-script format.
 
 The probe uses a 200-item canonicalized OBIMD-to-EVOBC dataset. Dictionary-grounded prompting is the strongest single model in the reported setup, while a simple open two-way selector can reduce contamination by choosing a clean SFT-literal alternative when the dictionary prompt produces artifacts.
 
@@ -116,8 +110,6 @@ If running API-backed scripts, configure credentials explicitly through environm
 
 ## Paper Framing
 
-The paper's message is not "we built a better hybrid translator." It is:
-
 **Generative AI for historical scripts should be evaluated as an accountable interpretive cultural technology.**
 
-Success is not only exact match or chrF++. It is also the ability to preserve catalog form, expose uncertainty, avoid unsupported cultural normalization, maintain provenance, and support scholar-facing review.
+Success includes exact match and chrF++, but also the ability to preserve catalog form, expose uncertainty, avoid unsupported cultural normalization, maintain provenance, and support scholar-facing review.
